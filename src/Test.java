@@ -4,8 +4,19 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * Created by tic-tac on 25/01/17.
  */
+/*
+public class Test{
+    ContainerTest containerTest=new ContainerTest("Title");
 
-public class Test extends BasicGame{
+
+    public static void main(String[] args) throws SlickException {
+        AppGameContainer app=new AppGameContainer(new ContainerTest("Titre"), 640,480,false);
+        app.setShowFPS(false);
+        app.start();
+    }
+}
+*/
+public class Test extends BasicGame {
 
     GameContainer container;
     TiledMap map;
@@ -42,7 +53,6 @@ public class Test extends BasicGame{
         this.animations[5]=loadAnimation(spriteSheet, 1,9,1);
         this.animations[6]=loadAnimation(spriteSheet, 1,9,2);
         this.animations[7]=loadAnimation(spriteSheet, 1,9,3);
-
     }
 
     @Override
@@ -60,7 +70,13 @@ public class Test extends BasicGame{
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         this.map.render(0,0);
-        graphics.drawAnimation(animations[direction+(moving?4:0)],x,y);
+        graphics.setColor(new Color(0,0,0,.5f));
+        graphics.fillOval(x-17,y+10,32,16);
+        graphics.drawAnimation(animations[direction+(moving?4:0)],x-33,y-40);
+        graphics.setColor(Color.pink);
+        graphics.drawString("Coucou", 200,50);
+
+
     }
 
     @Override
@@ -79,8 +95,21 @@ public class Test extends BasicGame{
         }
     }
 
+    @Override
+    public void mousePressed(int button, int x, int y){
+        this.x=x;this.y=y;
+    }
+    @Override
+    public void mouseReleased(int button, int x, int y){
+        this.moving=false;
+    }
+
+    //@Override
+    //public void mouseMoved() ou mouseDragged() pour drag and drop les tourelles?
+
     public static void main(String[] args) throws SlickException{
         AppGameContainer app=new AppGameContainer(new Test(),640,480,false);
+        app.setShowFPS(false);
         app.start();
     }
 }
