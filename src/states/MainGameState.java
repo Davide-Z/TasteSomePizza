@@ -17,9 +17,8 @@ public class MainGameState extends BasicGameState {
     int winHeight;
     int winWidth;
 
-    int mouseX;
-    int mouseY;
-
+    float mouseX;
+    float mouseY;
 
     @Override
     public int getID() {
@@ -54,6 +53,7 @@ public class MainGameState extends BasicGameState {
         else{
             alpha=0;
         }
+        alpha= (float)((Math.atan2((mouseX-winWidth/2),-(mouseY-winHeight/2))*360/(2*Math.PI)));
     }
 
     public void keyPressed(int key, char c){
@@ -67,7 +67,7 @@ public class MainGameState extends BasicGameState {
 
     @Override
     public void mouseMoved(int oldX, int oldY, int newX, int newY){
-        mouseX=newX;
-        mouseY=newY;
+        mouseX=(float)(newX);
+        mouseY=(float)(newY);
     }
 }
