@@ -1,6 +1,9 @@
 package states;
+import gui.StateButton;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Ellipse;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -17,6 +20,8 @@ public class MainGameState extends BasicGameState {
     int winHeight;
     int winWidth;
 
+    StateButton stateButton;
+    RoundedRectangle hitbox;
     float mouseX;
     float mouseY;
 
@@ -33,6 +38,8 @@ public class MainGameState extends BasicGameState {
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
         alpha=turret.getRotation();
+        hitbox=new RoundedRectangle(winWidth-200,winHeight-50,200,50, 10);
+        stateButton = new StateButton(container, sbg, winWidth-200,winHeight-50, "Menu", "menu", hitbox);
     }
 
     @Override
@@ -40,19 +47,14 @@ public class MainGameState extends BasicGameState {
         turret.draw(winWidth/2-64,winHeight/2-64);
         turret.setRotation(alpha);
         g.setColor(Color.white);
-        g.drawString(""+alpha, 500,0);
+        g.drawString(""+(90-alpha), 500,0);
         g.drawString("X:"+mouseX+"\nY:"+mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
+        stateButton.render(g);
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        if (alpha<=360f) {
-            alpha += i * 0.1f;
-        }
-        else{
-            alpha=0;
-        }
         alpha= (float)((Math.atan2((mouseX-winWidth/2),-(mouseY-winHeight/2))*360/(2*Math.PI)));
     }
 

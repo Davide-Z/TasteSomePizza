@@ -1,14 +1,15 @@
 package states;
 
-import org.lwjgl.input.Mouse;
+import gui.StateButton;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-import java.awt.*;
+import java.awt.Font;
 
 /**
  * Created by tic-tac on 01/02/17.
@@ -19,6 +20,11 @@ public class MenuState extends BasicGameState {
     private StateBasedGame game;
     Rectangle startRect;
     Rectangle exitRect;
+    Image imgBouton;
+    RoundedRectangle startHitbox;
+    RoundedRectangle exitHitbox;
+    StateButton startButton;
+    StateButton exitButton;
 
     int mouseX;
     int mouseY;
@@ -26,6 +32,9 @@ public class MenuState extends BasicGameState {
     int winHeight;
     int winWidth;
     int space=25;
+
+    Font font = new Font("Arial", Font.BOLD, 48);
+    TrueTypeFont ttf=new TrueTypeFont(font, true);
 
     @Override
     public int getID() {
@@ -40,24 +49,36 @@ public class MenuState extends BasicGameState {
         winWidth=gc.getWidth();
         startRect = new Rectangle(winWidth/2-125,winHeight/2-25,250,50);
         exitRect = new Rectangle(winWidth/2-125,winHeight/2-125+space,250,50);
+        imgBouton = new Image("resources/interface/commencer.png");
+        startHitbox=new RoundedRectangle(winWidth/2-150,winHeight/2-50, imgBouton.getWidth()-14, imgBouton.getHeight()-20,13);
+        startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Démarrer", "start", startHitbox);
+        exitHitbox= new RoundedRectangle(winWidth/2-150,winHeight/2+55, imgBouton.getWidth()-14, imgBouton.getHeight()-20,13);
+        exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit", exitHitbox);
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.black);
-        g.setColor(Color.white);
         g.setLineWidth(5);
+        g.setColor(Color.white);
+        startButton.render(g);
+        exitButton.render(g);
+        g.draw(startHitbox);
+        g.draw(exitHitbox);
+        /*g.setLineWidth(5);
         g.fill(startRect);
         g.fill(exitRect);
         g.setColor(Color.white);
         g.draw(startRect);
-        g.draw(exitRect);
-        g.drawString("X:"+mouseX+"\nY:"+mouseY,0,winHeight-35);
+        g.draw(exitRect);*/
+        g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
+        /*
         g.setColor(Color.black);
         g.drawString("\"ESPACE\" pour commencer", winWidth/2-108,winHeight/2-86);
-        g.drawString("\"ECHAPE\" pour quitter", winWidth/2-95,winHeight/2-35+space);
-
+        g.drawString("\"ECHAPE\" pour quitter", winWidth/2-95,winHeight/2-35+space);*/
+        g.setFont(ttf);
+        g.drawString("Taste Some Pizza !", winWidth/2-250, 100);
     }
 
     @Override
