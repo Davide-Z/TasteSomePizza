@@ -1,9 +1,7 @@
 package states;
-
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Ellipse;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -14,6 +12,14 @@ public class MainGameState extends BasicGameState {
 
     private GameContainer container;
     private StateBasedGame game;
+    Image turret;
+    float alpha;
+    int winHeight;
+    int winWidth;
+
+    int mouseX;
+    int mouseY;
+
 
     @Override
     public int getID() {
@@ -21,19 +27,33 @@ public class MainGameState extends BasicGameState {
     }
 
     @Override
-    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        this.game=stateBasedGame;
-        this.container=gameContainer;
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        this.game=sbg;
+        this.container=gc;
+        turret=new Image("resources/sprites/cook.png");
+        winHeight=gc.getHeight();
+        winWidth=gc.getWidth();
+        alpha=turret.getRotation();
     }
 
     @Override
-    public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        turret.draw(winWidth/2-64,winHeight/2-64);
+        turret.setRotation(alpha);
+        g.setColor(Color.white);
+        g.drawString(""+alpha, 500,0);
+        g.drawString("X:"+mouseX+"\nY:"+mouseY,0,winHeight-35);
+        g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
     }
 
     @Override
-    public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
-
+    public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+        if (alpha<=360f) {
+            alpha += i * 0.1f;
+        }
+        else{
+            alpha=0;
+        }
     }
 
     public void keyPressed(int key, char c){
@@ -43,5 +63,11 @@ public class MainGameState extends BasicGameState {
         if(key==Input.KEY_SPACE){
             game.enterState(0);
         }
+    }
+
+    @Override
+    public void mouseMoved(int oldX, int oldY, int newX, int newY){
+        mouseX=newX;
+        mouseY=newY;
     }
 }

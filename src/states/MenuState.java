@@ -17,11 +17,15 @@ public class MenuState extends BasicGameState {
 
     private GameContainer container;
     private StateBasedGame game;
-    Rectangle startRect = new Rectangle(195,215,250,50);
-    Rectangle exitRect = new Rectangle(195,300,250,50);
+    Rectangle startRect;
+    Rectangle exitRect;
 
     int mouseX;
     int mouseY;
+
+    int winHeight;
+    int winWidth;
+    int space=25;
 
     @Override
     public int getID() {
@@ -29,24 +33,30 @@ public class MenuState extends BasicGameState {
     }
 
     @Override
-    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        this.container=gameContainer;
-        this.game=stateBasedGame;
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        this.container=gc;
+        this.game=sbg;
+        winHeight=gc.getHeight();
+        winWidth=gc.getWidth();
+        startRect = new Rectangle(winWidth/2-125,winHeight/2-25,250,50);
+        exitRect = new Rectangle(winWidth/2-125,winHeight/2-125+space,250,50);
     }
 
     @Override
-    public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics gr) throws SlickException {
-        gr.setBackground(Color.white);
-        gr.setColor(Color.lightGray);
-        gr.setLineWidth(5);
-        gr.fill(startRect);
-        gr.fill(exitRect);
-        gr.setColor(Color.black);
-        gr.draw(startRect);
-        gr.draw(exitRect);
-        gr.drawString("\"ESPACE\" pour commencer", 215,230);
-        gr.drawString("\"ECHAPE\" pour quitter", 223,315);
-        gr.drawString("X:"+mouseX+"\nY:"+mouseY,50,50);
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        g.setBackground(Color.black);
+        g.setColor(Color.white);
+        g.setLineWidth(5);
+        g.fill(startRect);
+        g.fill(exitRect);
+        g.setColor(Color.white);
+        g.draw(startRect);
+        g.draw(exitRect);
+        g.drawString("X:"+mouseX+"\nY:"+mouseY,0,winHeight-35);
+        g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
+        g.setColor(Color.black);
+        g.drawString("\"ESPACE\" pour commencer", winWidth/2-108,winHeight/2-86);
+        g.drawString("\"ECHAPE\" pour quitter", winWidth/2-95,winHeight/2-35+space);
 
     }
 
@@ -67,7 +77,7 @@ public class MenuState extends BasicGameState {
     }
 
     @Override
-    public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
-        Input input= gameContainer.getInput();
+    public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+        Input input= gc.getInput();
     }
 }
