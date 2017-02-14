@@ -1,9 +1,9 @@
+package states;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tiled.TiledMap;
-
 /**
  * Created by tic-tac on 01/02/17.
  */

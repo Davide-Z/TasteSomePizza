@@ -1,3 +1,5 @@
+package states;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -5,13 +7,7 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * Created by tic-tac on 25/01/17.
  */
-/*
 
-    public static void main(String[] args) throws SlickException {
-        AppGameContainer app=new AppGameContainer(new ContainerTest("Titre"), 640,480,false);
-        app.setShowFPS(false);
-        app.start();
-*/
 public class GameStates extends StateBasedGame{
 
     public GameStates(String name) {
