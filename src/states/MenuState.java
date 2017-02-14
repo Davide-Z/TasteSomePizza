@@ -49,7 +49,7 @@ public class MenuState extends BasicGameState {
         winWidth=gc.getWidth();
         startRect = new Rectangle(winWidth/2-125,winHeight/2-25,250,50);
         exitRect = new Rectangle(winWidth/2-125,winHeight/2-125+space,250,50);
-        imgBouton = new Image("resources/interface/commencer.png");
+        imgBouton = new Image("resources/interface/boutonOrange.png");
         startHitbox=new RoundedRectangle(winWidth/2-150,winHeight/2-50, imgBouton.getWidth()-14, imgBouton.getHeight()-20,13);
         startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Démarrer", "start", startHitbox);
         exitHitbox= new RoundedRectangle(winWidth/2-150,winHeight/2+55, imgBouton.getWidth()-14, imgBouton.getHeight()-20,13);
