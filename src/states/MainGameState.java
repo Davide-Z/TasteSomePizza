@@ -39,7 +39,7 @@ public class MainGameState extends BasicGameState {
         winWidth=gc.getWidth();
         alpha=turret.getRotation();
         hitbox=new RoundedRectangle(winWidth-200,winHeight-50,200,50, 10);
-        stateButton = new StateButton(container, sbg, winWidth-200,winHeight-50, "Menu", "menu", hitbox);
+        stateButton = new StateButton(container, sbg, winWidth-200,winHeight-50, "Menu principal", "menu", hitbox);
     }
 
     @Override
@@ -47,8 +47,8 @@ public class MainGameState extends BasicGameState {
         turret.draw(winWidth/2-64,winHeight/2-64);
         turret.setRotation(alpha);
         g.setColor(Color.white);
-        g.drawString(""+(90-alpha), 500,0);
-        g.drawString("X:"+mouseX+"\nY:"+mouseY,0,winHeight-35);
+        g.drawString(""+(alpha), 500,0);
+        g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         stateButton.render(g);
     }

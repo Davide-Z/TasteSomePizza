@@ -1,10 +1,10 @@
 package gui;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.AbstractComponent;
@@ -12,6 +12,9 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.awt.*;
+import java.awt.Font;
 
 /**
  * Created by tic-tac on 14/02/17.
@@ -64,13 +67,15 @@ public class StateButton extends MouseOverArea{
             g.setColor(Color.white);
             g.fill(hitbox);
             g.setColor(Color.black);
-            g.drawString(action, x+hitbox.getWidth()/2-20, y+hitbox.getHeight()/2-10);
         }
         else {
             this.render(container, g);
             g.setColor(Color.white);
-            g.drawString(action, x+hitbox.getWidth()/2-20, y+hitbox.getHeight()/2- 10);
         }
+        UnicodeFont font = new UnicodeFont(new Font("Verdana", Font.BOLD, 32), 32, true, false);
+        int ttfWidth=font.getWidth(text);
+        int ttfHeight=font.getLineHeight();
+        g.drawString(text, x+hitbox.getWidth()/2-ttfWidth/4.5f, y+hitbox.getHeight()/2-ttfHeight/4.5f); //Affiche le texte du bouton, centré
     }
     @Override
     public void mousePressed(int button, int mx, int my){
