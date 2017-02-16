@@ -64,7 +64,7 @@ public class StateButton extends MouseOverArea{
     public void render(Graphics g){
         if(image.getResourceReference().matches(vide)){
             this.render(container,g);
-            g.setColor(Color.white);
+            g.setColor(Color.lightGray);
             g.fill(hitbox);
             g.setColor(Color.black);
         }

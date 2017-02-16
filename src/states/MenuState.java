@@ -18,7 +18,7 @@ public class MenuState extends BasicGameState {
 
     private GameContainer container;
     private StateBasedGame game;
-    Rectangle startRect;
+    private Rectangle startRect;
     Rectangle exitRect;
     Image imgBouton;
     RoundedRectangle startHitbox;
@@ -65,18 +65,8 @@ public class MenuState extends BasicGameState {
         exitButton.render(g);
         g.draw(startHitbox);
         g.draw(exitHitbox);
-        /*g.setLineWidth(5);
-        g.fill(startRect);
-        g.fill(exitRect);
-        g.setColor(Color.white);
-        g.draw(startRect);
-        g.draw(exitRect);*/
         g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
-        /*
-        g.setColor(Color.black);
-        g.drawString("\"ESPACE\" pour commencer", winWidth/2-108,winHeight/2-86);
-        g.drawString("\"ECHAPE\" pour quitter", winWidth/2-95,winHeight/2-35+space);*/
         g.setFont(ttf);
         g.drawString("Taste Some Pizza !", winWidth/2-250, 100);
     }
