@@ -1,4 +1,4 @@
-package Maps;
+package maps;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -13,7 +13,9 @@ public class Mat {
         cases =new int[taille][taille];
         this.taille=taille;
         for(int i=0;i<taille;i++) {
-            Arrays.fill(cases[i], 0);
+            for(int j=0;j<taille;j++){
+                resetCase(i,j);
+            }
         }
     }
 
@@ -31,15 +33,21 @@ public class Mat {
         return S;
     }
 
+    public void setCase(int i, int j){
+        cases[i][j]=1;
+    }
+    public void resetCase(int i, int j){
+        cases[i][j]=0;
+    }
 
-    public void setRand(int p){
+    public void setRand(int p){ //Remplit au hasard avec des 1 (p% de 1 en moyenne)
         Random rand=new Random();
         int x;
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
                 x=rand.nextInt(100);
                 if(x<p){
-                    cases[i][j]=1;
+                    setCase(i,j);
                 }
             }
         }

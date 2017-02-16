@@ -26,12 +26,12 @@ public class StateButton extends MouseOverArea{
     protected int y;
     protected int mouseX;
     protected int mouseY;
-    protected boolean pressed;
     protected boolean over;
     protected String text;
     protected Shape hitbox;
     protected Image image;
     protected StateBasedGame game;
+    protected GameContainer container;
     protected String action;
     protected String vide="resources/vide.png";
 
@@ -46,6 +46,7 @@ public class StateButton extends MouseOverArea{
         this.action=action;
         this.text=text;
         this.hitbox = hitbox;
+        this.container=game.getContainer();
     }
 
     public StateButton(GUIContext container, StateBasedGame sbg, int x, int y, String text, String action, Shape hitbox) throws SlickException {
@@ -59,39 +60,41 @@ public class StateButton extends MouseOverArea{
         this.action=action;
         this.text=text;
         this.hitbox = hitbox;
+        this.container=game.getContainer();
     }
 
-    public void render(Graphics g){
-        if(image.getResourceReference().matches(vide)){
-            this.render(container,g);
+    public void render(Graphics g) {
+        if (image.getResourceReference().matches(vide)) {
+            this.render(container, g);
             g.setColor(Color.lightGray);
             g.fill(hitbox);
             g.setColor(Color.black);
-        }
-        else {
+        } else {
             this.render(container, g);
             g.setColor(Color.white);
         }
         UnicodeFont font = new UnicodeFont(new Font("Verdana", Font.BOLD, 32), 32, true, false);
-        int ttfWidth=font.getWidth(text);
-        int ttfHeight=font.getLineHeight();
-        g.drawString(text, x+hitbox.getWidth()/2-ttfWidth/4.5f, y+hitbox.getHeight()/2-ttfHeight/4.5f); //Affiche le texte du bouton, centré
+        int ttfWidth = font.getWidth(text);
+        int ttfHeight = font.getLineHeight();
+        g.drawString(text, x + hitbox.getWidth() / 2 - ttfWidth / 4.5f, y + hitbox.getHeight() / 2 - ttfHeight / 4.5f); //Affiche le texte du bouton, centré
     }
     @Override
     public void mousePressed(int button, int mx, int my){
         over=hitbox.contains(mx,my);
         super.mousePressed(button, mx, my);
         if (over) {
-            if(action.matches("quit")){       //quitter le jeu
+            if((action.matches("quit"))&&(game.getCurrentStateID()==0)){       //quitter le jeu
                 System.exit(0);
             }
-            else if(action.matches("start")){//aller à l'écran de jeu
+            else if((action.matches("start"))&&(game.getCurrentStateID()==0)){//aller à l'écran de jeu
                 game.enterState(1);
             }
-            else if(action.matches("menu")){    //aller au menu
+            else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==0)){    //aller au menu
                 game.enterState(0);
             }
-            else if(action.matches("wave !")); //Début de vague
+            else if((action.matches("wave !"))&&(game.getCurrentStateID()==1)){ //Début de vague
+
+            }
         }
     }
 }

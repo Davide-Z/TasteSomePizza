@@ -1,7 +1,4 @@
-package Maps;
-
-import org.lwjgl.util.vector.Matrix;
-import org.lwjgl.util.vector.Matrix2f;
+package maps;
 
 /**
  * Created by tic-tac on 15/02/17.

@@ -45,11 +45,12 @@ public class MainGameState extends BasicGameState {
         alpha=turret.getRotation();
         hitbox=new RoundedRectangle(winWidth-200,winHeight-50,200,50, 10);
         stateButton = new StateButton(container, sbg, winWidth-200,winHeight-50, "Menu principal", "menu", hitbox);
+
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setBackground(Color.decode("0xdba24f"));
+        //g.setBackground(Color.decode("0xdba24f"));
         turret.draw(winWidth/2-32,winHeight/2-32);
         turret.setRotation(alpha);
         g.setColor(Color.white);
@@ -57,6 +58,13 @@ public class MainGameState extends BasicGameState {
         g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         stateButton.render(g);
+
+        //Segmentation temporaire de l'écran
+        g.setColor(Color.white);
+        g.setLineWidth(4);
+        g.drawLine(winWidth*0.703125f,0,winWidth*0.703125f, winHeight);
+        g.drawString("Tourelles/menu",winWidth*0.72f, winHeight*0.01f);
+        g.drawString("Carte",winWidth*0.1f, winHeight*0.01f);
     }
 
     @Override
