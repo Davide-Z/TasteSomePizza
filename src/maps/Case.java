@@ -22,8 +22,10 @@ public class Case extends MouseOverArea {
 	private boolean over;
 	private GUIContext container;
 	private StateBasedGame sbg;
+	private boolean clicked=false;
+	private Map map;
 
-	public Case(GUIContext container, StateBasedGame sbg, int x, int y) {
+	public Case(GUIContext container, StateBasedGame sbg, int x, int y, Map map) {
 	    super(container,null,x,y,48,48);
 		this.x=x;
 		this.y=y;
@@ -31,8 +33,12 @@ public class Case extends MouseOverArea {
 		cadre=new Rectangle(x,y,48,48);
 		this.container=container;
 		this.sbg=sbg;
+		this.map=map;
 	}
 
+	public void reset(){
+		clicked=false;
+	}
 	@Override
 	public void render(GUIContext guiContext, Graphics g) {
 	    g.setColor(Color.white);
@@ -45,9 +51,11 @@ public class Case extends MouseOverArea {
 	@Override
     public void mousePressed(int button, int mx, int my){
 	    over=interieur.contains(mx,my);
-	    if (over&&sbg.getCurrentStateID()==1){
+	    if (over&&sbg.getCurrentStateID()==1&&!clicked){
 	        //TODO:si bouton pressé sur case, ajouter tourelle selectionnée(voir si il faudrait pas faire ça dans une classe à part)
             System.out.println("Case cliquée:"+this.getX()+"x"+this.getY());
 		}
+		this.map.addClicked(this);
+		clicked=true;
     }
 }

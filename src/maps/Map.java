@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Map {
     private int taille;
     private Case[][] cases;
+    private ArrayList<Case> clickedCases;
     private Mouse mouse;
     private GUIContext gc;
     private StateBasedGame sbg;
@@ -24,9 +25,10 @@ public class Map {
         this.sbg=sbg;
         this.g=sbg.getContainer().getGraphics();
         cases = new Case[taille][taille];
+        clickedCases=new ArrayList<Case>();
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j]=new Case(gc, sbg, (int)(i*720/taille), (int)(j*720/taille));
+                cases[i][j]=new Case(gc, sbg, (int)(i*720/taille), (int)(j*720/taille),this);
             }
         }
     }
@@ -36,6 +38,17 @@ public class Map {
             for(int j=0;j<taille;j++){
                 cases[i][j].render(gc,g);
             }
+        }
+    }
+
+    public void addClicked(Case c){
+        this.clickedCases.add(c);
+    }
+
+    public void resetClicked(){
+        for(int i=clickedCases.size()-1;i>0;i--){
+            clickedCases.get(i).reset();
+            clickedCases.remove(i);
         }
     }
 

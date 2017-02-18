@@ -77,6 +77,7 @@ public class MainGameState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         alpha=(float)((Math.atan2((mouseX-winWidth/2),-(mouseY-winHeight/2))*360/(2*Math.PI)));
+        map.resetClicked();
     }
 
     public void keyPressed(int key, char c){
