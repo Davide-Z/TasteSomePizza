@@ -24,8 +24,6 @@ public class StateButton extends MouseOverArea{
     protected int height;
     protected int x;
     protected int y;
-    protected int mouseX;
-    protected int mouseY;
     protected boolean over;
     protected String text;
     protected Shape hitbox;

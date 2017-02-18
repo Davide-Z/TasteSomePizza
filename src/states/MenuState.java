@@ -9,7 +9,12 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
+
+import java.awt.*;
 import java.awt.Font;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by tic-tac on 01/02/17.
@@ -33,8 +38,8 @@ public class MenuState extends BasicGameState {
     int winWidth;
     int space=25;
 
-    Font font = new Font("Arial", Font.BOLD, 48);
-    TrueTypeFont ttf=new TrueTypeFont(font, true);
+    Font font;
+    TrueTypeFont ttf;
 
     @Override
     public int getID() {
@@ -45,6 +50,18 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.container=gc;
         this.game=sbg;
+        InputStream inputStream=ResourceLoader.getResourceAsStream("./resources/fly_n_walk.ttf");
+        try {
+            font=Font.createFont(Font.TRUETYPE_FONT,inputStream);
+            font=font.deriveFont(font.getSize()*45f);
+            ttf=new TrueTypeFont(font, true);
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
         startRect = new Rectangle(winWidth/2-125,winHeight/2-25,250,50);
@@ -69,6 +86,13 @@ public class MenuState extends BasicGameState {
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         g.setFont(ttf);
         g.drawString("Taste Some Pizza !", winWidth/2-250, 100);
+        if(gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
+            g.setColor(Color.white);
+            int x=gc.getInput().getMouseX();
+            int y=gc.getInput().getMouseY();
+
+            g.drawRect(x,y,32,32);
+        }
     }
 
     @Override

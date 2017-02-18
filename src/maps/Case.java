@@ -1,25 +1,53 @@
 package maps;
 
-import com.sun.xml.internal.bind.v2.TODO;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Classe représentant une case de la carte, avec les éléments qu'elle contient, son image, sa position sur la carte, son accessibilité
  * Created by tic-tac on 16/02/17.
  */
 public class Case extends MouseOverArea {
-    private boolean access=true;
-    private Image image;
-    //TODO: listes d'éléments qu'elle contient, position, image
-    public Case(GUIContext container, Image image, int x, int y) {
-        super(container, image, x, y);
-    }
-    public Case(GUIContext container, Image image, int x, int y, boolean accessible) {
-        super(container, image, x, y);
+	//position du coin haut gauche
+	private int x;
+	private int y;
+	//Toute case est accessible par défaut
+	private boolean access=true;
+	private Rectangle interieur;
+	private Rectangle cadre;
+	private boolean over;
+	private GUIContext container;
+	private StateBasedGame sbg;
 
-        this.access=accessible;
-    }
+	public Case(GUIContext container, StateBasedGame sbg, int x, int y) {
+	    super(container,null,x,y,48,48);
+		this.x=x;
+		this.y=y;
+		interieur=new Rectangle(x+1,y+1,47,47);
+		cadre=new Rectangle(x,y,48,48);
+		this.container=container;
+		this.sbg=sbg;
+	}
 
+	@Override
+	public void render(GUIContext guiContext, Graphics g) {
+	    g.setColor(Color.white);
+	    g.fill(interieur);
+	    g.setColor(Color.darkGray);
+	    g.setLineWidth(1);
+	    g.draw(cadre);
+	}
+
+	@Override
+    public void mousePressed(int button, int mx, int my){
+	    over=interieur.contains(mx,my);
+	    if (over&&sbg.getCurrentStateID()==1){
+	        //TODO:si bouton pressé sur case, ajouter tourelle selectionnée(voir si il faudrait pas faire ça dans une classe à part)
+            System.out.println("Case cliquée:"+this.getX()+"x"+this.getY());
+		}
+    }
 }

@@ -1,5 +1,7 @@
 package states;
 import gui.StateButton;
+import maps.Case;
+import maps.Map;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -12,6 +14,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by tic-tac on 11/02/17.
@@ -30,6 +33,8 @@ public class MainGameState extends BasicGameState {
     float mouseX;
     float mouseY;
 
+    Map map;
+
     @Override
     public int getID() {
         return 1;
@@ -45,7 +50,7 @@ public class MainGameState extends BasicGameState {
         alpha=turret.getRotation();
         hitbox=new RoundedRectangle(winWidth-200,winHeight-50,200,50, 10);
         stateButton = new StateButton(container, sbg, winWidth-200,winHeight-50, "Menu principal", "menu", hitbox);
-
+        map=new Map(gc, sbg, 15);
     }
 
     @Override
@@ -65,6 +70,8 @@ public class MainGameState extends BasicGameState {
         g.drawLine(winWidth*0.703125f,0,winWidth*0.703125f, winHeight);
         g.drawString("Tourelles/menu",winWidth*0.72f, winHeight*0.01f);
         g.drawString("Carte",winWidth*0.1f, winHeight*0.01f);
+
+        map.render();
     }
 
     @Override
