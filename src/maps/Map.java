@@ -45,6 +45,12 @@ public class Map {
         this.clickedCases.add(c);
     }
 
+    public Case[][] getCases(){
+        return this.cases;
+    }
+    public int getTaille(){
+        return this.taille;
+    }
     public void resetClicked(){
         for(int i=clickedCases.size()-1;i>0;i--){
             clickedCases.get(i).reset();

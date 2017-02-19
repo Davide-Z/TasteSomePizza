@@ -31,6 +31,10 @@ public class MenuState extends BasicGameState {
     StateButton startButton;
     StateButton exitButton;
 
+
+    private SpriteSheet piz;
+    private Animation animPiz;
+
     int mouseX;
     int mouseY;
 
@@ -71,11 +75,14 @@ public class MenuState extends BasicGameState {
         startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start", startHitbox);
         exitHitbox= new RoundedRectangle(winWidth/2-150,winHeight/2+55, imgBouton.getWidth()-14, imgBouton.getHeight()-20,13);
         exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit", exitHitbox);
+
+        piz=new SpriteSheet("resources/sprites/Piz.png", 256,256);
+        animPiz= new Animation(piz,75);
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setBackground(Color.black);
+        g.setBackground(Color.lightGray);
         g.setLineWidth(5);
         g.setColor(Color.white);
         startButton.render(g);
@@ -93,6 +100,7 @@ public class MenuState extends BasicGameState {
 
             g.drawRect(x,y,32,32);
         }
+        animPiz.draw(155,238);
     }
 
     @Override

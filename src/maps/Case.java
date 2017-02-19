@@ -53,7 +53,7 @@ public class Case extends MouseOverArea {
 	    over=interieur.contains(mx,my);
 	    if (over&&sbg.getCurrentStateID()==1&&!clicked){
 	        //TODO:si bouton pressé sur case, ajouter tourelle selectionnée(voir si il faudrait pas faire ça dans une classe à part)
-            System.out.println("Case cliquée:"+this.getX()+"x"+this.getY());
+            System.out.println("Case cliquée:"+(1+(this.getX()/48))+"x"+(1+(this.getY()/48)));
 		}
 		this.map.addClicked(this);
 		clicked=true;
