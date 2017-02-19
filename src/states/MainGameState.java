@@ -55,8 +55,8 @@ public class MainGameState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        //g.setBackground(Color.decode("0xdba24f"));
-        turret.draw(winWidth/2-32,winHeight/2-32);
+        g.setBackground(Color.decode("0xdba24f"));
+        turret.draw(winWidth-184,winHeight/2-32);
         turret.setRotation(alpha);
         g.setColor(Color.white);
         g.drawString(""+(alpha), 500,0);
@@ -76,7 +76,7 @@ public class MainGameState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        alpha=(float)((Math.atan2((mouseX-winWidth/2),-(mouseY-winHeight/2))*360/(2*Math.PI)));
+        alpha=(float)((Math.atan2((mouseX+184-winWidth),-(mouseY+32-winHeight/2))*360/(2*Math.PI)));
         map.resetClicked();
     }
 
