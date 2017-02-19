@@ -19,6 +19,7 @@ public class Map {
     private GUIContext gc;
     private StateBasedGame sbg;
     private Graphics g;
+
     public Map(GUIContext gc, StateBasedGame sbg, int taille){   //Initialise une map vide de taille taillextaille
         this.taille=taille;
         this.gc=gc;

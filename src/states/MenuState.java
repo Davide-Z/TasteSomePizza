@@ -71,10 +71,8 @@ public class MenuState extends BasicGameState {
         startRect = new Rectangle(winWidth/2-125,winHeight/2-25,250,50);
         exitRect = new Rectangle(winWidth/2-125,winHeight/2-125+space,250,50);
         imgBouton = new Image("resources/interface/boutonOrange.png");
-        startHitbox=new RoundedRectangle(winWidth/2-150,winHeight/2-50, imgBouton.getWidth()-14, imgBouton.getHeight()-20,13);
-        startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start", startHitbox);
-        exitHitbox= new RoundedRectangle(winWidth/2-150,winHeight/2+55, imgBouton.getWidth()-14, imgBouton.getHeight()-20,13);
-        exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit", exitHitbox);
+        startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start");
+        exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
 
         piz=new SpriteSheet("resources/sprites/Piz.png", 256,256);
         animPiz= new Animation(piz,75);
@@ -87,8 +85,6 @@ public class MenuState extends BasicGameState {
         g.setColor(Color.white);
         startButton.render(g);
         exitButton.render(g);
-        g.draw(startHitbox);
-        g.draw(exitHitbox);
         g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         g.setFont(ttf);

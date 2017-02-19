@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -33,7 +34,7 @@ public class StateButton extends MouseOverArea{
     protected String action;
     protected String vide="resources/vide.png";
 
-    public StateButton(GUIContext container, StateBasedGame sbg, Image image, int x, int y,String text, String action, Shape hitbox) throws SlickException {
+    public StateButton(GUIContext container, StateBasedGame sbg, Image image, int x, int y,String text, String action) throws SlickException {
         super(container, image, x, y);
         this.image=image;
         this.x=x;
@@ -43,21 +44,21 @@ public class StateButton extends MouseOverArea{
         this.height=image.getHeight();
         this.action=action;
         this.text=text;
-        this.hitbox = hitbox;
+        this.hitbox = new RoundedRectangle(x+3,y+7,image.getWidth()-14,image.getHeight()-20,13);
         this.container=game.getContainer();
     }
 
-    public StateButton(GUIContext container, StateBasedGame sbg, int x, int y, String text, String action, Shape hitbox) throws SlickException {
+    public StateButton(GUIContext container, StateBasedGame sbg, int x, int y, String text, String action) throws SlickException {
         super(container, new Image("resources/vide.png"), x, y);
         this.x=x;
         this.y=y;
         this.game=sbg;
         image = new Image(vide);
+        this.hitbox = new RoundedRectangle(x,y,200,50,13);
         this.width=(int)hitbox.getWidth();
         this.height=(int)hitbox.getHeight();
         this.action=action;
         this.text=text;
-        this.hitbox = hitbox;
         this.container=game.getContainer();
     }
 
@@ -75,6 +76,8 @@ public class StateButton extends MouseOverArea{
         int ttfWidth = font.getWidth(text);
         int ttfHeight = font.getLineHeight();
         g.drawString(text, x + hitbox.getWidth() / 2 - ttfWidth / 4.5f, y + hitbox.getHeight() / 2 - ttfHeight / 4.5f); //Affiche le texte du bouton, centré
+        g.setLineWidth(2);
+        g.draw(hitbox);
     }
     @Override
     public void mousePressed(int button, int mx, int my){

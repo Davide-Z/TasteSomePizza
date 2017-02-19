@@ -30,7 +30,7 @@ public class Case extends MouseOverArea {
 		this.x=x;
 		this.y=y;
 		interieur=new Rectangle(x+1,y+1,47,47);
-		cadre=new Rectangle(x,y,48,48);
+		cadre=new Rectangle(x+1,y+1,48,48);
 		this.container=container;
 		this.sbg=sbg;
 		this.map=map;

@@ -48,8 +48,7 @@ public class MainGameState extends BasicGameState {
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
         alpha=turret.getRotation();
-        hitbox=new RoundedRectangle(winWidth-200,winHeight-50,200,50, 10);
-        stateButton = new StateButton(container, sbg, winWidth-200,winHeight-50, "Menu principal", "menu", hitbox);
+        stateButton = new StateButton(container, sbg, winWidth-201,winHeight-51, "Menu principal", "menu");
         map=new Map(gc, sbg, 15);
     }
 
@@ -65,13 +64,17 @@ public class MainGameState extends BasicGameState {
         stateButton.render(g);
 
         //Segmentation temporaire de l'écran
-        g.setColor(Color.white);
+        g.setColor(Color.black);
         g.setLineWidth(4);
         g.drawLine(winWidth*0.703125f,0,winWidth*0.703125f, winHeight);
-        g.drawString("Tourelles/menu",winWidth*0.72f, winHeight*0.01f);
-        g.drawString("Carte",winWidth*0.1f, winHeight*0.01f);
+        g.drawString("Tourelles/menu",winWidth*0.703125f, 0);
+
 
         map.render();
+
+        g.setColor(Color.black);
+
+        g.drawString("Carte",0, 0);
     }
 
     @Override
