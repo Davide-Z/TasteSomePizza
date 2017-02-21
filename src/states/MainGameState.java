@@ -1,20 +1,14 @@
 package states;
+
 import gui.StateButton;
-import maps.Case;
 import maps.Map;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Ellipse;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.RoundedRectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by tic-tac on 11/02/17.
