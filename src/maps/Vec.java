@@ -83,4 +83,8 @@ public class Vec {
         this.r=Math.sqrt(x*x+y*y);
         this.angle=Math.atan2(x,y);
     }
+    
+    public boolean equals(Vec v){
+    	return (this.x==v.x && this.y==v.y);
+    }
 }

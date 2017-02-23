@@ -18,6 +18,9 @@ public class Map {
     private GUIContext gc;
     private StateBasedGame sbg;
     private Graphics g;
+    public Vec posBase;
+    public Vec spawn;
+    public int baseHP;
 
     public Map(GUIContext gc, StateBasedGame sbg, int taille){   //Initialise une map vide de taille taillextaille
         this.taille=taille;
