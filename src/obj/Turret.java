@@ -1,22 +1,11 @@
-// Author : Flo
-// Work In Progress, don't judge
-
-  
-
 package obj;
+//Author : Flo
 
-import Game.Enemy;
-import Game.Projectile;
-
-public class Turret {
-	int id;			// Identifiant unique
-	String type;	// Type de tourelle, conditionnera les dégâts, etc...
+public class Turret extends Displayable{
 	int buyPrice;
 	int sellPrice;
 	int range;
 	long fireRate;
-
-	// Vec pos ;
 	int level;
 	boolean upgrade;
 	
@@ -33,9 +22,9 @@ public class Turret {
 	}
 	void fire(){
 		// Si il y a un ennemi à portée et si on n'as pas tiré depuis lastFire millisecondes
-		if( searchEnemy()!=0	&&	System.currentTimeMillis()-lastFire>fireRate ){
-			Projectile p=new Projectile(searchEnemy(), id, projectileType); // On crée un nouveau projectile
-			lastFire=System.currentTimeMillis()		// On met à jour l'heure du dernier tir
+		if( searchEnemy()!=null	&&	System.currentTimeMillis()-lastFire>fireRate ){
+			Projectile p=new Projectile(searchEnemy(), this); // On crée un nouveau projectile
+			lastFire=System.currentTimeMillis();		// On met à jour l'heure du dernier tir
 		}
 	}
 	void sell(){
@@ -88,7 +77,7 @@ public class Turret {
 	public void setRange(int range) {
 		this.range = range;
 	}
-	public int getFireRate() {
+	public long getFireRate() {
 		return fireRate;
 	}
 	public void setFireRate(int fireRate) {
@@ -104,13 +93,6 @@ public class Turret {
 		return upgrade;
 	}
 	public void setUpgrade(boolean upgrade) {
-		this.upgrade = upgrade;
-	}
-	public int getDamage() {
-		return damage;
-	}
-	public void setDamage(int damage) {
-		this.damage = damage;
 	}
 	public long getLastFire() {
 		return lastFire;
@@ -132,6 +114,16 @@ public class Turret {
 	}
 	public void setFireRate(long fireRate) {
 		this.fireRate = fireRate;
+	}
+	@Override
+	void appear() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	void disappear() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

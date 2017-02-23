@@ -1,4 +1,5 @@
 package obj;
+//Author : Flo
 
 import maps.Vec;
 import maps.Map;
@@ -14,6 +15,10 @@ public abstract class Displayable {
 	String type;
 	int lastId=0; // sert pour créer les identifiants uniques
 	Map actualMap;
+	
+	Displayable(){
+		id=createNewId();
+	}
 	
 	Displayable(String t, Vec p){
 		id=createNewId();

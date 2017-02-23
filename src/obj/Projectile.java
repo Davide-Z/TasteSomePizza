@@ -1,21 +1,22 @@
 package obj;
 //Author : Flo
-//Work In Progress, don't judge
-  
+
 
 public class Projectile extends Displayable{
 	int speed;
 	int damage;
-	int motherTurret;
+	Turret motherTurret;
 	Enemy cible;
+	//Listes des ennemis en vie + leur nombre
 	
-	Projectile(Enemy enemy, int mt, String projectileType){
-		id=createId();
+	Projectile(Enemy enemy, Turret mt){
+		super(mt.projectileType, mt.getPos());
 		cible=enemy;
-		type=projectileType;
+		type=mt.projectileType;
 		motherTurret=mt;
-		ListEnemiesAlive[nbEnemiesAlive]=this;
-		nbEnemiesAlive++;
+		this.pos=motherTurret.getPos();
+		/*ListEnemiesAlive[nbEnemiesAlive]=this;
+		nbEnemiesAlive++;*/
 		appear();
 	}
 	
@@ -29,12 +30,11 @@ public class Projectile extends Displayable{
 	}
 	
 	void move(){
-		if(cible.)
 	}
 	
 	void hit(Enemy cible){
-		if(e.getHp()-damage>0){
-			e.setHp(e.getHp()-damage);
+		if(cible.getHp()-damage>0){
+			cible.setHp(cible.getHp()-damage);
 			this.disappear();
 		}
 		else{
@@ -59,6 +59,22 @@ public class Projectile extends Displayable{
 	}
 	public void setDamage(int damage) {
 		this.damage = damage;
+	}
+
+	public Turret getMotherTurret() {
+		return motherTurret;
+	}
+
+	public void setMotherTurret(Turret motherTurret) {
+		this.motherTurret = motherTurret;
+	}
+
+	public Enemy getCible() {
+		return cible;
+	}
+
+	public void setCible(Enemy cible) {
+		this.cible = cible;
 	}
 	
 }
