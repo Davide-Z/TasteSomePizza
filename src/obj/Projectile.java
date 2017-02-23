@@ -1,7 +1,7 @@
 package obj;
 //Author : Flo
 //Work In Progress, don't judge
- 
+  
 
 public class Projectile extends Displayable{
 	int speed;
