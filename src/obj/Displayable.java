@@ -24,7 +24,7 @@ public abstract class Displayable {
 	int createNewId(){
 		return ++lastId;
 	}
-	
+	 
 	public Vec getPos() {
 		return pos;
 	}
