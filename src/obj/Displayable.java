@@ -1,5 +1,5 @@
 package obj;
-
+ 
 public abstract class Displayable {
 	abstract void appear();
 	abstract void disappear();

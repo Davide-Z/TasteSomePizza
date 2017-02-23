@@ -1,5 +1,5 @@
 package obj;
-
+ 
 public class Enemy extends Displayable{
 	
 	@Override
