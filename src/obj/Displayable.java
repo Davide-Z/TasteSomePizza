@@ -13,7 +13,7 @@ public abstract class Displayable {
 	Vec pos;
 	int id;
 	String type;
-	int lastId=0; // sert pour créer les identifiants uniques
+	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
 	
 	Displayable(){

@@ -35,7 +35,6 @@ public class Projectile extends Displayable{
 	void hit(Enemy cible){
 		if(cible.getHp()-damage>0){
 			cible.setHp(cible.getHp()-damage);
-			this.disappear();
 		}
 		else{
 			cible.disappear();
