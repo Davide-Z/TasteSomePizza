@@ -29,8 +29,8 @@ public class Case extends MouseOverArea {
 	    super(container,null,x,y,48,48);
 		this.x=x;
 		this.y=y;
-		interieur=new Rectangle(x+1,y+1,47,47);
-		cadre=new Rectangle(x+1,y+1,48,48);
+		interieur=new Rectangle(x+1,y-1,47,47);
+		cadre=new Rectangle(x+1,y-1,48,48);
 		this.container=container;
 		this.sbg=sbg;
 		this.map=map;
@@ -44,7 +44,7 @@ public class Case extends MouseOverArea {
 	    g.setColor(Color.white);
 	    g.fill(interieur);
 	    g.setColor(Color.darkGray);
-	    g.setLineWidth(1);
+	    g.setLineWidth(0.2f);
 	    g.draw(cadre);
 	}
 

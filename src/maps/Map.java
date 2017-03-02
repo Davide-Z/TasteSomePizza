@@ -31,7 +31,7 @@ public class Map {
         clickedCases=new ArrayList<Case>();
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j]=new Case(gc, sbg, (int)(i*720/taille), (int)(j*720/taille),this);
+                cases[i][j]=new Case(gc, sbg, 1+(int)(i*720/taille), 1+(int)(j*720/taille),this);
             }
         }
     }

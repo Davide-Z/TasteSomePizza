@@ -1,56 +1,71 @@
 package obj;
 //Author : Flo
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.state.StateBasedGame;
+import states.GameStates;
+
 public class Turret extends Displayable{
+
 	int buyPrice;
 	int sellPrice;
 	int range;
 	long fireRate;
 	int level;
 	boolean upgrade;
-	
-	// Ce qui n'était pas dans l'UML :
+	StateBasedGame sbg;
+	GameContainer gc;
+	Graphics g;
+	// Ce qui n'ï¿½tait pas dans l'UML :
 	String projectileType;
 	long lastFire=System.currentTimeMillis();
-	int idEnemy; // Ennemi à cibler
+	int idEnemy; // Ennemi ï¿½ cibler
 	int upgradePrice;
 	
-	Turret(String t){
+	Turret(String t, StateBasedGame sbg){
 		type=t;
 		id=createNewId();
-		
+		this.sbg=sbg;
+		this.gc=sbg.getContainer();
+		this.g=gc.getGraphics();
 	}
+	/*
 	void fire(){
-		// Si il y a un ennemi à portée et si on n'as pas tiré depuis lastFire millisecondes
+
+		// Si il y a un ennemi ï¿½ portï¿½e et si on n'as pas tirï¿½ depuis lastFire millisecondes
 		if( searchEnemy()!=null	&&	System.currentTimeMillis()-lastFire>fireRate ){
-			Projectile p=new Projectile(searchEnemy(), this); // On crée un nouveau projectile
-			lastFire=System.currentTimeMillis();		// On met à jour l'heure du dernier tir
+			Projectile p=new Projectile(searchEnemy(), this); // On crï¿½e un nouveau projectile
+			lastFire=System.currentTimeMillis();		// On met ï¿½ jour l'heure du dernier tir
 		}
 	}
+	*/
 	void sell(){
-		Game.setMoney(Game.getMoney()+sellPrice);
+		GameStates.setMoney(GameStates.getMoney()+sellPrice);
 	}
+
 	void upgrade(){
-		Game.setMoney(Game.getMoney()-upgradePrice);
+		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
 	}
-	
+	/*
 	Enemy searchEnemy(){
 		// En supposant que le type Vec soit un tableau de int de la forme pos.x et pos.y
-		int x; 	// Coordonées des ennemies
+		int x; 	// Coordonï¿½es des ennemies
 		int y;
 		
-		// On parcourt la liste des ennemies sur le terrain, s'ils sont à distance on renvoit leur id
+		// On parcourt la liste des ennemies sur le terrain, s'ils sont ï¿½ distance on renvoit leur id
 		for(int i=0 ; i<nbEnemiesAlive ; i++){
 			x=ListEnnemiesAlive[i].x;
 			y=ListEnnemiesAlive[i].y;
-			if( (x-pos.x)*(x-pos.x) + (y-pos.y)*(y-pos.y) 	<	range*range){	// Si l'ennemi est à bonne distance
+			if( (x-pos.x)*(x-pos.x) + (y-pos.y)*(y-pos.y) 	<	range*range){	// Si l'ennemi est ï¿½ bonne distance
 				return ListEnnemiesAlive[i];
 			}
 		}
 		
-		// Si on n'a pas trouvé d'ennemi
+		// Si on n'a pas trouvï¿½ d'ennemi
 		return null;
 	}
+	*/
 	
 	// getters and setters :
 	public String getType() {
@@ -125,5 +140,5 @@ public class Turret extends Displayable{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

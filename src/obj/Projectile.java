@@ -31,7 +31,7 @@ public class Projectile extends Displayable{
 	
 	void move(){
 	}
-	
+	/*
 	void hit(Enemy cible){
 		if(cible.getHp()-damage>0){
 			cible.setHp(cible.getHp()-damage);
@@ -42,6 +42,7 @@ public class Projectile extends Displayable{
 		}
 		this.disappear();
 	}
+	*/
 	public String getType() {
 		return type;
 	}

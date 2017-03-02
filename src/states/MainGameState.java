@@ -60,7 +60,7 @@ public class MainGameState extends BasicGameState {
         //Segmentation temporaire de l'écran
         g.setColor(Color.black);
         g.setLineWidth(4);
-        g.drawLine(winWidth*0.703125f,0,winWidth*0.703125f, winHeight);
+        g.drawLine(2+winWidth*0.703125f,0,2+winWidth*0.703125f, winHeight);
         g.drawString("Tourelles/menu",winWidth*0.703125f, 0);
 
 
