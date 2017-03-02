@@ -14,27 +14,63 @@ public class Enemy extends Displayable{
 	}
 
 	//Attributs;
-	int speed;
-	int damage;
-	int hp;
-	Vec[] path;
-	int posInPath;
-	int points;
+	private int speed;
+	private int damage;
+	private int hp;
+	private Vec[] path;
+	private int posInPath;
+	private int points;
 	
 	void attack(){
 		if (pos.equals(actualMap.posBase)){
-			actualMap.baseHP-=damage;
+			if (actualMap.baseHP-damage>0){
+				actualMap.baseHP-=damage;	//damage
+			}
+			else {
+				actualMap.baseHP=0;	//killed
+			}
+			this.disappear();
 		}
+	}
+	
+	public boolean isAlive(){
+		return (this.hp>0);
+	}
+	
+	void move(){
+		if (this.posInPath+this.speed<=this.path.length){	//la position ne depasse pas la taille de la liste des positions
+			this.posInPath+=this.speed;
+		}
+		else {	//si on arrive a la fin
+			this.posInPath=this.path.length;
+		}
+		this.pos=this.path[this.posInPath];
+
 	}
 	
 	@Override
 	void appear(){
-		//TODO:
-		System.out.println("");
+		//TODO
 	}
 	
 	@Override
 	void disappear(){
-		
+		this.hp=0;
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }
