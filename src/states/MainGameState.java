@@ -11,29 +11,39 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
+ * Vue du jeu principal, où on va placer les tourelles et lancer la vague
  * Created by tic-tac on 11/02/17.
  */
 public class MainGameState extends BasicGameState {
-
+    //Attributs du moteur
     private GameContainer container;
     private StateBasedGame game;
+
+    //Attributs d'interface
     Image turret;
     float alpha;
     int winHeight;
     int winWidth;
-
     StateButton stateButton;
-    RoundedRectangle hitbox;
     float mouseX;
     float mouseY;
-
     Map map;
 
+    /**
+     * Renvoie l'ID de cette vue
+     * @return ID
+     */
     @Override
     public int getID() {
         return 1;
     }
 
+    /**
+     * Méthode qui se fait une fois au début, pour initialiser les différents paramètres
+     * @param gc Container du jeu
+     * @param sbg Le moteur du jeu
+     * @throws SlickException
+     */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.game=sbg;
@@ -46,6 +56,13 @@ public class MainGameState extends BasicGameState {
         map=new Map(gc, sbg, 15);
     }
 
+    /**
+     * Méthode qui centralise tout ce que l'on affichera sur cette vue
+     * @param gc Container du jeu
+     * @param sbg Moteur du jeu
+     * @param g gestionnaire graphique
+     * @throws SlickException
+     */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.decode("0xdba24f"));
@@ -61,22 +78,34 @@ public class MainGameState extends BasicGameState {
         g.setColor(Color.black);
         g.setLineWidth(4);
         g.drawLine(2+winWidth*0.703125f,0,2+winWidth*0.703125f, winHeight);
-        g.drawString("Tourelles/menu",winWidth*0.703125f, 0);
+        g.drawString("Tourelles/menu",winWidth*0.703125f+6, 0);
 
 
         map.render();
 
         g.setColor(Color.black);
 
-        g.drawString("Carte",0, 0);
+        g.drawString("Carte",3, 3);
     }
 
+    /**
+     * Méthode pour mettre à jour les différents paramètres entre deux images
+     * @param gc Container du jeu
+     * @param sbg Moteur du jeu
+     * @param i delta de temps entre deux images
+     * @throws SlickException
+     */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         alpha=(float)((Math.atan2((mouseX+184-winWidth),-(mouseY+32-winHeight/2))*360/(2*Math.PI)));
         map.resetClicked();
     }
 
+    /**
+     * Méthode pour pouvoir changer d'état plus rapidement ou quitter, avec le clavier
+     * @param key Touche appuyée
+     * @param c charactère reçu
+     */
     public void keyPressed(int key, char c){
         if(key== Input.KEY_ESCAPE){
             container.exit();
@@ -86,6 +115,13 @@ public class MainGameState extends BasicGameState {
         }
     }
 
+    /**
+     * Méthode donnant les mouvements de la sourie
+     * @param oldX
+     * @param oldY
+     * @param newX
+     * @param newY
+     */
     @Override
     public void mouseMoved(int oldX, int oldY, int newX, int newY){
         mouseX=(float)(newX);

@@ -4,6 +4,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
+ * Classe de gestion des vues: pour les initialiser, passer de l'une à l'autre
  * Created by tic-tac on 25/01/17.
  */
 

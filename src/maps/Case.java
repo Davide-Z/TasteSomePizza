@@ -2,6 +2,8 @@ package maps;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
@@ -24,9 +26,10 @@ public class Case extends MouseOverArea {
 	private StateBasedGame sbg;
 	private boolean clicked=false;
 	private Map map;
+	private Image image;
 
-	public Case(GUIContext container, StateBasedGame sbg, int x, int y, Map map) {
-	    super(container,null,x,y,48,48);
+	public Case(GUIContext container, StateBasedGame sbg, int x, int y, Map map) throws SlickException{
+	    super(container,new Image("/resources/floorTile.png"),x,y,48,48);
 		this.x=x;
 		this.y=y;
 		interieur=new Rectangle(x+1,y-1,47,47);
@@ -34,6 +37,7 @@ public class Case extends MouseOverArea {
 		this.container=container;
 		this.sbg=sbg;
 		this.map=map;
+		this.image=new Image("/resources/floorTile.png");
 	}
 
 	public void reset(){
@@ -41,11 +45,13 @@ public class Case extends MouseOverArea {
 	}
 	@Override
 	public void render(GUIContext guiContext, Graphics g) {
-	    g.setColor(Color.white);
-	    g.fill(interieur);
-	    g.setColor(Color.darkGray);
-	    g.setLineWidth(0.2f);
-	    g.draw(cadre);
+	    //g.setColor(Color.white);
+	    //g.fill(interieur);
+	    //g.setColor(Color.darkGray);
+	    //g.setLineWidth(0.2f);
+	    //g.draw(cadre);
+		image.draw(x,y);
+
 	}
 
 	@Override

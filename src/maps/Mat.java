@@ -3,6 +3,8 @@ package maps;
 import java.util.Random;
 
 /**
+ * Idée de générateur de carte (avec des cases libres ou non au hasard, de taille fixe)
+ *
  * Created by tic-tac on 15/02/17.
  */
 public class Mat {

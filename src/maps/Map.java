@@ -2,6 +2,7 @@ package maps;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -22,7 +23,7 @@ public class Map {
     public Vec spawn;
     public int baseHP;
 
-    public Map(GUIContext gc, StateBasedGame sbg, int taille){   //Initialise une map vide de taille taillextaille
+    public Map(GUIContext gc, StateBasedGame sbg, int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
         this.gc=gc;
         this.sbg=sbg;

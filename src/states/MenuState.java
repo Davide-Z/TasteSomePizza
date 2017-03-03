@@ -17,39 +17,44 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * Vue du menu principal, avec un bouton pour entrer en jeu, un pour quitter, et un pour les réglages
  * Created by tic-tac on 01/02/17.
  */
 public class MenuState extends BasicGameState {
 
+    //Paramètres du moteur
     private GameContainer container;
     private StateBasedGame game;
-    private Rectangle startRect;
-    Rectangle exitRect;
+
+    //Paramètres d'interface
     Image imgBouton;
-    RoundedRectangle startHitbox;
-    RoundedRectangle exitHitbox;
     StateButton startButton;
     StateButton exitButton;
-
-
     private SpriteSheet piz;
     private Animation animPiz;
-
     int mouseX;
     int mouseY;
-
     int winHeight;
     int winWidth;
-    int space=25;
-
     Font font;
     TrueTypeFont ttf;
 
+
+    /**
+     * Renvoie l'ID de cette vue
+     * @return ID
+     */
     @Override
     public int getID() {
         return 0;
     }
 
+    /**
+     * Méthode qui se fait une fois au début, pour initialiser les différents paramètres
+     * @param gc Container du jeu
+     * @param sbg Le moteur du jeu
+     * @throws SlickException
+     */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.container=gc;
@@ -64,20 +69,22 @@ public class MenuState extends BasicGameState {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
-        startRect = new Rectangle(winWidth/2-125,winHeight/2-25,250,50);
-        exitRect = new Rectangle(winWidth/2-125,winHeight/2-125+space,250,50);
         imgBouton = new Image("resources/interface/boutonOrange.png");
         startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start");
         exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
-
         piz=new SpriteSheet("resources/sprites/Piz.png", 256,256);
         animPiz= new Animation(piz,75);
     }
 
+    /**
+     * Méthode qui centralise tout ce que l'on affichera sur cette vue
+     * @param gc Container du jeu
+     * @param sbg Moteur du jeu
+     * @param g gestionnaire graphique
+     * @throws SlickException
+     */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.lightGray);
@@ -99,6 +106,23 @@ public class MenuState extends BasicGameState {
         animPiz.draw(155,238);
     }
 
+    /**
+     * Méthode pour mettre à jour les différents paramètres entre deux images
+     * @param gc Container du jeu
+     * @param sbg Moteur du jeu
+     * @param i delta de temps entre deux images
+     * @throws SlickException
+     */
+    @Override
+    public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+        Input input= gc.getInput();
+    }
+
+    /**
+     * Méthode pour pouvoir changer d'état plus rapidement ou quitter, avec le clavier
+     * @param key Touche appuyée
+     * @param c charactère reçu
+     */
     @Override
     public void keyPressed(int key, char c){
         if(key== Input.KEY_ESCAPE){
@@ -109,14 +133,16 @@ public class MenuState extends BasicGameState {
         }
     }
 
+    /**
+     * Méthode donnant les mouvements de la sourie
+     * @param oldX
+     * @param oldY
+     * @param newX
+     * @param newY
+     */
     @Override
     public void mouseMoved(int oldX, int oldY, int newX, int newY){
         mouseX=newX;
         mouseY=newY;
-    }
-
-    @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        Input input= gc.getInput();
     }
 }
