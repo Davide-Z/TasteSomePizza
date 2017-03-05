@@ -15,8 +15,7 @@ public class Projectile extends Displayable{
 		type=mt.projectileType;
 		motherTurret=mt;
 		this.pos=motherTurret.getPos();
-		/*ListEnemiesAlive[nbEnemiesAlive]=this;
-		nbEnemiesAlive++;*/
+		ProjectilesAlive.add(this);
 		appear();
 	}
 	

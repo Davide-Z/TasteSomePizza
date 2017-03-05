@@ -29,43 +29,52 @@ public class Turret extends Displayable{
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
+		TurretsAlive.add(this);
 	}
-	/*
+	
 	void fire(){
-
-		// Si il y a un ennemi � port�e et si on n'as pas tir� depuis lastFire millisecondes
-		if( searchEnemy()!=null	&&	System.currentTimeMillis()-lastFire>fireRate ){
+		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
+		if( searchEnemy()!=null	&&	canFire() ){
 			Projectile p=new Projectile(searchEnemy(), this); // On cr�e un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met � jour l'heure du dernier tir
 		}
 	}
-	*/
+	
+	boolean canFire(){
+		if(System.currentTimeMillis() - lastFire>fireRate) 
+			return true;
+		else
+			return false;
+	}
+	
 	void sell(){
 		GameStates.setMoney(GameStates.getMoney()+sellPrice);
+		disappear();
 	}
 
 	void upgrade(){
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
+		this.
 	}
-	/*
+	
 	Enemy searchEnemy(){
 		// En supposant que le type Vec soit un tableau de int de la forme pos.x et pos.y
-		int x; 	// Coordon�es des ennemies
+		int x; 	// Coordonees des ennemies
 		int y;
 		
-		// On parcourt la liste des ennemies sur le terrain, s'ils sont � distance on renvoit leur id
-		for(int i=0 ; i<nbEnemiesAlive ; i++){
-			x=ListEnnemiesAlive[i].x;
-			y=ListEnnemiesAlive[i].y;
-			if( (x-pos.x)*(x-pos.x) + (y-pos.y)*(y-pos.y) 	<	range*range){	// Si l'ennemi est � bonne distance
-				return ListEnnemiesAlive[i];
+		// On parcourt la liste des ennemies sur le terrain, s'ils sont a distance on renvoit leur id
+		for(Enemy e : EnemiesAlive){
+			x=e.pos.getX();
+			y=e.pos.getY();
+			if( (x-pos.getX())*(x-pos.getX()) + (y-pos.getY())*(y-pos.getY()) 	<	range*range){	// Si l'ennemi est a bonne distance
+				return e;
 			}
 		}
 		
-		// Si on n'a pas trouv� d'ennemi
+		// Si on n'a pas trouver d'ennemi
 		return null;
 	}
-	*/
+	
 	
 	// getters and setters :
 	public String getType() {

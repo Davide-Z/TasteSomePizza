@@ -5,6 +5,8 @@ import maps.Vec;
 import maps.Map;
 import maps.Case;
 import maps.Mat;
+import java.util.List;
+import java.util.LinkedList;
 
 
 public abstract class Displayable {
@@ -15,6 +17,9 @@ public abstract class Displayable {
 	String type;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
+	List<Turret> TurretsAlive=new LinkedList<Turret>();
+	List<Enemy> EnemiesAlive=new LinkedList<Enemy>();
+	List<Projectile> ProjectilesAlive=new LinkedList<Projectile>();
 	
 	Displayable(){
 		id=createNewId();
