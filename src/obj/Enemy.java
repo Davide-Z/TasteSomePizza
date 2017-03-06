@@ -1,10 +1,11 @@
 package obj;
-import maps.Vec;;
-  
+import maps.Vec;
+import org.newdawn.slick.state.StateBasedGame;;import javax.swing.plaf.nimbus.State;
+
 public class Enemy extends Displayable{
 	
-	public Enemy(String t, Vec p, int speed, int damage, int hp, Vec[] path, int posInPath, int points) {
-		super(t, p);
+	public Enemy(String t, Vec p, int speed, int damage, int hp, Vec[] path, int posInPath, int points, StateBasedGame sbg) {
+		super(t, p, sbg);
 		this.speed = speed;
 		this.damage = damage;
 		this.hp = hp;

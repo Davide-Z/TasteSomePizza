@@ -20,7 +20,7 @@ public abstract class Displayable {
 	abstract void appear();
 	abstract void disappear();
 	Vec pos;
-	int id;
+	int id; 	//TODO est ce qu'on a besoin d'un id si on a déj la position?
 	String type;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
