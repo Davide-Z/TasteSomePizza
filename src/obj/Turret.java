@@ -1,6 +1,7 @@
 package obj;
 //Author : Flo
 
+import maps.Vec;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
@@ -14,21 +15,16 @@ public class Turret extends Displayable{
 	long fireRate;
 	int level;
 	boolean upgrade;
-	StateBasedGame sbg;
-	GameContainer gc;
-	Graphics g;
 	// Ce qui n'�tait pas dans l'UML :
 	String projectileType;
 	long lastFire=System.currentTimeMillis();
 	int idEnemy; // Ennemi � cibler
 	int upgradePrice;
 	
-	Turret(String t, StateBasedGame sbg){
+	Turret(String t, Vec p, StateBasedGame sbg){
+		super(t, p, sbg);
 		type=t;
 		id=createNewId();
-		this.sbg=sbg;
-		this.gc=sbg.getContainer();
-		this.g=gc.getGraphics();
 		TurretsAlive.add(this);
 	}
 	
@@ -54,7 +50,6 @@ public class Turret extends Displayable{
 
 	void upgrade(){
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
-		this.
 	}
 	
 	Enemy searchEnemy(){
