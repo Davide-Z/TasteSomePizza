@@ -17,10 +17,10 @@ public class Turret extends Displayable{
 	StateBasedGame sbg;
 	GameContainer gc;
 	Graphics g;
-	// Ce qui n'�tait pas dans l'UML :
+	// Ce qui n'etait pas dans l'UML :
 	String projectileType;
 	long lastFire=System.currentTimeMillis();
-	int idEnemy; // Ennemi � cibler
+	int idEnemy; // Ennemi a cibler
 	int upgradePrice;
 	
 	Turret(String t, StateBasedGame sbg){
@@ -29,14 +29,14 @@ public class Turret extends Displayable{
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
-		TurretsAlive.add(this);
+		turretsAlive.add(this);
 	}
 	
 	void fire(){
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		if( searchEnemy()!=null	&&	canFire() ){
-			Projectile p=new Projectile(searchEnemy(), this); // On cr�e un nouveau projectile
-			lastFire=System.currentTimeMillis();		// On met � jour l'heure du dernier tir
+			Projectile p=new Projectile(searchEnemy(), this); // On cree un nouveau projectile
+			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 		}
 	}
 	
@@ -54,7 +54,10 @@ public class Turret extends Displayable{
 
 	void upgrade(){
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
-		this.
+		level++;
+		sellPrice+=0.8*buyPrice;
+		upgradePrice*=1.3;
+		fireRate*=1.1;
 	}
 	
 	Enemy searchEnemy(){

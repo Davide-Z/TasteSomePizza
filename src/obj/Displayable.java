@@ -17,9 +17,9 @@ public abstract class Displayable {
 	String type;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
-	List<Turret> TurretsAlive=new LinkedList<Turret>();
-	List<Enemy> EnemiesAlive=new LinkedList<Enemy>();
-	List<Projectile> ProjectilesAlive=new LinkedList<Projectile>();
+	List<Turret> turretsAlive=new LinkedList<Turret>();
+	List<Enemy> enemiesAlive=new LinkedList<Enemy>();
+	List<Projectile> projectilesAlive=new LinkedList<Projectile>();
 	
 	Displayable(){
 		id=createNewId();

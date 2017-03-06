@@ -15,7 +15,7 @@ public class Projectile extends Displayable{
 		type=mt.projectileType;
 		motherTurret=mt;
 		this.pos=motherTurret.getPos();
-		ProjectilesAlive.add(this);
+		projectilesAlive.add(this);
 		appear();
 	}
 	
