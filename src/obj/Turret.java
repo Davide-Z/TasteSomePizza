@@ -1,6 +1,7 @@
 package obj;
 //Author : Flo
 
+import maps.Vec;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
@@ -23,14 +24,16 @@ public class Turret extends Displayable{
 	int idEnemy; // Ennemi a cibler
 	int upgradePrice;
 	
-	Turret(String t, StateBasedGame sbg){
+	Turret(String t, Vec p, StateBasedGame sbg){
+		super(t, p, sbg);
 		type=t;
 		id=createNewId();
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
 		turretsAlive.add(this);
-	}
+		turretsAlive.add(this);
+		}
 	
 	void fire(){
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
@@ -58,7 +61,7 @@ public class Turret extends Displayable{
 		sellPrice+=0.8*buyPrice;
 		upgradePrice*=1.3;
 		fireRate*=1.1;
-	}
+		}
 	
 	Enemy searchEnemy(){
 		// En supposant que le type Vec soit un tableau de int de la forme pos.x et pos.y
@@ -66,7 +69,7 @@ public class Turret extends Displayable{
 		int y;
 		
 		// On parcourt la liste des ennemies sur le terrain, s'ils sont a distance on renvoit leur id
-		for(Enemy e : EnemiesAlive){
+		for(Enemy e : enemiesAlive){
 			x=e.pos.getX();
 			y=e.pos.getY();
 			if( (x-pos.getX())*(x-pos.getX()) + (y-pos.getY())*(y-pos.getY()) 	<	range*range){	// Si l'ennemi est a bonne distance

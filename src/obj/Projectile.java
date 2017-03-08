@@ -10,7 +10,7 @@ public class Projectile extends Displayable{
 	//Listes des ennemis en vie + leur nombre
 	
 	Projectile(Enemy enemy, Turret mt){
-		super(mt.projectileType, mt.getPos());
+		super(mt.projectileType, mt.getPos(), mt.sbg);
 		cible=enemy;
 		type=mt.projectileType;
 		motherTurret=mt;

@@ -5,15 +5,22 @@ import maps.Vec;
 import maps.Map;
 import maps.Case;
 import maps.Mat;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.state.StateBasedGame;
+
 import java.util.List;
 import java.util.LinkedList;
 
 
 public abstract class Displayable {
+	StateBasedGame sbg;
+	GameContainer gc;
+	Graphics g;
 	abstract void appear();
 	abstract void disappear();
 	Vec pos;
-	int id;
+	int id; 	//TODO est ce qu'on a besoin d'un id si on a déj la position?
 	String type;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
@@ -25,10 +32,13 @@ public abstract class Displayable {
 		id=createNewId();
 	}
 	
-	Displayable(String t, Vec p){
+	Displayable(String t, Vec p, StateBasedGame sbg){
 		id=createNewId();
 		type=t;
 		pos=p;
+		this.sbg=sbg;
+		this.gc=sbg.getContainer();
+		this.g=gc.getGraphics();
 	}
 	
 	int createNewId(){

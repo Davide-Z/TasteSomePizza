@@ -1,5 +1,6 @@
 package maps;
 
+import obj.Turret;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -27,9 +28,10 @@ public class Case extends MouseOverArea {
 	private boolean clicked=false;
 	private Map map;
 	private Image image;
+	private Turret turret=null;
 
 	public Case(GUIContext container, StateBasedGame sbg, int x, int y, Map map) throws SlickException{
-	    super(container,new Image("/resources/floorTile.png"),x,y,48,48);
+	    super(container,null,x,y,48,48);
 		this.x=x;
 		this.y=y;
 		interieur=new Rectangle(x+1,y-1,47,47);
@@ -37,7 +39,7 @@ public class Case extends MouseOverArea {
 		this.container=container;
 		this.sbg=sbg;
 		this.map=map;
-		this.image=new Image("/resources/floorTile.png");
+		this.image=null;
 	}
 
 	public void reset(){
@@ -45,21 +47,24 @@ public class Case extends MouseOverArea {
 	}
 	@Override
 	public void render(GUIContext guiContext, Graphics g) {
-	    //g.setColor(Color.white);
-	    //g.fill(interieur);
-	    //g.setColor(Color.darkGray);
-	    //g.setLineWidth(0.2f);
-	    //g.draw(cadre);
-		image.draw(x,y);
+	    g.setColor(Color.white);
+	    g.fill(interieur);
+	    g.setColor(Color.lightGray);
+	    g.setLineWidth(2);
+
+		//image.draw(x+1,y-1);
+		g.draw(cadre);
 
 	}
 
 	@Override
     public void mousePressed(int button, int mx, int my){
 	    over=interieur.contains(mx,my);
-	    if (over&&sbg.getCurrentStateID()==1&&!clicked){
+	    if (over&&sbg.getCurrentStateID()==1&&!clicked){ //Si la souris est sur la case, on est sr l'écran de jeu & si on n'a pas déjà cliqué trop récemment
 	        //TODO:si bouton pressé sur case, ajouter tourelle selectionnée(voir si il faudrait pas faire ça dans une classe à part)
             System.out.println("Case cliquée:"+(1+(this.getX()/48))+"x"+(1+(this.getY()/48)));
+            if(turret==null){
+			}
 		}
 		this.map.addClicked(this);
 		clicked=true;
