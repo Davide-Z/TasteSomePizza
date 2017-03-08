@@ -27,7 +27,7 @@ public class StateButton extends MouseOverArea{
     protected StateBasedGame game;
     protected GameContainer container;
     protected String action;
-    protected String vide="resources/vide.png";
+    protected String vide="src/resources/vide.png";
 
     public StateButton(GUIContext container, StateBasedGame sbg, Image image, int x, int y,String text, String action) throws SlickException {
         super(container, image, x, y);
@@ -44,7 +44,7 @@ public class StateButton extends MouseOverArea{
     }
 
     public StateButton(GUIContext container, StateBasedGame sbg, int x, int y, String text, String action) throws SlickException {
-        super(container, new Image("resources/vide.png"), x, y);
+        super(container, new Image("src/resources/vide.png"), x, y);
         this.x=x;
         this.y=y;
         this.game=sbg;

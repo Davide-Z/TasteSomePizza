@@ -59,7 +59,7 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.container=gc;
         this.game=sbg;
-        InputStream inputStream=ResourceLoader.getResourceAsStream("./resources/fly_n_walk.ttf");
+        InputStream inputStream=ResourceLoader.getResourceAsStream("./src/sources/fly_n_walk.ttf");
         try {
             font=Font.createFont(Font.TRUETYPE_FONT,inputStream);
             font=font.deriveFont(font.getSize()*45f);
@@ -71,10 +71,10 @@ public class MenuState extends BasicGameState {
         }
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
-        imgBouton = new Image("resources/interface/boutonOrange.png");
+        imgBouton = new Image("src/resources/interface/boutonOrange.png");
         startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start");
         exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
-        piz=new SpriteSheet("resources/sprites/Piz.png", 256,256);
+        piz=new SpriteSheet("src/resources/sprites/Piz.png", 256,256);
         animPiz= new Animation(piz,75);
     }
 
