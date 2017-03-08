@@ -1,6 +1,7 @@
 package obj;
 import maps.Vec;
-import org.newdawn.slick.state.StateBasedGame;;import javax.swing.plaf.nimbus.State;
+import org.newdawn.slick.state.StateBasedGame;
+import javax.swing.plaf.nimbus.State;
 
 public class Enemy extends Displayable{
 	
@@ -12,7 +13,7 @@ public class Enemy extends Displayable{
 		this.path = path;
 		this.posInPath = posInPath;
 		this.points = points;
-		EnemiesAlive.add(this);
+		enemiesAlive.add(this);
 	}
 
 	//Attributs;
