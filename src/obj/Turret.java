@@ -15,24 +15,31 @@ public class Turret extends Displayable{
 	long fireRate;
 	int level;
 	boolean upgrade;
-	// Ce qui n'�tait pas dans l'UML :
+	StateBasedGame sbg;
+	GameContainer gc;
+	Graphics g;
+	// Ce qui n'etait pas dans l'UML :
 	String projectileType;
 	long lastFire=System.currentTimeMillis();
-	int idEnemy; // Ennemi � cibler
+	int idEnemy; // Ennemi a cibler
 	int upgradePrice;
 	
 	Turret(String t, Vec p, StateBasedGame sbg){
 		super(t, p, sbg);
 		type=t;
 		id=createNewId();
-		TurretsAlive.add(this);
-	}
+		this.sbg=sbg;
+		this.gc=sbg.getContainer();
+		this.g=gc.getGraphics();
+		turretsAlive.add(this);
+		turretsAlive.add(this);
+		}
 	
 	void fire(){
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		if( searchEnemy()!=null	&&	canFire() ){
-			Projectile p=new Projectile(searchEnemy(), this); // On cr�e un nouveau projectile
-			lastFire=System.currentTimeMillis();		// On met � jour l'heure du dernier tir
+			Projectile p=new Projectile(searchEnemy(), this); // On cree un nouveau projectile
+			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 		}
 	}
 	
@@ -50,7 +57,11 @@ public class Turret extends Displayable{
 
 	void upgrade(){
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
-	}
+		level++;
+		sellPrice+=0.8*buyPrice;
+		upgradePrice*=1.3;
+		fireRate*=1.1;
+		}
 	
 	Enemy searchEnemy(){
 		// En supposant que le type Vec soit un tableau de int de la forme pos.x et pos.y
@@ -58,7 +69,7 @@ public class Turret extends Displayable{
 		int y;
 		
 		// On parcourt la liste des ennemies sur le terrain, s'ils sont a distance on renvoit leur id
-		for(Enemy e : EnemiesAlive){
+		for(Enemy e : enemiesAlive){
 			x=e.pos.getX();
 			y=e.pos.getY();
 			if( (x-pos.getX())*(x-pos.getX()) + (y-pos.getY())*(y-pos.getY()) 	<	range*range){	// Si l'ennemi est a bonne distance
