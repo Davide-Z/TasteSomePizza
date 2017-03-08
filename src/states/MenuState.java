@@ -59,7 +59,7 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.container=gc;
         this.game=sbg;
-        InputStream inputStream=ResourceLoader.getResourceAsStream("./src/sources/fly_n_walk.ttf");
+        InputStream inputStream=ResourceLoader.getResourceAsStream("./src/resources/fly_n_walk.ttf");
         try {
             font=Font.createFont(Font.TRUETYPE_FONT,inputStream);
             font=font.deriveFont(font.getSize()*45f);
