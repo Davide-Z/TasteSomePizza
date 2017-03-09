@@ -1,17 +1,23 @@
 package obj;
 import maps.Vec;
+import maps.Map;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.util.LinkedList;
+
 import javax.swing.plaf.nimbus.State;
 
 public class Enemy extends Displayable{
 	
-	public Enemy(String t, Vec p, int speed, int damage, int hp, Vec[] path, int posInPath, int points, StateBasedGame sbg) {
-		super(t, p, sbg);
+	public Enemy(String t, int speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map) {
+		super(t, sbg);
+		this.actualMap = map;
+		this.posInPath = 0;
+		this.pos = actualMap.spawn;
 		this.speed = speed;
 		this.damage = damage;
 		this.hp = hp;
 		this.path = path;
-		this.posInPath = posInPath;
 		this.points = points;
 		enemiesAlive.add(this);
 	}
@@ -20,7 +26,7 @@ public class Enemy extends Displayable{
 	private int speed;
 	private int damage;
 	private int hp;
-	private Vec[] path;
+	private LinkedList<Vec> path;
 	private int posInPath;
 	private int points;
 	
@@ -41,13 +47,13 @@ public class Enemy extends Displayable{
 	}
 	
 	public void move(){
-		if (this.posInPath+this.speed<=this.path.length){	//la position ne depasse pas la taille de la liste des positions
+		if (this.posInPath+this.speed<=this.path.size()){	//la position ne depasse pas la taille de la liste des positions
 			this.posInPath+=this.speed;
 		}
 		else {	//si on arrive a la fin
-			this.posInPath=this.path.length;
+			this.posInPath=this.path.size();
 		}
-		this.pos=this.path[this.posInPath];
+		this.pos=this.path.get(this.posInPath);
 
 	}
 	

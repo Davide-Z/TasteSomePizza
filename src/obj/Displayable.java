@@ -32,6 +32,15 @@ public abstract class Displayable {
 		id=createNewId();
 	}
 	
+
+	Displayable(String t, StateBasedGame sbg){
+		id=createNewId();
+		type=t;
+		this.sbg=sbg;
+		this.gc=sbg.getContainer();
+		this.g=gc.getGraphics();
+	}
+	
 	Displayable(String t, Vec p, StateBasedGame sbg){
 		id=createNewId();
 		type=t;

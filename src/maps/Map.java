@@ -7,6 +7,7 @@ import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by tic-tac on 15/02/17.
@@ -35,6 +36,11 @@ public class Map {
                 cases[i][j]=new Case(gc, sbg, 1+(int)(i*720/taille), 1+(int)(j*720/taille),this);
             }
         }
+        
+        spawn = new Vec(0, 300);
+        posBase = new Vec(1000, 300);
+        baseHP = 100;
+        
     }
 
     public void render() {
@@ -61,5 +67,17 @@ public class Map {
             clickedCases.remove(i);
         }
     }
+    
+    public LinkedList<Vec> computePath(){
+		//TODO
+		LinkedList<Vec> path = new LinkedList<>();
+		int x = this.spawn.getX();
+		int y = this.spawn.getY();
+		while (x<this.posBase.getX()) {
+			x++;
+			path.add(new Vec(x, y));
+		}
+		return path;
+	}
 
 }

@@ -1,7 +1,12 @@
 package states;
 
+
 import gui.StateButton;
 import maps.Map;
+import obj.*;
+
+import java.util.LinkedList;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -28,6 +33,9 @@ public class MainGameState extends BasicGameState {
     float mouseX;
     float mouseY;
     Map map;
+    
+    //Dav test
+    Wave wave;
 
     /**
      * Renvoie l'ID de cette vue
@@ -54,6 +62,13 @@ public class MainGameState extends BasicGameState {
         alpha=turret.getRotation();
         stateButton = new StateButton(container, sbg, winWidth-201,winHeight-51, "Menu principal", "menu");
         map=new Map(gc, sbg, 15);
+        
+        
+        
+
+        //Dav test        
+        wave = new Wave(3, map, sbg, gc);
+
     }
 
     /**
@@ -86,6 +101,16 @@ public class MainGameState extends BasicGameState {
         g.setColor(Color.black);
 
         g.drawString("Carte",3, 3);
+        
+        
+        //Dav test
+        g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
+        g.drawString("HP : "+map.baseHP, 3, 40);
+        g.drawString("Number of unspawned enemies : "+wave.unspawnedEnemies.size(), 3, 60);
+        for (Enemy e : wave.aliveEnemies) {
+        	//g.drawString("o", e.getPos().getX(), e.getPos().getY());
+        	turret.draw(e.getPos().getX(), e.getPos().getY());
+        }
     }
 
     /**
@@ -99,6 +124,10 @@ public class MainGameState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         alpha=(float)((Math.atan2((mouseX+184-winWidth),-(mouseY+32-winHeight/2))*360/(2*Math.PI)));
         map.resetClicked();
+        
+        //Dav test
+        wave.spawn();
+        wave.aliveEnemiesUpdate();
     }
 
     /**
