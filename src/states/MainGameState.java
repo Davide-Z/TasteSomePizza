@@ -48,7 +48,7 @@ public class MainGameState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.game=sbg;
         this.container=gc;
-        turret=new Image("resources/sprites/cook.png");
+        turret=new Image("src/resources/sprites/cook.png");
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
         alpha=turret.getRotation();
