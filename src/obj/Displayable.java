@@ -24,8 +24,8 @@ public abstract class Displayable {
 	String type;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
-	List<Turret> turretsAlive=new LinkedList<Turret>();
-	List<Enemy> enemiesAlive=new LinkedList<Enemy>();
+	List<Turret> turretsAlive=new LinkedList<Turret>(); //Dav, je pense que ces listes ne devraient pas etre dans cette interface parce que on est entrain d'encapsuler les classes
+	List<Enemy> enemiesAlive=new LinkedList<Enemy>(); //Dav, genre à la fin chaque ennemi aura comme attribut la liste d'ennemis
 	List<Projectile> projectilesAlive=new LinkedList<Projectile>();
 	
 	Displayable(){

@@ -24,7 +24,7 @@ public class Enemy extends Displayable{
 	private int posInPath;
 	private int points;
 	
-	void attack(){
+	public void attack(){
 		if (pos.equals(actualMap.posBase)){
 			if (actualMap.baseHP-damage>0){
 				actualMap.baseHP-=damage;	//damage
@@ -40,7 +40,7 @@ public class Enemy extends Displayable{
 		return (this.hp>0);
 	}
 	
-	void move(){
+	public void move(){
 		if (this.posInPath+this.speed<=this.path.length){	//la position ne depasse pas la taille de la liste des positions
 			this.posInPath+=this.speed;
 		}
@@ -76,4 +76,5 @@ public class Enemy extends Displayable{
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
 }
