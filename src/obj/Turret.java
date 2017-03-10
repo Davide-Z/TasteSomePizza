@@ -81,6 +81,13 @@ public class Turret extends Displayable{
 		return null;
 	}
 	
+	public float amingAt() { //direction of the turret 
+		Enemy aimedEnemy = searchEnemy();
+		if (aimedEnemy != null) {
+			return (float) (Math.PI/2 - aimedEnemy.pos.getAngle() - this.pos.getAngle());
+		}
+		else return (float) -Math.PI/2;
+	}
 	
 	// getters and setters :
 	public String getType() {

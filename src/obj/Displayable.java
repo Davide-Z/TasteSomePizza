@@ -22,6 +22,7 @@ public abstract class Displayable {
 	Vec pos;
 	int id; 	//TODO est ce qu'on a besoin d'un id si on a déj la position?
 	String type;
+	int typeId;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
 	List<Turret> turretsAlive=new LinkedList<Turret>(); //Dav, je pense que ces listes ne devraient pas etre dans cette interface parce que on est entrain d'encapsuler les classes
@@ -68,5 +69,8 @@ public abstract class Displayable {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public int getTypeId() {
+		return typeId;
 	}
 }
