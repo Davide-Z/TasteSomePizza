@@ -32,12 +32,11 @@ public class Turret extends Displayable{
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
 		turretsAlive.add(this);
-		turretsAlive.add(this);
 		}
 	
-	void fire(){
+	void update(){
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
-		if( searchEnemy()!=null	&&	canFire() ){
+		if( canFire() && searchEnemy()!=null){
 			Projectile p=new Projectile(searchEnemy(), this); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 		}
@@ -58,7 +57,7 @@ public class Turret extends Displayable{
 	void upgrade(){
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
 		level++;
-		sellPrice+=0.8*buyPrice;
+		sellPrice+=0.8*upgradePrice;
 		upgradePrice*=1.3;
 		fireRate*=1.1;
 		}

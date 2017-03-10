@@ -28,19 +28,50 @@ public class Projectile extends Displayable{
 		
 	}
 	
-	void move(){
-	}
-	/*
-	void hit(Enemy cible){
-		if(cible.getHp()-damage>0){
-			cible.setHp(cible.getHp()-damage);
+	boolean move(Vec pos){
+		// return true if projectile arrived at the position pos
+		
+		// The projectile will move forward of a distance speed
+		// The trajectory will be a line between target position pos
+		// and projectile current position
+		int distance=distance(pos, getPos());
+		
+		//If the target is closer than speed, then projectile is immediately put on the location of the target
+		if(distance<speed){
+			getPos().setX(pos.getX());
+			getPos().setY(pos.getY());
+			return true;
 		}
 		else{
-			cible.disappear();
+			int x=getPos().getX(); // initial position of the projectile
+			int y=getPos().getY();
+
+			int moveX=speed*(pos.getX()-getPos().getX())/distance;
+			int moveY=speed*(pos.getY()-getPos().getY())/distance;
+			
+			getPos().setX(x+moveX);
+			getPos().setY(y+moveY);
+			
+			return false;
 		}
-		this.disappear();
 	}
-	*/
+	
+	void update(){
+		if(target.isAlive()==false){
+			disappear();
+		}
+		else{
+			if(move(target.getPos())){	// return true if the projectile hits the enemy
+				hit(target);
+			}
+		}
+	}
+	
+	void hit(Enemy tgt){
+		tgt.setHp(tgt.getHp()-damage); // damage are made, if the enemy isn't alive after, it doesn't matter
+		this.disappear(true); // true because hit the enemy
+	}
+	
 	public String getType() {
 		return type;
 	}
