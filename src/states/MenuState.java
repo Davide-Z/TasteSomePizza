@@ -39,6 +39,7 @@ public class MenuState extends BasicGameState {
     Font font;
     TrueTypeFont ttf;
 
+    Sound sound;
 
     /**
      * Renvoie l'ID de cette vue
@@ -76,6 +77,7 @@ public class MenuState extends BasicGameState {
         exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
         piz=new SpriteSheet("src/resources/sprites/Piz.png", 256,256);
         animPiz= new Animation(piz,75);
+
     }
 
     /**

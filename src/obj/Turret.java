@@ -4,6 +4,8 @@ package obj;
 import maps.Vec;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameStates;
 
@@ -15,26 +17,21 @@ public class Turret extends Displayable{
 	long fireRate;
 	int level;
 	boolean upgrade;
-	StateBasedGame sbg;
-	GameContainer gc;
-	Graphics g;
 	// Ce qui n'etait pas dans l'UML :
 	String projectileType;
 	long lastFire=System.currentTimeMillis();
 	int idEnemy; // Ennemi a cibler
 	int upgradePrice;
+	Image sprite;
 	
 	Turret(String t, Vec p, StateBasedGame sbg){
 		super(t, p, sbg);
-		type=t;
-		id=createNewId();
-		this.sbg=sbg;
-		this.gc=sbg.getContainer();
-		this.g=gc.getGraphics();
 		turretsAlive.add(this);
 		turretsAlive.add(this);
 		}
-	
+	void init() throws SlickException {
+		sprite = new Image("src/resources/sprites/cook.png");
+	}
 	void fire(){
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		if( searchEnemy()!=null	&&	canFire() ){
