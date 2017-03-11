@@ -1,17 +1,17 @@
 package obj;
 //Author : Flo
-
+import maps.Vec;
 
 public class Projectile extends Displayable{
 	int speed;
 	int damage;
 	Turret motherTurret;
-	Enemy cible;
+	Enemy target;
 	//Listes des ennemis en vie + leur nombre
 	
 	Projectile(Enemy enemy, Turret mt){
 		super(mt.projectileType, mt.getPos(), mt.sbg);
-		cible=enemy;
+		target=enemy;
 		type=mt.projectileType;
 		motherTurret=mt;
 		this.pos=motherTurret.getPos();
@@ -23,20 +23,16 @@ public class Projectile extends Displayable{
 	void appear(){
 	}
 	
-	@Override
-	void disappear(){
-		
-	}
-	
 	boolean move(Vec pos){
 		// return true if projectile arrived at the position pos
 		
-		// The projectile will move forward of a distance speed
+		// The projectile will move forward of a distance "speed"
 		// The trajectory will be a line between target position pos
 		// and projectile current position
 		int distance=distance(pos, getPos());
 		
-		//If the target is closer than speed, then projectile is immediately put on the location of the target
+		//If the target is closer than speed, then projectile is immediately 
+		// put on the location of the target and return true
 		if(distance<speed){
 			getPos().setX(pos.getX());
 			getPos().setY(pos.getY());
@@ -69,7 +65,7 @@ public class Projectile extends Displayable{
 	
 	void hit(Enemy tgt){
 		tgt.setHp(tgt.getHp()-damage); // damage are made, if the enemy isn't alive after, it doesn't matter
-		this.disappear(true); // true because hit the enemy
+		this.disappear(); // true because hit the enemy
 	}
 	
 	public String getType() {
@@ -99,12 +95,12 @@ public class Projectile extends Displayable{
 		this.motherTurret = motherTurret;
 	}
 
-	public Enemy getCible() {
-		return cible;
+	public Enemy getTarget() {
+		return target;
 	}
 
-	public void setCible(Enemy cible) {
-		this.cible = cible;
+	public void setCible(Enemy tgt) {
+		this.target = tgt;
 	}
 	
 }

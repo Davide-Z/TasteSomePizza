@@ -55,6 +55,7 @@ public class Turret extends Displayable{
 	}
 
 	void upgrade(){
+		// It is just a first idea, i'll modify it later
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
 		level++;
 		sellPrice+=0.8*upgradePrice;
@@ -71,7 +72,7 @@ public class Turret extends Displayable{
 		for(Enemy e : enemiesAlive){
 			x=e.pos.getX();
 			y=e.pos.getY();
-			if( (x-pos.getX())*(x-pos.getX()) + (y-pos.getY())*(y-pos.getY()) 	<	range*range){	// Si l'ennemi est a bonne distance
+			if( distance(this.getPos(), e.getPos())	<	range*range){	// Si l'ennemi est a bonne distance
 				return e;
 			}
 		}
@@ -153,11 +154,6 @@ public class Turret extends Displayable{
 	}
 	@Override
 	void appear() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	void disappear() {
 		// TODO Auto-generated method stub
 		
 	}
