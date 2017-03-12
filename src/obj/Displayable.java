@@ -18,10 +18,10 @@ public abstract class Displayable {
 	GameContainer gc;
 	Graphics g;
 	abstract void appear();
-	abstract void disappear();
 	Vec pos;
 	int id; 	//TODO est ce qu'on a besoin d'un id si on a déj la position?
 	String type;
+	int typeId;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
 	List<Turret> turretsAlive=new LinkedList<Turret>(); //Dav, je pense que ces listes ne devraient pas etre dans cette interface parce que on est entrain d'encapsuler les classes
@@ -50,6 +50,11 @@ public abstract class Displayable {
 		this.g=gc.getGraphics();
 	}
 	
+	int distance(Vec pos1, Vec pos2){
+		
+		return (int)Math.sqrt(  (double)(pos1.getX()-pos2.getX())*(pos1.getX()-pos2.getX())   +(pos1.getY()-pos2.getY())*(pos1.getY()-pos2.getY())         );
+	}
+	
 	int createNewId(){
 		return ++lastId;
 	}
@@ -68,5 +73,21 @@ public abstract class Displayable {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public int getTypeId() {
+		return typeId;
+	}
+	
+	void disappear(){
+		// remove the object of the corresponding linkedList
+		if(this instanceof Turret){
+			turretsAlive.remove(this);
+		}
+		else if(this instanceof Enemy){
+			enemiesAlive.remove(this);
+		}
+		else if(this instanceof Projectile){
+			projectilesAlive.remove(this);
+		}
 	}
 }

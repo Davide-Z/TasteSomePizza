@@ -4,8 +4,6 @@ package obj;
 import maps.Vec;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameStates;
 
@@ -17,24 +15,28 @@ public class Turret extends Displayable{
 	long fireRate;
 	int level;
 	boolean upgrade;
+	StateBasedGame sbg;
+	GameContainer gc;
+	Graphics g;
 	// Ce qui n'etait pas dans l'UML :
 	String projectileType;
 	long lastFire=System.currentTimeMillis();
 	int idEnemy; // Ennemi a cibler
 	int upgradePrice;
-	Image sprite;
 	
 	Turret(String t, Vec p, StateBasedGame sbg){
 		super(t, p, sbg);
-		turretsAlive.add(this);
+		type=t;
+		id=createNewId();
+		this.sbg=sbg;
+		this.gc=sbg.getContainer();
+		this.g=gc.getGraphics();
 		turretsAlive.add(this);
 		}
-	void init() throws SlickException {
-		sprite = new Image("src/resources/sprites/cook.png");
-	}
-	void fire(){
+	
+	void update(){
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
-		if( searchEnemy()!=null	&&	canFire() ){
+		if( canFire() && searchEnemy()!=null){
 			Projectile p=new Projectile(searchEnemy(), this); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 		}
@@ -53,9 +55,10 @@ public class Turret extends Displayable{
 	}
 
 	void upgrade(){
+		// It is just a first idea, i'll modify it later
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
 		level++;
-		sellPrice+=0.8*buyPrice;
+		sellPrice+=0.8*upgradePrice;
 		upgradePrice*=1.3;
 		fireRate*=1.1;
 		}
@@ -69,7 +72,7 @@ public class Turret extends Displayable{
 		for(Enemy e : enemiesAlive){
 			x=e.pos.getX();
 			y=e.pos.getY();
-			if( (x-pos.getX())*(x-pos.getX()) + (y-pos.getY())*(y-pos.getY()) 	<	range*range){	// Si l'ennemi est a bonne distance
+			if( distance(this.getPos(), e.getPos())	<	range*range){	// Si l'ennemi est a bonne distance
 				return e;
 			}
 		}
@@ -78,6 +81,13 @@ public class Turret extends Displayable{
 		return null;
 	}
 	
+	public float amingAt() { //direction of the turret 
+		Enemy aimedEnemy = searchEnemy();
+		if (aimedEnemy != null) {
+			return (float) (Math.PI/2 - aimedEnemy.pos.getAngle() - this.pos.getAngle());
+		}
+		else return (float) -Math.PI/2;
+	}
 	
 	// getters and setters :
 	public String getType() {
@@ -144,11 +154,6 @@ public class Turret extends Displayable{
 	}
 	@Override
 	void appear() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	void disappear() {
 		// TODO Auto-generated method stub
 		
 	}

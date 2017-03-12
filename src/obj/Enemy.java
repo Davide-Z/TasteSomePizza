@@ -65,6 +65,7 @@ public class Enemy extends Displayable{
 	@Override
 	void disappear(){
 		this.hp=0;
+		super.disappear();
 	}
 
 	public int getHp() {
