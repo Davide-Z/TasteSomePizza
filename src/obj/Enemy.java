@@ -47,11 +47,11 @@ public class Enemy extends Displayable{
 	}
 	
 	public void move(){
-		if (this.posInPath+this.speed<=this.path.size()){	//la position ne depasse pas la taille de la liste des positions
+		if (this.posInPath+this.speed<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
 			this.posInPath+=this.speed;
 		}
 		else {	//si on arrive a la fin
-			this.posInPath=this.path.size();
+			this.posInPath=this.path.size()-1;
 		}
 		this.pos=this.path.get(this.posInPath);
 

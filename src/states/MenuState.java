@@ -76,6 +76,7 @@ public class MenuState extends BasicGameState {
         exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
         piz=new SpriteSheet("src/resources/sprites/Piz.png", 256,256);
         animPiz= new Animation(piz,75);
+        //animPiz = new Animation(piz,new int[] {2,1},new int[] {75,75});
     }
 
     /**

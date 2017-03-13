@@ -64,7 +64,7 @@ public class Wave {
 		LinkedList<Enemy> enemies = new LinkedList<Enemy>();
         LinkedList<Integer> d = new LinkedList<Integer>();
         for (int i=0; i<n; i++) {
-        	enemies.add(new Enemy("a", 1, 5, 10, actualMap.computePath(), 1, sbg, actualMap));
+        	enemies.add(new Enemy("a", 2, 5, 10, actualMap.computePath(), 1, sbg, actualMap));
         	d.add(300);
         }
         this.gc=gc;

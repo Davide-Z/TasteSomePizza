@@ -55,6 +55,7 @@ public class Trace {
 	
 	void enemy(Enemy e) { // direction of the enemy ???
 		//TODO
+		
 	}
 	
 	void turret(Turret t) { //draw the turret t
