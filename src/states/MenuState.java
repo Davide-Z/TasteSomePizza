@@ -39,6 +39,7 @@ public class MenuState extends BasicGameState {
     Font font;
     TrueTypeFont ttf;
 
+    Sound sound;
 
     /**
      * Renvoie l'ID de cette vue

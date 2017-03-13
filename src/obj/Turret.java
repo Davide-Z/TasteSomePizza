@@ -15,9 +15,6 @@ public class Turret extends Displayable{
 	long fireRate;
 	int level;
 	boolean upgrade;
-	StateBasedGame sbg;
-	GameContainer gc;
-	Graphics g;
 	// Ce qui n'etait pas dans l'UML :
 	String projectileType;
 	long lastFire=System.currentTimeMillis();
@@ -27,17 +24,12 @@ public class Turret extends Displayable{
 	Turret(String t, Vec p, StateBasedGame sbg){
 		super(t, p, sbg);
 		type=t;
-		id=createNewId();
-		this.sbg=sbg;
-		this.gc=sbg.getContainer();
-		this.g=gc.getGraphics();
-		turretsAlive.add(this);
 		turretsAlive.add(this);
 		}
 	
-	void fire(){
+	void update(){
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
-		if( searchEnemy()!=null	&&	canFire() ){
+		if( canFire() && searchEnemy()!=null){
 			Projectile p=new Projectile(searchEnemy(), this); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 		}
@@ -56,9 +48,10 @@ public class Turret extends Displayable{
 	}
 
 	void upgrade(){
+		// It is just a first idea, i'll modify it later
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
 		level++;
-		sellPrice+=0.8*buyPrice;
+		sellPrice+=0.8*upgradePrice;
 		upgradePrice*=1.3;
 		fireRate*=1.1;
 		}
@@ -72,7 +65,7 @@ public class Turret extends Displayable{
 		for(Enemy e : enemiesAlive){
 			x=e.pos.getX();
 			y=e.pos.getY();
-			if( (x-pos.getX())*(x-pos.getX()) + (y-pos.getY())*(y-pos.getY()) 	<	range*range){	// Si l'ennemi est a bonne distance
+			if( distance(this.getPos(), e.getPos())	<	range*range){	// Si l'ennemi est a bonne distance
 				return e;
 			}
 		}
@@ -154,11 +147,6 @@ public class Turret extends Displayable{
 	}
 	@Override
 	void appear() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	void disappear() {
 		// TODO Auto-generated method stub
 		
 	}

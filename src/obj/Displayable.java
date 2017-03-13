@@ -18,7 +18,6 @@ public abstract class Displayable {
 	GameContainer gc;
 	Graphics g;
 	abstract void appear();
-	abstract void disappear();
 	Vec pos;
 	int id; 	//TODO est ce qu'on a besoin d'un id si on a déj la position?
 	String type;
@@ -51,6 +50,11 @@ public abstract class Displayable {
 		this.g=gc.getGraphics();
 	}
 	
+	int distance(Vec pos1, Vec pos2){
+		
+		return (int)Math.sqrt(  (double)(pos1.getX()-pos2.getX())*(pos1.getX()-pos2.getX())   +(pos1.getY()-pos2.getY())*(pos1.getY()-pos2.getY())         );
+	}
+	
 	int createNewId(){
 		return ++lastId;
 	}
@@ -72,5 +76,18 @@ public abstract class Displayable {
 	}
 	public int getTypeId() {
 		return typeId;
+	}
+	
+	void disappear(){
+		// remove the object of the corresponding linkedList
+		if(this instanceof Turret){
+			turretsAlive.remove(this);
+		}
+		else if(this instanceof Enemy){
+			enemiesAlive.remove(this);
+		}
+		else if(this instanceof Projectile){
+			projectilesAlive.remove(this);
+		}
 	}
 }

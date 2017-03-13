@@ -16,18 +16,19 @@ import java.awt.Font;
  * Created by tic-tac on 14/02/17.
  */
 public class StateButton extends MouseOverArea{
-    protected int width;
-    protected int height;
-    protected int x;
-    protected int y;
-    protected boolean over;
-    protected String text;
-    protected Shape hitbox;
-    protected Image image;
-    protected StateBasedGame game;
-    protected GameContainer container;
-    protected String action;
-    protected String vide="src/resources/vide.png";
+
+    private int width;
+    private int height;
+    private int x;
+    private int y;
+    private boolean over;
+    private String text;
+    private Shape hitbox;
+    private Image image;
+    private StateBasedGame game;
+    private GameContainer container;
+    private String action;
+    private String vide="src/resources/vide.png";
 
     public StateButton(GUIContext container, StateBasedGame sbg, Image image, int x, int y,String text, String action) throws SlickException {
         super(container, image, x, y);

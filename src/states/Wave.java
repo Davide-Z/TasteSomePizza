@@ -44,7 +44,7 @@ public class Wave {
 		}
 	}
 	
-	void aliveEnemiesUpdate(){ //remove, move, attack
+	void aliveEnemiesUpdate(int i){ //remove, move, attack
 		if (aliveEnemies.size() != 0) {
 			Object aliveEnemiesCopie = aliveEnemies.clone(); //Solution to concurrency problem
 			for (Enemy e : (LinkedList<Enemy>) aliveEnemiesCopie) {
@@ -52,7 +52,7 @@ public class Wave {
 					aliveEnemies.remove(e);
 				}
 				else {
-					e.move(); //move alive enemies
+					e.move(i); //move alive enemies
 					e.attack(); //attack if possible
 				}
 			}
