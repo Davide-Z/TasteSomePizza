@@ -9,7 +9,7 @@ import javax.swing.plaf.nimbus.State;
 
 public class Enemy extends Displayable{
 	
-	public Enemy(String t, int speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map) {
+	public Enemy(String t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map) {
 		super(t, sbg);
 		this.actualMap = map;
 		this.posInPath = 0;
@@ -23,7 +23,7 @@ public class Enemy extends Displayable{
 	}
 
 	//Attributs;
-	private int speed;
+	private double speed;
 	private int damage;
 	private int hp;
 	private LinkedList<Vec> path;
@@ -46,12 +46,12 @@ public class Enemy extends Displayable{
 		return (this.hp>0);
 	}
 	
-	public void move(){
-		if (this.posInPath+this.speed<=this.path.size()){	//la position ne depasse pas la taille de la liste des positions
-			this.posInPath+=this.speed;
+	public void move(int i){
+		if (this.posInPath+this.speed*i<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
+			this.posInPath+=this.speed*i;
 		}
 		else {	//si on arrive a la fin
-			this.posInPath=this.path.size();
+			this.posInPath=this.path.size()-1;
 		}
 		this.pos=this.path.get(this.posInPath);
 

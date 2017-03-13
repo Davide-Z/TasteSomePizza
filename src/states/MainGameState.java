@@ -62,12 +62,11 @@ public class MainGameState extends BasicGameState {
         alpha=turret.getRotation();
         stateButton = new StateButton(container, sbg, winWidth-201,winHeight-51, "Menu principal", "menu");
         map=new Map(gc, sbg, 15);
-        
-        
-        
+
+
 
         //Dav test        
-        wave = new Wave(3, map, sbg, gc);
+        wave = new Wave(56, map, sbg, gc);
 
     }
 
@@ -127,7 +126,7 @@ public class MainGameState extends BasicGameState {
         
         //Dav test
         wave.spawn();
-        wave.aliveEnemiesUpdate();
+        wave.aliveEnemiesUpdate(i);
     }
 
     /**
