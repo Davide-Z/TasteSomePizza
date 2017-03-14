@@ -46,6 +46,7 @@ public class Enemy extends Displayable{
 		return (this.hp>0);
 	}
 	
+
 	public void move(int i){
 		if (this.posInPath+this.speed*i<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
 			this.posInPath+=this.speed*i;
