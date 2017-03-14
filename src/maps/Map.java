@@ -9,6 +9,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+
+//TODO: Méthode plus légit(moins dépendante de slick) pour écouter les inputs (Jpanels, mouselisteners, canvas...)
 /**
  * Created by tic-tac on 15/02/17.
  */
