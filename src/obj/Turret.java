@@ -20,6 +20,7 @@ public class Turret extends Displayable{
 	long lastFire=System.currentTimeMillis();
 	int idEnemy; // Ennemi a cibler
 	int upgradePrice;
+	Enemy lastEnemy=null;
 	
 	Turret(String t, Vec p, StateBasedGame sbg){
 		super(t, p, sbg);
@@ -28,10 +29,21 @@ public class Turret extends Displayable{
 		}
 	
 	void update(){
+		Enemy e=null; // will be the target, if it exists
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
-		if( canFire() && searchEnemy()!=null){
-			Projectile p=new Projectile(searchEnemy(), this); // On cree un nouveau projectile
+		if( canFire() && (e=searchEnemy())!=null){
+			Projectile p=new Projectile(e, this); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
+			lastEnemy=e;
+		}
+		// In order to let the tower aim at the direction of the lastEnemy
+		else if(lastEnemy!=null){
+			if(lastEnemy.isAlive()==true){
+				aimingAt(lastEnemy.getPos());
+			}
+			else{
+				lastEnemy=null;
+			}
 		}
 	}
 	
@@ -65,7 +77,7 @@ public class Turret extends Displayable{
 		for(Enemy e : enemiesAlive){
 			x=e.pos.getX();
 			y=e.pos.getY();
-			if( distance(this.getPos(), e.getPos())	<	range*range){	// Si l'ennemi est a bonne distance
+			if( this.getPos().distance(e.getPos())	<	range*range){	// Si l'ennemi est a bonne distance
 				return e;
 			}
 		}
@@ -74,13 +86,17 @@ public class Turret extends Displayable{
 		return null;
 	}
 	
-	public float amingAt() { //direction of the turret 
+	public float aimingAt(Vec pos) { //direction of the turret 
+		return (float) (Math.PI/2 - pos.getAngle() - this.pos.getAngle());
+	}
+	
+	/*public float amingAt() { //direction of the turret 
 		Enemy aimedEnemy = searchEnemy();
 		if (aimedEnemy != null) {
 			return (float) (Math.PI/2 - aimedEnemy.pos.getAngle() - this.pos.getAngle());
 		}
 		else return (float) -Math.PI/2;
-	}
+	}*/
 	
 	// getters and setters :
 	public String getType() {
