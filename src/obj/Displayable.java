@@ -50,10 +50,7 @@ public abstract class Displayable {
 		this.g=gc.getGraphics();
 	}
 	
-	int distance(Vec pos1, Vec pos2){
-		
-		return (int)Math.sqrt(  (double)(pos1.getX()-pos2.getX())*(pos1.getX()-pos2.getX())   +(pos1.getY()-pos2.getY())*(pos1.getY()-pos2.getY())         );
-	}
+	
 	
 	int createNewId(){
 		return ++lastId;

@@ -25,6 +25,10 @@ public class Vec {
         this.setCart();
     }
 
+    public int distance(Vec pos){
+		return (int)Math.sqrt(  (double)(this.getX()-pos.getX())*(this.getX()-pos.getX())   +(this.getY()-pos.getY())*(this.getY()-pos.getY())         );
+	}
+    
     public int getX() {
         return x;
     }

@@ -29,7 +29,7 @@ public class Projectile extends Displayable{
 		// The projectile will move forward of a distance "speed"
 		// The trajectory will be a line between target position pos
 		// and projectile current position
-		int distance=distance(pos, getPos());
+		int distance=this.getPos().distance(pos);
 		
 		//If the target is closer than speed, then projectile is immediately 
 		// put on the location of the target and return true
