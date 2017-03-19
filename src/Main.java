@@ -8,6 +8,7 @@ import states.GameStates;
  */
 public class Main{
 	public static void main(String[] args) throws SlickException {
+		//System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir")+"/src/libs");
 		StateBasedGame game=new GameStates("Taste Some Pizza !");
 		AppGameContainer app = new AppGameContainer(game, 1024,720,false);
 		app.setShowFPS(false);

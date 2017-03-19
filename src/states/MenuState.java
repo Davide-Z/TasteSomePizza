@@ -1,20 +1,19 @@
 package states;
 
+import gui.FileLoader;
+import gui.ImageLoader;
 import gui.StateButton;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 
 import java.awt.*;
 import java.awt.Font;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URISyntaxException;
 
 /**
  * Vue du menu principal, avec un bouton pour entrer en jeu, un pour quitter, et un pour les réglages
@@ -38,8 +37,8 @@ public class MenuState extends BasicGameState {
     int winWidth;
     Font font;
     TrueTypeFont ttf;
-
-    Sound sound;
+    FileLoader linkLoader;
+    ImageLoader imageLoader;
 
     /**
      * Renvoie l'ID de cette vue
@@ -60,24 +59,28 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.container=gc;
         this.game=sbg;
-        InputStream inputStream=ResourceLoader.getResourceAsStream("./src/resources/fly_n_walk.ttf");
+        linkLoader=new FileLoader();
+        imageLoader=new ImageLoader();
+        //InputStream inputStream=ResourceLoader.getResourceAsStream("./src/resources/fly_n_walk.ttf");
+        InputStream inputStream= null;
+        inputStream = linkLoader.getRes("resources/fly_n_walk.ttf");
+        System.out.println(inputStream);
+
+        winHeight=gc.getHeight();
+        winWidth=gc.getWidth();
+
         try {
             font=Font.createFont(Font.TRUETYPE_FONT,inputStream);
             font=font.deriveFont(font.getSize()*45f);
             ttf=new TrueTypeFont(font, true);
-        } catch (FontFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            imgBouton=imageLoader.getImage("resources/interface/boutonOrange.png");
+            piz=new SpriteSheet(imageLoader.getImage("resources/sprites/Piz.png"), 256,256);
+        } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
         }
-        winHeight=gc.getHeight();
-        winWidth=gc.getWidth();
-        imgBouton = new Image("src/resources/interface/boutonOrange.png");
         startButton = new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start");
         exitButton=new StateButton(gc, game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
-        piz=new SpriteSheet("src/resources/sprites/Piz.png", 256,256);
         animPiz= new Animation(piz,75);
-        //animPiz = new Animation(piz,new int[] {2,1},new int[] {75,75});
     }
 
     /**
@@ -117,7 +120,6 @@ public class MenuState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        Input input= gc.getInput();
     }
 
     /**

@@ -60,13 +60,13 @@ public class Trace {
 	
 	void turret(Turret t) { //draw the turret t
 		Image currentImage = turretImage.get(t.getTypeId()).copy();
-		currentImage.setRotation(t.amingAt()); //set angle
+		currentImage.setRotation(t.aimingAt(new Vec(0,0))); //set angle
 		currentImage.draw(t.getPos().getX(), t.getPos().getY(), 48, 48); //size 48 same as cases
 	}
 	
 	void projectile(Projectile p) {
 		Image currentImage = projectileImage.get(p.getTypeId()).copy();
-		currentImage.setRotation(p.getMotherTurret().amingAt()); //set angle same as the mother turret
+		currentImage.setRotation(p.getMotherTurret().aimingAt(new Vec(0,0))); //set angle same as the mother turret
 		currentImage.draw(p.getPos().getX(), p.getPos().getY(), 32, 32); //size 32
 	}
 

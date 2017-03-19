@@ -1,10 +1,13 @@
 package states;
 
 
+import gui.ImageLoader;
 import gui.StateButton;
 import maps.Map;
 import obj.*;
 
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 
 import org.newdawn.slick.*;
@@ -23,6 +26,7 @@ public class MainGameState extends BasicGameState {
     //Attributs du moteur
     private GameContainer container;
     private StateBasedGame game;
+    private ImageLoader imageLoader;
 
     //Attributs d'interface
     Image turret;
@@ -56,14 +60,20 @@ public class MainGameState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.game=sbg;
         this.container=gc;
-        turret=new Image("src/resources/sprites/cook.png");
+        imageLoader=new ImageLoader();
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
-        alpha=turret.getRotation();
-        stateButton = new StateButton(container, sbg, winWidth-201,winHeight-51, "Menu principal", "menu");
+
+        try {
+            turret=imageLoader.getImage("resources/sprites/cook.png");
+            alpha=turret.getRotation();
+            stateButton = new StateButton(container, sbg, imageLoader.getImage("resources/interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
+
+        } catch (URISyntaxException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         map=new Map(gc, sbg, 15);
-
-
 
         //Dav test        
         wave = new Wave(56, map, sbg, gc);

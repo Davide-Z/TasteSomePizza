@@ -28,8 +28,6 @@ public class StateButton extends MouseOverArea{
     private StateBasedGame game;
     private GameContainer container;
     private String action;
-    private String vide="src/resources/vide.png";
-
     public StateButton(GUIContext container, StateBasedGame sbg, Image image, int x, int y,String text, String action) throws SlickException {
         super(container, image, x, y);
         this.image=image;
@@ -44,30 +42,9 @@ public class StateButton extends MouseOverArea{
         this.container=game.getContainer();
     }
 
-    public StateButton(GUIContext container, StateBasedGame sbg, int x, int y, String text, String action) throws SlickException {
-        super(container, new Image("src/resources/vide.png"), x, y);
-        this.x=x;
-        this.y=y;
-        this.game=sbg;
-        image = new Image(vide);
-        this.hitbox = new RoundedRectangle(x,y,200,50,13);
-        this.width=(int)hitbox.getWidth();
-        this.height=(int)hitbox.getHeight();
-        this.action=action;
-        this.text=text;
-        this.container=game.getContainer();
-    }
-
     public void render(Graphics g) {
-        if (image.getResourceReference().matches(vide)) {
-            this.render(container, g);
-            g.setColor(Color.lightGray);
-            g.fill(hitbox);
-            g.setColor(Color.black);
-        } else {
-            this.render(container, g);
-            g.setColor(Color.white);
-        }
+        this.render(container, g);
+        g.setColor(Color.white);
         UnicodeFont font = new UnicodeFont(new Font("Verdana", Font.BOLD, 32), 32, true, false);
         int ttfWidth = font.getWidth(text);
         int ttfHeight = font.getLineHeight();
