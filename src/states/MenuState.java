@@ -26,19 +26,19 @@ public class MenuState extends BasicGameState {
     private StateBasedGame game;
 
     //Paramètres d'interface
-    Image imgBouton;
-    StateButton startButton;
-    StateButton exitButton;
+    private Image imgBouton;
+    private StateButton startButton;
+    private StateButton exitButton;
     private SpriteSheet piz;
     private Animation animPiz;
-    int mouseX;
-    int mouseY;
-    int winHeight;
-    int winWidth;
-    Font font;
-    TrueTypeFont ttf;
-    FileLoader linkLoader;
-    ImageLoader imageLoader;
+    private int mouseX;
+    private int mouseY;
+    private int winHeight;
+    private int winWidth;
+    private Font font;
+    private TrueTypeFont ttf;
+    private FileLoader linkLoader;
+    private ImageLoader imageLoader;
 
     /**
      * Renvoie l'ID de cette vue
@@ -53,7 +53,7 @@ public class MenuState extends BasicGameState {
      * Méthode qui se fait une fois au début, pour initialiser les différents paramètres
      * @param gc Container du jeu
      * @param sbg Le moteur du jeu
-     * @throws SlickException
+     * @throws SlickException exception Interne à Slck
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -64,8 +64,6 @@ public class MenuState extends BasicGameState {
         //InputStream inputStream=ResourceLoader.getResourceAsStream("./src/resources/fly_n_walk.ttf");
         InputStream inputStream= null;
         inputStream = linkLoader.getRes("resources/fly_n_walk.ttf");
-        System.out.println(inputStream);
-
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
 
@@ -88,7 +86,7 @@ public class MenuState extends BasicGameState {
      * @param gc Container du jeu
      * @param sbg Moteur du jeu
      * @param g gestionnaire graphique
-     * @throws SlickException
+     * @throws SlickException exception Interne à Slick
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -116,7 +114,7 @@ public class MenuState extends BasicGameState {
      * @param gc Container du jeu
      * @param sbg Moteur du jeu
      * @param i delta de temps entre deux images
-     * @throws SlickException
+     * @throws SlickException Exception interne à Slick
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
@@ -139,10 +137,10 @@ public class MenuState extends BasicGameState {
 
     /**
      * Méthode donnant les mouvements de la sourie
-     * @param oldX
-     * @param oldY
-     * @param newX
-     * @param newY
+     * @param oldX ancienne X position de la souris
+     * @param oldY ancienne Y position de la souris
+     * @param newX nouvelle X position de la souris
+     * @param newY nouvelle Y position de la souris
      */
     @Override
     public void mouseMoved(int oldX, int oldY, int newX, int newY){
