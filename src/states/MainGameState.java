@@ -2,19 +2,17 @@ package states;
 
 
 import gui.ImageLoader;
-import gui.StateButton;
+import gui.Buttons.StateButton;
 import maps.Map;
 import obj.*;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 

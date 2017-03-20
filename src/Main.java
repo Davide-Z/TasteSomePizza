@@ -1,4 +1,5 @@
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameStates;
@@ -9,8 +10,9 @@ import states.GameStates;
 public class Main{
 	public static void main(String[] args) throws SlickException {
 		//System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir")+"/src/libs");
-		StateBasedGame game=new GameStates("Taste Some Pizza !");
-		AppGameContainer app = new AppGameContainer(game, 1024,720,false);
+		Input.disableControllers();
+		StateBasedGame game=new GameStates("Taste Some Pizza !"); //Gestionnaire de vues
+		AppGameContainer app = new AppGameContainer(game, 1024,720,false); //Fenêtre
 		app.setShowFPS(false);
 		app.setVSync(false);
 		app.start();

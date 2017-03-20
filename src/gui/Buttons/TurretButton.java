@@ -1,4 +1,4 @@
-package gui;
+package gui.Buttons;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.gui.GUIContext;

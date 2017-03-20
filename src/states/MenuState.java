@@ -2,7 +2,7 @@ package states;
 
 import gui.FileLoader;
 import gui.ImageLoader;
-import gui.StateButton;
+import gui.Buttons.StateButton;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -26,13 +26,14 @@ public class MenuState extends BasicGameState {
     private StateBasedGame game;
 
     //Paramètres d'interface
+    private Image backgroundImage;
     private Image imgBouton;
     private StateButton startButton;
     private StateButton exitButton;
     private SpriteSheet piz;
     private Animation animPiz;
-    private int mouseX;
-    private int mouseY;
+    private int x=0;
+    private int y=0;
     private int winHeight;
     private int winWidth;
     private Font font;
@@ -71,6 +72,7 @@ public class MenuState extends BasicGameState {
             font=Font.createFont(Font.TRUETYPE_FONT,inputStream);
             font=font.deriveFont(font.getSize()*45f);
             ttf=new TrueTypeFont(font, true);
+            backgroundImage=imageLoader.getImage("resources/interface/bgi.png");
             imgBouton=imageLoader.getImage("resources/interface/boutonOrange.png");
             piz=new SpriteSheet(imageLoader.getImage("resources/sprites/Piz.png"), 256,256);
         } catch (URISyntaxException | FontFormatException | IOException e) {
@@ -90,20 +92,18 @@ public class MenuState extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setBackground(Color.lightGray);
+        backgroundImage.draw();
         g.setLineWidth(5);
         g.setColor(Color.white);
         startButton.render(g);
         exitButton.render(g);
-        g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
+        g.drawString("X:"+(int)x+"\nY:"+(int)y,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
+        g.setColor(Color.black);
         g.setFont(ttf);
         g.drawString("Taste Some Pizza !", winWidth/2-250, 100);
         if(gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
             g.setColor(Color.white);
-            int x=gc.getInput().getMouseX();
-            int y=gc.getInput().getMouseY();
-
             g.drawRect(x,y,32,32);
         }
         animPiz.draw(155,238);
@@ -118,6 +118,8 @@ public class MenuState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+        x=gc.getInput().getMouseX();
+        y=gc.getInput().getMouseY();
     }
 
     /**
@@ -133,18 +135,5 @@ public class MenuState extends BasicGameState {
         if(key==Input.KEY_SPACE){
             game.enterState(1);
         }
-    }
-
-    /**
-     * Méthode donnant les mouvements de la sourie
-     * @param oldX ancienne X position de la souris
-     * @param oldY ancienne Y position de la souris
-     * @param newX nouvelle X position de la souris
-     * @param newY nouvelle Y position de la souris
-     */
-    @Override
-    public void mouseMoved(int oldX, int oldY, int newX, int newY){
-        mouseX=newX;
-        mouseY=newY;
     }
 }

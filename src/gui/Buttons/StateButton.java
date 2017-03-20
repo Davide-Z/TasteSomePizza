@@ -1,4 +1,4 @@
-package gui;
+package gui.Buttons;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
