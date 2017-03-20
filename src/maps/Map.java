@@ -39,8 +39,8 @@ public class Map {
             }
         }
         
-        spawn = new Vec(0, 300);
-        posBase = new Vec(670, 300);
+        spawn = new Vec(0, 278);
+        posBase = new Vec(670, 278);
         baseHP = 100;
         
     }
