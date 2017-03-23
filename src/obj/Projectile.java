@@ -9,7 +9,7 @@ public class Projectile extends Displayable{
 	Enemy target;
 	//Listes des ennemis en vie + leur nombre
 	
-	Projectile(Enemy enemy, Turret mt){
+	public Projectile(Enemy enemy, Turret mt){
 		super(mt.projectileType, mt.getPos(), mt.sbg);
 		target=enemy;
 		type=mt.projectileType;
@@ -20,10 +20,10 @@ public class Projectile extends Displayable{
 	}
 	
 	@Override
-	void appear(){
+	public void appear(){
 	}
 	
-	boolean move(Vec pos){
+	public boolean move(Vec pos){
 		// return true if projectile arrived at the position pos
 		
 		// The projectile will move forward of a distance "speed"
@@ -52,7 +52,7 @@ public class Projectile extends Displayable{
 		}
 	}
 	
-	void update(){
+	public void update(){
 		if(target.isAlive()==false){
 			disappear();
 		}
@@ -63,7 +63,7 @@ public class Projectile extends Displayable{
 		}
 	}
 	
-	void hit(Enemy tgt){
+	public void hit(Enemy tgt){
 		tgt.setHp(tgt.getHp()-damage); // damage are made, if the enemy isn't alive after, it doesn't matter
 		this.disappear(); // true because hit the enemy
 	}

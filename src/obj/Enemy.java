@@ -59,12 +59,12 @@ public class Enemy extends Displayable{
 	}
 	
 	@Override
-	void appear(){
+	public void appear(){
 		//TODO
 	}
 	
 	@Override
-	void disappear(){
+	public void disappear(){
 		this.hp=0;
 		super.disappear();
 	}

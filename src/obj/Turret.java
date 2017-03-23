@@ -28,18 +28,19 @@ public class Turret extends Displayable{
 		turretsAlive.add(this);
 		}
 	
-	void update(){
+	public void update(){
 		Enemy e=null; // will be the target, if it exists
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		if( canFire() && (e=searchEnemy())!=null){
 			Projectile p=new Projectile(e, this); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 			lastEnemy=e;
+			this.aimedDirection=aimingAt(e.getPos());
 		}
 		// In order to let the tower aim at the direction of the lastEnemy
 		else if(lastEnemy!=null){
 			if(lastEnemy.isAlive()==true){
-				aimingAt(lastEnemy.getPos());
+				this.aimedDirection=aimingAt(lastEnemy.getPos());
 			}
 			else{
 				lastEnemy=null;
@@ -47,19 +48,19 @@ public class Turret extends Displayable{
 		}
 	}
 	
-	boolean canFire(){
+	public boolean canFire(){
 		if(System.currentTimeMillis() - lastFire>fireRate) 
 			return true;
 		else
 			return false;
 	}
 	
-	void sell(){
+	public void sell(){
 		GameStates.setMoney(GameStates.getMoney()+sellPrice);
 		disappear();
 	}
 
-	void upgrade(){
+	public void upgrade(){
 		// It is just a first idea, i'll modify it later
 		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
 		level++;
@@ -68,7 +69,7 @@ public class Turret extends Displayable{
 		fireRate*=1.1;
 		}
 	
-	Enemy searchEnemy(){
+	public Enemy searchEnemy(){
 		// En supposant que le type Vec soit un tableau de int de la forme pos.x et pos.y
 		int x; 	// Coordonees des ennemies
 		int y;
@@ -162,7 +163,7 @@ public class Turret extends Displayable{
 		this.fireRate = fireRate;
 	}
 	@Override
-	void appear() {
+	public void appear() {
 		// TODO Auto-generated method stub
 		
 	}

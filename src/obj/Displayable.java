@@ -24,16 +24,17 @@ public abstract class Displayable {
 	int typeId;
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
+	float aimedDirection;
 	List<Turret> turretsAlive=new LinkedList<Turret>(); //Dav, je pense que ces listes ne devraient pas etre dans cette interface parce que on est entrain d'encapsuler les classes
 	List<Enemy> enemiesAlive=new LinkedList<Enemy>(); //Dav, genre à la fin chaque ennemi aura comme attribut la liste d'ennemis
 	List<Projectile> projectilesAlive=new LinkedList<Projectile>();
 	
-	Displayable(){
+	public Displayable(){
 		id=createNewId();
 	}
 	
 
-	Displayable(String t, StateBasedGame sbg){
+	public Displayable(String t, StateBasedGame sbg){
 		id=createNewId();
 		type=t;
 		this.sbg=sbg;
@@ -41,7 +42,7 @@ public abstract class Displayable {
 		this.g=gc.getGraphics();
 	}
 	
-	Displayable(String t, Vec p, StateBasedGame sbg){
+	public Displayable(String t, Vec p, StateBasedGame sbg){
 		id=createNewId();
 		type=t;
 		pos=p;
@@ -52,7 +53,7 @@ public abstract class Displayable {
 	
 	
 	
-	int createNewId(){
+	public int createNewId(){
 		return ++lastId;
 	}
 	 
@@ -71,11 +72,17 @@ public abstract class Displayable {
 	public void setType(String type) {
 		this.type = type;
 	}
+	public float getAimedDirection() {
+		return aimedDirection;
+	}
+	public void setAimedDirection(float aimedDirection) {
+		this.aimedDirection = aimedDirection;
+	}
 	public int getTypeId() {
 		return typeId;
 	}
 	
-	void disappear(){
+	public void disappear(){
 		// remove the object of the corresponding linkedList
 		if(this instanceof Turret){
 			turretsAlive.remove(this);
