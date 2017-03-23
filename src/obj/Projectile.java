@@ -1,6 +1,7 @@
 package obj;
 //Author : Flo
 import maps.Vec;
+import states.Wave;
 
 public class Projectile extends Displayable{
 	int speed;
@@ -9,13 +10,13 @@ public class Projectile extends Displayable{
 	Enemy target;
 	//Listes des ennemis en vie + leur nombre
 	
-	public Projectile(Enemy enemy, Turret mt){
-		super(mt.projectileType, mt.getPos(), mt.sbg);
+	public Projectile(Enemy enemy, Turret mt, Wave w){
+		super(mt.projectileType, mt.getPos(), mt.sbg, w);
 		target=enemy;
 		type=mt.projectileType;
 		motherTurret=mt;
 		this.pos=motherTurret.getPos();
-		projectilesAlive.add(this);
+		actualWave.getProjectilesAlive().add(this);
 		appear();
 	}
 	

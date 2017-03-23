@@ -1,6 +1,7 @@
 package obj;
 import maps.Vec;
 import maps.Map;
+import states.Wave;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.LinkedList;
@@ -9,17 +10,16 @@ import javax.swing.plaf.nimbus.State;
 
 public class Enemy extends Displayable{
 	
-	public Enemy(String t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map) {
-		super(t, sbg);
+	public Enemy(String t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave w) {
+		super(t, map.spawn, sbg, w);
 		this.actualMap = map;
 		this.posInPath = 0;
-		this.pos = actualMap.spawn;
 		this.speed = speed;
 		this.damage = damage;
 		this.hp = hp;
 		this.path = path;
 		this.points = points;
-		enemiesAlive.add(this);
+		w.getEnemiesAlive().add(this);
 	}
 
 	//Attributs;

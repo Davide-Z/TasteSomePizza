@@ -2,6 +2,7 @@ package obj;
 //Author : Flo
 
 import maps.Vec;
+import states.Wave;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
@@ -22,17 +23,17 @@ public class Turret extends Displayable{
 	int upgradePrice;
 	Enemy lastEnemy=null;
 	
-	Turret(String t, Vec p, StateBasedGame sbg){
-		super(t, p, sbg);
+	public Turret(String t, Vec p, StateBasedGame sbg, Wave w){
+		super(t, p, sbg, w);
 		type=t;
-		turretsAlive.add(this);
+		actualWave.getTurretsAlive().add(this);
 		}
 	
 	public void update(){
 		Enemy e=null; // will be the target, if it exists
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		if( canFire() && (e=searchEnemy())!=null){
-			Projectile p=new Projectile(e, this); // On cree un nouveau projectile
+			Projectile p=new Projectile(e, this, actualWave); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 			lastEnemy=e;
 			this.aimedDirection=aimingAt(e.getPos());
@@ -75,7 +76,7 @@ public class Turret extends Displayable{
 		int y;
 		
 		// On parcourt la liste des ennemies sur le terrain, s'ils sont a distance on renvoit leur id
-		for(Enemy e : enemiesAlive){
+		for(Enemy e : actualWave.getEnemiesAlive()){
 			x=e.pos.getX();
 			y=e.pos.getY();
 			if( this.getPos().distance(e.getPos())	<	range*range){	// Si l'ennemi est a bonne distance

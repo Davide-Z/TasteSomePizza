@@ -1,10 +1,8 @@
 package obj;
 //Author : Flo
 
-import maps.Vec;
-import maps.Map;
-import maps.Case;
-import maps.Mat;
+import maps.*;
+import states.Wave;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
@@ -25,9 +23,8 @@ public abstract class Displayable {
 	int lastId=0; // sert pour creer les identifiants uniques
 	Map actualMap;
 	float aimedDirection;
-	List<Turret> turretsAlive=new LinkedList<Turret>(); //Dav, je pense que ces listes ne devraient pas etre dans cette interface parce que on est entrain d'encapsuler les classes
-	List<Enemy> enemiesAlive=new LinkedList<Enemy>(); //Dav, genre à la fin chaque ennemi aura comme attribut la liste d'ennemis
-	List<Projectile> projectilesAlive=new LinkedList<Projectile>();
+	Wave actualWave;
+
 	
 	public Displayable(){
 		id=createNewId();
@@ -42,13 +39,14 @@ public abstract class Displayable {
 		this.g=gc.getGraphics();
 	}
 	
-	public Displayable(String t, Vec p, StateBasedGame sbg){
+	public Displayable(String t, Vec p, StateBasedGame sbg, Wave w){
 		id=createNewId();
 		type=t;
 		pos=p;
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
+		this.actualWave=w;
 	}
 	
 	
@@ -85,13 +83,13 @@ public abstract class Displayable {
 	public void disappear(){
 		// remove the object of the corresponding linkedList
 		if(this instanceof Turret){
-			turretsAlive.remove(this);
+			actualWave.getTurretsAlive().remove(this);
 		}
 		else if(this instanceof Enemy){
-			enemiesAlive.remove(this);
+			actualWave.getEnemiesAlive().remove(this);
 		}
 		else if(this instanceof Projectile){
-			projectilesAlive.remove(this);
+			actualWave.getProjectilesAlive().remove(this);
 		}
 	}
 }
