@@ -118,6 +118,11 @@ public class MainGameState extends BasicGameState {
         	//g.drawString("o", e.getPos().getX(), e.getPos().getY());
         	turret.draw(e.getPos().getX(), e.getPos().getY());
         }
+        
+        // Flo test
+        for(Turret t : wave.getTurretsAlive()){
+        	t.update();
+        }
     }
 
     /**

@@ -25,9 +25,22 @@ public class Turret extends Displayable{
 	
 	public Turret(String t, Vec p, StateBasedGame sbg, Wave w){
 		super(t, p, sbg, w);
-		type=t;
 		actualWave.getTurretsAlive().add(this);
+		assignType(t);
 		}
+	
+	public void assignType(String t){
+		if(t.equals("default")){
+			this.buyPrice=10;
+			this.sellPrice=8;
+			this.range=1000000; // it's a test
+			this.level=1;
+			this.upgrade=false;
+			this.projectileType="default";
+			this.upgradePrice=6;
+			this.setTypeId(1);
+		}
+	}
 	
 	public void update(){
 		Enemy e=null; // will be the target, if it exists
@@ -44,7 +57,7 @@ public class Turret extends Displayable{
 				this.aimedDirection=aimingAt(lastEnemy.getPos());
 			}
 			else{
-				lastEnemy=null;
+				this.lastEnemy=null;
 			}
 		}
 	}
@@ -71,20 +84,13 @@ public class Turret extends Displayable{
 		}
 	
 	public Enemy searchEnemy(){
-		// En supposant que le type Vec soit un tableau de int de la forme pos.x et pos.y
-		int x; 	// Coordonees des ennemies
-		int y;
-		
-		// On parcourt la liste des ennemies sur le terrain, s'ils sont a distance on renvoit leur id
+		// we travel the list of enemies until finding the first one who is at correct distance
 		for(Enemy e : actualWave.getEnemiesAlive()){
-			x=e.pos.getX();
-			y=e.pos.getY();
-			if( this.getPos().distance(e.getPos())	<	range*range){	// Si l'ennemi est a bonne distance
+			if( this.getPos().distance(e.getPos())	<	range*range){	// if the enemy is close enough
 				return e;
 			}
 		}
-		
-		// Si on n'a pas trouver d'ennemi
+		// If we didn't find an ennemy close enough
 		return null;
 	}
 	
@@ -163,6 +169,19 @@ public class Turret extends Displayable{
 	public void setFireRate(long fireRate) {
 		this.fireRate = fireRate;
 	}
+	public String getProjectileType() {
+		return projectileType;
+	}
+	public void setProjectileType(String projectileType) {
+		this.projectileType = projectileType;
+	}
+	public Enemy getLastEnemy() {
+		return lastEnemy;
+	}
+	public void setLastEnemy(Enemy lastEnemy) {
+		this.lastEnemy = lastEnemy;
+	}
+
 	@Override
 	public void appear() {
 		// TODO Auto-generated method stub

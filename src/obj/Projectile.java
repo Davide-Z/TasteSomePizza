@@ -17,6 +17,7 @@ public class Projectile extends Displayable{
 		motherTurret=mt;
 		this.pos=motherTurret.getPos();
 		actualWave.getProjectilesAlive().add(this);
+		assignType(motherTurret.getProjectileType());
 		appear();
 	}
 	
@@ -24,6 +25,13 @@ public class Projectile extends Displayable{
 	public void appear(){
 	}
 	
+	public void assignType(String t){
+		if(t.equals("default")){
+			this.speed=10;
+			this.damage=10000000; // it's a test
+			this.setTypeId(1);
+		}
+	}	
 	public boolean move(Vec pos){
 		// return true if projectile arrived at the position pos
 		
@@ -54,7 +62,7 @@ public class Projectile extends Displayable{
 	}
 	
 	public void update(){
-		if(target.isAlive()==false){
+		if(target==null || target.isAlive()==false){
 			disappear();
 		}
 		else{

@@ -50,11 +50,26 @@ public abstract class Displayable {
 	}
 	
 	
-	
 	public int createNewId(){
 		return ++lastId;
 	}
-	 
+	
+	
+	public void disappear(){
+		// remove the object of the corresponding linkedList
+		if(this instanceof Turret){
+			actualWave.getTurretsAlive().remove(this);
+		}
+		else if(this instanceof Enemy){
+			actualWave.getEnemiesAlive().remove(this);
+		}
+		else if(this instanceof Projectile){
+			actualWave.getProjectilesAlive().remove(this);
+		}
+	}
+	
+	
+	 // Getters and Setters __________________________________________________
 	public Vec getPos() {
 		return pos;
 	}
@@ -79,17 +94,16 @@ public abstract class Displayable {
 	public int getTypeId() {
 		return typeId;
 	}
-	
-	public void disappear(){
-		// remove the object of the corresponding linkedList
-		if(this instanceof Turret){
-			actualWave.getTurretsAlive().remove(this);
-		}
-		else if(this instanceof Enemy){
-			actualWave.getEnemiesAlive().remove(this);
-		}
-		else if(this instanceof Projectile){
-			actualWave.getProjectilesAlive().remove(this);
-		}
+	public Wave getActualWave() {
+		return actualWave;
+	}
+	public void setActualWave(Wave actualWave) {
+		this.actualWave = actualWave;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 }

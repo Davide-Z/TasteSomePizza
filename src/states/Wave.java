@@ -82,6 +82,9 @@ public class Wave {
 		this.aliveEnemies = new LinkedList<Enemy>();
 		this.lastSpawn = System.currentTimeMillis();
 		this.actualMap = actualMap;
+		
+		//Flo test :
+		this.getTurretsAlive().add(new Turret("test", new Vec(0,0), sbg, this));
         
 	}
 	
