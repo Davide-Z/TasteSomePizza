@@ -2,11 +2,10 @@ package obj;
 //Author : Flo
 
 import maps.*;
-import states.Wave;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
-
+import obj.Wave;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -31,12 +30,13 @@ public abstract class Displayable {
 	}
 	
 
-	public Displayable(String t, StateBasedGame sbg){
+	public Displayable(String t, StateBasedGame sbg, Wave w){
 		id=createNewId();
 		type=t;
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
+		this.actualWave=w;
 	}
 	
 	public Displayable(String t, Vec p, StateBasedGame sbg, Wave w){

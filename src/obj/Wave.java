@@ -1,4 +1,4 @@
-package states;
+package obj;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,9 +19,9 @@ public class Wave {
 	GameContainer gc;
 	Graphics g;
 
-	LinkedList<Enemy> unspawnedEnemies;
-	LinkedList<Integer> delays;
-	LinkedList<Enemy> aliveEnemies;
+	public LinkedList<Enemy> unspawnedEnemies;
+	public LinkedList<Integer> delays;
+	public LinkedList<Enemy> aliveEnemies;
 	long lastSpawn;
 	Map actualMap;
 
