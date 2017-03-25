@@ -1,6 +1,7 @@
 package obj;
 import maps.Vec;
 import maps.Map;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.LinkedList;
@@ -20,7 +21,8 @@ public class Enemy extends Displayable{
 		this.path = path;
 		this.points = points;
 		wave.enemiesAlive.add(this);
-		this.sprite="resources/sprites/cook.png";
+		this.spriteName="client.png";
+
 	}
 
 	//Attributs;
@@ -30,7 +32,8 @@ public class Enemy extends Displayable{
 	private LinkedList<Vec> path;
 	private int posInPath;
 	private int points;
-	private String sprite;
+	private String spriteName;
+	private Image sprite;
 	
 	public void attack(){
 		if (pos.equals(actualMap.posBase)){
@@ -62,7 +65,7 @@ public class Enemy extends Displayable{
 	
 	@Override
 	public void appear(){
-		//TODO
+
 	}
 	
 	@Override

@@ -11,18 +11,18 @@ import java.util.LinkedList;
 
 
 public abstract class Displayable {
-	StateBasedGame sbg;
-	GameContainer gc;
-	Graphics g;
-	abstract void appear();
-	Vec pos;
-	int id; 	//TODO est ce qu'on a besoin d'un id si on a déj la position?
-	String type;
-	int typeId;
-	int lastId=0; // sert pour creer les identifiants uniques
-	Map actualMap;
-	float aimedDirection;
-	Wave actualWave;
+	protected StateBasedGame sbg;
+	protected GameContainer gc;
+	protected Graphics g;
+	public abstract void appear();
+	protected Vec pos;
+	protected int id; 	//TODO est ce qu'on a besoin d'un id si on a déj la position?
+	protected String type;
+	private int typeId;
+	private int lastId=0; // sert pour creer les identifiants uniques
+	protected Map actualMap;
+	protected float aimedDirection;
+	protected Wave actualWave;
 
 	
 	public Displayable(){
@@ -91,5 +91,10 @@ public abstract class Displayable {
 		else if(this instanceof Projectile){
 			actualWave.getProjectilesAlive().remove(this);
 		}
+	}
+	public void render(){}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
