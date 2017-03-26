@@ -37,7 +37,7 @@ public class MainGameState extends BasicGameState {
     Map map;
     
     //Dav test
-    Wave wave;
+    public Wave wave;
 
     /**
      * Renvoie l'ID de cette vue
@@ -71,7 +71,7 @@ public class MainGameState extends BasicGameState {
             e.printStackTrace();
         }
 
-        map=new Map(gc, sbg, 15);
+        map=new Map(sbg, 15);
 
         //Dav test        
         wave = new Wave(56, map, sbg, gc);
@@ -108,7 +108,6 @@ public class MainGameState extends BasicGameState {
         g.setColor(Color.black);
 
         g.drawString("Carte",3, 3);
-        
         
         //Dav test
         g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);

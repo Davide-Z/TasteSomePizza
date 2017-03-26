@@ -26,21 +26,21 @@ public class Map {
     public Vec spawn;
     public int baseHP;
 
-    public Map(GUIContext gc, StateBasedGame sbg, int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
+    public Map(StateBasedGame sbg, int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
-        this.gc=gc;
+        this.gc=sbg.getContainer();
         this.sbg=sbg;
         this.g=sbg.getContainer().getGraphics();
         cases = new Case[taille][taille];
         clickedCases=new ArrayList<Case>();
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j]=new Case(gc, sbg, 1+(int)(i*720/taille), 1+(int)(j*720/taille),this); //TODO pas besoin de gc, sbg peut donner gc avec .getContainer
+                cases[i][j]=new Case(sbg, 1+(int)(i*720/taille), 1+(int)(j*720/taille),this);
             }
         }
         
-        spawn = new Vec(0, 326);
-        posBase = new Vec(670, 326);
+        spawn = new Vec(0, 336);
+        posBase = new Vec(672, 336);
         baseHP = 100;
         
     }
@@ -48,7 +48,7 @@ public class Map {
     public void render() {
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j].render(gc,g);
+                cases[i][j].render();
             }
         }
     }

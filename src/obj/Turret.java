@@ -2,7 +2,7 @@ package obj;
 //Author : Flo
 
 import maps.Vec;
-import states.Wave;
+import obj.Wave;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;

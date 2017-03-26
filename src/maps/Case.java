@@ -1,10 +1,7 @@
 package maps;
 
 import obj.Turret;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
@@ -23,21 +20,23 @@ public class Case extends MouseOverArea {
 	private Rectangle interieur;
 	private Rectangle cadre;
 	private boolean over;
-	private GUIContext container;
+	private GameContainer container;
 	private StateBasedGame sbg;
+	private Graphics g;
 	private boolean clicked=false;
 	private Map map;
 	private Image image;
 	private Turret turret=null;
 
-	public Case(GUIContext container, StateBasedGame sbg, int x, int y, Map map) throws SlickException{
-	    super(container,null,x,y,48,48);
+	public Case(StateBasedGame sbg, int x, int y, Map map) throws SlickException{
+	    super(sbg.getContainer(),null,x,y,48,48);
 		this.x=x;
 		this.y=y;
 		interieur=new Rectangle(x+1,y-1,47,47);
 		cadre=new Rectangle(x+1,y-1,48,48);
-		this.container=container;
 		this.sbg=sbg;
+		this.container=sbg.getContainer();
+		this.g=container.getGraphics();
 		this.map=map;
 		this.image=null;
 	}
@@ -45,8 +44,7 @@ public class Case extends MouseOverArea {
 	public void reset(){
 		clicked=false;
 	}
-	@Override
-	public void render(GUIContext guiContext, Graphics g) {
+	public void render() {
 	    g.setColor(Color.white);
 	    g.fill(interieur);
 	    g.setColor(Color.lightGray);
