@@ -1,17 +1,13 @@
 package obj;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import maps.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import maps.Map;
-import maps.Vec;
-import obj.Enemy;
-import obj.Projectile;
-import obj.Turret;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Wave {
 	
@@ -66,7 +62,7 @@ public class Wave {
 		}
 	}
 	
-	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) { //automacally creating wave of n enemies
+	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException { //automacally creating wave of n enemies
         super();
 		LinkedList<Enemy> enemies = new LinkedList<Enemy>();
         LinkedList<Integer> d = new LinkedList<Integer>();

@@ -1,7 +1,6 @@
 package obj;
 //Author : Flo
 import maps.Vec;
-import obj.Wave;
 
 public class Projectile extends Displayable{
 	int speed;

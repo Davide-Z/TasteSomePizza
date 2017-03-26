@@ -3,18 +3,14 @@ package states;
 
 import gui.Buttons.StateButton;
 import gui.FileLoader;
+import gui.TurretMenu;
 import maps.Map;
-import obj.*;
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-
-import org.newdawn.slick.*;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Vue du jeu principal, où on va placer les tourelles et lancer la vague
@@ -24,7 +20,7 @@ public class MainGameState extends BasicGameState {
     //Attributs du moteur
     private GameContainer container;
     private StateBasedGame game;
-    private GameConfig config=GameConfig.getInstance();
+    private GameConfig config;
 
     //Attributs d'interface
     Image turret;
@@ -35,10 +31,13 @@ public class MainGameState extends BasicGameState {
     float mouseX;
     float mouseY;
     Map map;
-    public Turret selectedTurret;
+    TurretMenu turretMenu;
 
     //Dav test
     //public Wave wave;
+
+    public MainGameState() throws SlickException {
+    }
 
     /**
      * Renvoie l'ID de cette vue
@@ -51,27 +50,30 @@ public class MainGameState extends BasicGameState {
 
     /**
      * Méthode qui se fait une fois au début, pour initialiser les différents paramètres
-     * @param gc Container du jeu
-     * @param sbg Le moteur du jeu
+     * @param gameContainer Container du jeu
+     * @param stateBasedGame Le moteur du jeu
      * @throws SlickException
      */
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        this.game=sbg;
-        this.container=gc;
-        winHeight=gc.getHeight();
-        winWidth=gc.getWidth();
+    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+        game=stateBasedGame;
+        container=gameContainer;
+        config=GameConfig.getInstance(game);
+        winHeight=container.getHeight();
+        winWidth=container.getWidth();
 
         try {
             turret= FileLoader.getImage("sprites/cook.png");
             alpha=turret.getRotation();
-            stateButton = new StateButton(sbg, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
+            stateButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
 
         } catch (URISyntaxException | FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        map=new Map(sbg, 15);
+        map=config.getMap();
+        //config.setTurretMenu();
+        //turretMenu=config.getTurretMenu();
 
         //Dav test
      //   wave = new Wave(56, map, sbg, gc);
@@ -161,13 +163,5 @@ public class MainGameState extends BasicGameState {
     public void mouseMoved(int oldX, int oldY, int newX, int newY){
         mouseX=(float)(newX);
         mouseY=(float)(newY);
-    }
-
-    public Turret getSelectedTurret() {
-        return selectedTurret;
-    }
-
-    public void setSelectedTurret(Turret selectedTurret) {
-        this.selectedTurret = selectedTurret;
     }
 }

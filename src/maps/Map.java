@@ -35,7 +35,7 @@ public class Map {
         clickedCases=new ArrayList<Case>();
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j]=new Case(sbg, 1+(int)(i*720/taille), 1+(int)(j*720/taille),this);
+                cases[i][j]=new Case(sbg, 1+ i*720/taille, 1+ j*720/taille,this);
             }
         }
         
@@ -56,6 +56,7 @@ public class Map {
     public void addClicked(Case c){
         this.clickedCases.add(c);
     }
+    public ArrayList<Case> getClicked(){return this.clickedCases;}
 
     public Case[][] getCases(){
         return this.cases;

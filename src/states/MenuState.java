@@ -2,11 +2,6 @@ package states;
 
 import gui.FileLoader;
 import gui.Buttons.StateButton;
-import maps.Map;
-import maps.Vec;
-import obj.Displayable;
-import obj.Turret;
-import obj.Wave;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -18,8 +13,6 @@ import java.awt.*;
 import java.awt.Font;
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.LinkedList;
 
 /**
  * Vue du menu principal, avec un bouton pour entrer en jeu, un pour quitter, et un pour les réglages
@@ -30,7 +23,7 @@ public class MenuState extends BasicGameState {
     //Paramètres du moteur
     private GameContainer container;
     private StateBasedGame game;
-    private GameConfig config=GameConfig.getInstance();
+    private GameConfig config;
 
     //Paramètres d'interface
     private Image backgroundImage;
@@ -46,6 +39,9 @@ public class MenuState extends BasicGameState {
     private Font font;
     private TrueTypeFont ttf;
 
+    public MenuState() throws SlickException {
+    }
+
     /**
      * Renvoie l'ID de cette vue
      * @return ID
@@ -57,26 +53,26 @@ public class MenuState extends BasicGameState {
 
     /**
      * Méthode qui se fait une fois au début, pour initialiser les différents paramètres
-     * @param gc Container du jeu
-     * @param sbg Le moteur du jeu
+     * @param gameContainer Container du jeu
+     * @param stateBasedGame Le moteur du jeu
      * @throws SlickException exception Interne à Slck
      */
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        this.container=gc;
-        this.game=sbg;
+    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+        game=stateBasedGame;
+        container=gameContainer;
+        config=GameConfig.getInstance(game);
         InputStream inputStream= null;
         inputStream = FileLoader.getRes("fly_n_walk.ttf");
-        winHeight=gc.getHeight();
-        winWidth=gc.getWidth();
-
+        winHeight=container.getHeight();
+        winWidth=container.getWidth();
         try {
             font=Font.createFont(Font.TRUETYPE_FONT,inputStream);
             font=font.deriveFont(font.getSize()*45f);
             ttf=new TrueTypeFont(font, true);
             backgroundImage=FileLoader.getImage("interface/bgi.png");
             imgBouton=FileLoader.getImage("interface/boutonOrange.png");
-            piz=new SpriteSheet(FileLoader.getImage("sprites/Piz.png"), 256,256);
+            piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
         }
@@ -99,7 +95,7 @@ public class MenuState extends BasicGameState {
         g.setColor(Color.white);
         startButton.render(g);
         exitButton.render(g);
-        g.drawString("X:"+(int)x+"\nY:"+(int)y,0,winHeight-35);
+        g.drawString("X:"+ x +"\nY:"+ y,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         g.setColor(Color.black);
         g.setFont(ttf);

@@ -1,16 +1,15 @@
 package obj;
-import maps.Vec;
 import maps.Map;
+import maps.Vec;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.LinkedList;
 
-import javax.swing.plaf.nimbus.State;
-
 public class Enemy extends Displayable{
 	
-	public Enemy(String t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) {
+	public Enemy(String t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) throws SlickException {
 		super(t, sbg, wave);
 		this.actualMap = map;
 		this.posInPath = 0;

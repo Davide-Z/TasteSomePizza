@@ -1,19 +1,13 @@
 package drawing;
 
-import obj.*;
-
-import java.util.Currency;
-import java.util.LinkedList;
-
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
+import maps.Vec;
+import obj.Enemy;
+import obj.Projectile;
+import obj.Turret;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
-import maps.*;
+import java.util.LinkedList;
 
 
 public class Trace {

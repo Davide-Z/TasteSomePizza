@@ -14,7 +14,10 @@ public class WaveState extends BasicGameState {
     //Attributs du moteur
     private GameContainer container;
     private StateBasedGame game;
-    private GameConfig config=GameConfig.getInstance();
+    private GameConfig config;
+
+    public WaveState() throws SlickException {
+    }
 
     //Attributs d'interface
 
@@ -26,7 +29,9 @@ public class WaveState extends BasicGameState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-
+        game=stateBasedGame;
+        container=gameContainer;
+        config=GameConfig.getInstance(game);
     }
 
     @Override

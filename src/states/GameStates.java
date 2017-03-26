@@ -1,7 +1,7 @@
 package states;
 
-import gui.FileLoader;
-import org.newdawn.slick.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -18,11 +18,8 @@ public class GameStates extends StateBasedGame{
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException { //Création et initialisation des vues
         this.addState(new MenuState());
-        this.getState(0).init(gameContainer,this);
         this.addState(new MainGameState());
-        this.getState(1).init(gameContainer,this);
         this.addState(new WaveState());
-        this.getState(2).init(gameContainer, this);
         this.enterState(0);
     }
 

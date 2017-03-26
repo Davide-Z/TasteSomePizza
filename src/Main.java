@@ -4,9 +4,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameStates;
 
-import java.util.Collections;
-import java.util.LinkedList;
-
 /**
  * Créée juste une fenêtre d'une certaine taille en se basant sur un gestionnaire de vues(GameStates)
  */

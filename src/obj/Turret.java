@@ -1,12 +1,13 @@
 package obj;
 //Author : Flo
 
+import gui.FileLoader;
 import maps.Vec;
-import obj.Wave;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import states.GameStates;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 public class Turret extends Displayable{
 
@@ -23,11 +24,24 @@ public class Turret extends Displayable{
 	int upgradePrice;
 	Enemy lastEnemy=null;
 	
-	public Turret(String t, Vec p, StateBasedGame sbg, Wave w){
+	public Turret(String t, Vec p, StateBasedGame sbg, Wave w) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(t, p, sbg, w);
 		actualWave.getTurretsAlive().add(this);
 		assignType(t);
-		}
+		super.sprite=FileLoader.getSpriteImage("cook.png");
+	}
+	public Turret(StateBasedGame sbg){
+		super(sbg);
+		super.type="tourelle de test";
+	}
+
+	/**
+	 * Constructeur utilisé pour copier une tourelle
+	 * @param original
+	 */
+	public Turret(Turret original){
+		super(original.type, original.pos, original.sbg, original.actualWave);
+	}
 	
 	public void assignType(String t){
 		if(t.equals("default")){
@@ -63,20 +77,17 @@ public class Turret extends Displayable{
 	}
 	
 	public boolean canFire(){
-		if(System.currentTimeMillis() - lastFire>fireRate) 
-			return true;
-		else
-			return false;
+		return System.currentTimeMillis() - lastFire > fireRate;
 	}
 	
 	public void sell(){
-		GameStates.setMoney(GameStates.getMoney()+sellPrice);
-		disappear();
+		config.setMoney(config.getMoney()+sellPrice);
+		this.disappear();
 	}
 
 	public void upgrade(){
 		// It is just a first idea, i'll modify it later
-		GameStates.setMoney(GameStates.getMoney()-upgradePrice);
+		config.setMoney(config.getMoney()+upgradePrice);
 		level++;
 		sellPrice+=0.8*upgradePrice;
 		upgradePrice*=1.3;
@@ -113,79 +124,17 @@ public class Turret extends Displayable{
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getBuyPrice() {
-		return buyPrice;
-	}
-	public void setBuyPrice(int buyPrice) {
-		this.buyPrice = buyPrice;
-	}
-	public int getSellPrice() {
-		return sellPrice;
-	}
-	public void setSellPrice(int sellPrice) {
-		this.sellPrice = sellPrice;
-	}
-	public int getRange() {
-		return range;
-	}
-	public void setRange(int range) {
-		this.range = range;
-	}
-	public long getFireRate() {
-		return fireRate;
-	}
-	public void setFireRate(int fireRate) {
-		this.fireRate = fireRate;
-	}
-	public int getLevel() {
-		return level;
-	}
-	public void setLevel(int level) {
-		this.level = level;
-	}
-	public boolean isUpgrade() {
-		return upgrade;
-	}
-	public void setUpgrade(boolean upgrade) {
-	}
-	public long getLastFire() {
-		return lastFire;
-	}
-	public void setLastFire(long lastFire) {
-		this.lastFire = lastFire;
-	}
-	public int getIdEnemy() {
-		return idEnemy;
-	}
-	public void setIdEnemy(int idEnemy) {
-		this.idEnemy = idEnemy;
-	}
-	public int getUpgradePrice() {
-		return upgradePrice;
-	}
-	public void setUpgradePrice(int upgradePrice) {
-		this.upgradePrice = upgradePrice;
-	}
-	public void setFireRate(long fireRate) {
-		this.fireRate = fireRate;
-	}
 	public String getProjectileType() {
 		return projectileType;
 	}
-	public void setProjectileType(String projectileType) {
-		this.projectileType = projectileType;
-	}
-	public Enemy getLastEnemy() {
-		return lastEnemy;
-	}
-	public void setLastEnemy(Enemy lastEnemy) {
-		this.lastEnemy = lastEnemy;
-	}
-
 	@Override
 	public void appear() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public String toString(){
+		return this.type;
+	}
 }

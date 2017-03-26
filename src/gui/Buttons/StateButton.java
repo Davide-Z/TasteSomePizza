@@ -1,12 +1,11 @@
 package gui.Buttons;
 
-import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -24,13 +23,11 @@ public class StateButton extends MouseOverArea{
     private boolean over;
     private String text;
     private Shape hitbox;
-    private Image image;
     private StateBasedGame game;
     private GameContainer container;
     private String action;
     public StateButton(StateBasedGame sbg, Image image, int x, int y,String text, String action) throws SlickException {
         super(sbg.getContainer(), image, x, y);
-        this.image=image;
         this.x=x;
         this.y=y;
         this.game=sbg;

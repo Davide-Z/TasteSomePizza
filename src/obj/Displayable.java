@@ -1,20 +1,22 @@
 package obj;
 //Author : Flo
 
-import maps.*;
+import maps.Map;
+import maps.Vec;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import obj.Wave;
-import java.util.List;
-import java.util.LinkedList;
+import states.GameConfig;
 
 
 public abstract class Displayable {
 	protected StateBasedGame sbg;
 	protected GameContainer gc;
 	protected Graphics g;
-	public abstract void appear();
+	protected GameConfig config;
+
 	protected Vec pos;
 	protected String type;
 	private int typeId;
@@ -23,12 +25,15 @@ public abstract class Displayable {
 	protected float aimedDirection;
 	protected Wave actualWave;
 
-	public Displayable(String t, StateBasedGame sbg, Wave w){
+	protected Image sprite;
+
+	public Displayable(String t, StateBasedGame sbg, Wave w) throws SlickException {
 		type=t;
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
 		this.actualWave=w;
+		this.config=GameConfig.getInstance(sbg);
 	}
 	
 	public Displayable(String t, Vec p, StateBasedGame sbg, Wave w){
@@ -38,6 +43,12 @@ public abstract class Displayable {
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
 		this.actualWave=w;
+	}
+
+	public Displayable(StateBasedGame sbg){
+		this.sbg=sbg;
+		this.gc=sbg.getContainer();
+		this.g=gc.getGraphics();
 	}
 	
 	// A remettre si finalement on se sert de id
@@ -95,4 +106,5 @@ public abstract class Displayable {
 		this.typeId = typeId;
 	}
 	public void render(){}
+	public abstract void appear();
 }

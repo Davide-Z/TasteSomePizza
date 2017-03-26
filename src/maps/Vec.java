@@ -66,7 +66,7 @@ public class Vec {
     }
 
     public void setCart(){//calcule x et y à partir de angle et r
-        double xf=r*Math.sin((double)angle);
+        double xf=r*Math.sin(angle);
         if(xf-Math.floor(xf)>=0.5) {
             x = (int)xf+1;
         }
@@ -74,7 +74,7 @@ public class Vec {
             x=(int)xf;
         }
 
-        double yf=r*Math.cos((double)angle);
+        double yf=r*Math.cos(angle);
         if(yf-Math.floor(yf)>=0.5) {
             y = (int)yf+1;
         }
