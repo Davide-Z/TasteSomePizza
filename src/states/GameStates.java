@@ -11,17 +11,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameStates extends StateBasedGame{
 
-    private static int money=100;
     public GameStates(String name) {
         super(name);
-    }
-
-    public static int getMoney() {
-        return money;
-    }
-
-    public static void setMoney(int money) {
-        GameStates.money = money;
     }
 
     @Override

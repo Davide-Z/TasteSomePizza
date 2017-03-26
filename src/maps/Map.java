@@ -45,7 +45,7 @@ public class Map {
         
     }
 
-    public void render() {
+    public void render() { //Affiche chaque case
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
                 cases[i][j].render();
@@ -63,7 +63,8 @@ public class Map {
     public int getTaille(){
         return this.taille;
     }
-    public void resetClicked(){
+
+    public void resetClicked(){     //Evite le double clic sur une case
         for(int i=clickedCases.size()-1;i>0;i--){
             clickedCases.get(i).reset();
             clickedCases.remove(i);

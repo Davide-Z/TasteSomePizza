@@ -53,18 +53,56 @@ public class Case extends MouseOverArea {
 		//image.draw(x+1,y-1);
 		g.draw(cadre);
 
+		if (turret != null){
+			turret.render();
+		}
+
 	}
 
 	@Override
     public void mousePressed(int button, int mx, int my){
 	    over=interieur.contains(mx,my);
 	    if (over&&sbg.getCurrentStateID()==1&&!clicked){ //Si la souris est sur la case, on est sr l'écran de jeu & si on n'a pas déjà cliqué trop récemment
-	        //TODO:si bouton pressé sur case, ajouter tourelle selectionnée(voir si il faudrait pas faire ça dans une classe à part)
             System.out.println("Case cliquée:"+(1+(this.getX()/48))+"x"+(1+(this.getY()/48)));
             if(turret==null){
+
 			}
 		}
 		this.map.addClicked(this);
 		clicked=true;
     }
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public Turret getTurret() {
+		return turret;
+	}
+
+	public void setTurret(Turret turret) {
+		this.turret = turret;
+	}
 }

@@ -34,9 +34,10 @@ public class MainGameState extends BasicGameState {
     float mouseX;
     float mouseY;
     Map map;
-    
+    public Turret selectedTurret;
+
     //Dav test
-    public Wave wave;
+    //public Wave wave;
 
     /**
      * Renvoie l'ID de cette vue
@@ -71,8 +72,8 @@ public class MainGameState extends BasicGameState {
 
         map=new Map(sbg, 15);
 
-        //Dav test        
-        wave = new Wave(56, map, sbg, gc);
+        //Dav test
+     //   wave = new Wave(56, map, sbg, gc);
 
     }
 
@@ -107,14 +108,14 @@ public class MainGameState extends BasicGameState {
 
         g.drawString("Carte",3, 3);
         
-        //Dav test
+      /*  //Dav test
         g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
         g.drawString("HP : "+map.baseHP, 3, 40);
         g.drawString("Number of unspawned enemies : "+wave.unspawnedEnemies.size(), 3, 60);
         for (Enemy e : wave.aliveEnemies) {
         	//g.drawString("o", e.getPos().getX(), e.getPos().getY());
         	turret.draw(e.getPos().getX(), e.getPos().getY());
-        }
+        }*/
     }
 
     /**
@@ -128,10 +129,10 @@ public class MainGameState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         alpha=(float)((Math.atan2((mouseX+184-winWidth),-(mouseY+32-winHeight/2))*360/(2*Math.PI)));
         map.resetClicked();
-        
+
         //Dav test
-        wave.spawn();
-        wave.aliveEnemiesUpdate(i);
+      /*  wave.spawn();
+        wave.aliveEnemiesUpdate(i); */
     }
 
     /**
@@ -159,5 +160,13 @@ public class MainGameState extends BasicGameState {
     public void mouseMoved(int oldX, int oldY, int newX, int newY){
         mouseX=(float)(newX);
         mouseY=(float)(newY);
+    }
+
+    public Turret getSelectedTurret() {
+        return selectedTurret;
+    }
+
+    public void setSelectedTurret(Turret selectedTurret) {
+        this.selectedTurret = selectedTurret;
     }
 }
