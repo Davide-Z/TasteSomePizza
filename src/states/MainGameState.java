@@ -24,6 +24,7 @@ public class MainGameState extends BasicGameState {
     //Attributs du moteur
     private GameContainer container;
     private StateBasedGame game;
+    private GameConfig config=GameConfig.getInstance();
 
     //Attributs d'interface
     Image turret;

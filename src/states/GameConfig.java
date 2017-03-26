@@ -5,9 +5,24 @@ package states;
  * Created by tic-tac on 26/03/17.
  */
 public class GameConfig {
-    private GameConfig(){}
+
+    private int money; //TODO: combien d'argent au début?
+
+    private GameConfig(){
+
+    }
 
     private static GameConfig instance = new GameConfig();
 
     public static GameConfig getInstance(){return GameConfig.instance;}
+
+
+    //    LES GETTERS     //
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
 }

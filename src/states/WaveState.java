@@ -10,6 +10,15 @@ import org.newdawn.slick.state.StateBasedGame;
  * Created by tic-tac on 24/03/17.
  */
 public class WaveState extends BasicGameState {
+
+    //Attributs du moteur
+    private GameContainer container;
+    private StateBasedGame game;
+    private GameConfig config=GameConfig.getInstance();
+
+    //Attributs d'interface
+
+
     @Override
     public int getID() {
         return 2;

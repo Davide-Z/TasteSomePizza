@@ -30,6 +30,7 @@ public class MenuState extends BasicGameState {
     //Paramètres du moteur
     private GameContainer container;
     private StateBasedGame game;
+    private GameConfig config=GameConfig.getInstance();
 
     //Paramètres d'interface
     private Image backgroundImage;
