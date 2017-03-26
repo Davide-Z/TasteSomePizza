@@ -1,8 +1,8 @@
 package states;
 
 
-import gui.ImageLoader;
 import gui.Buttons.StateButton;
+import gui.FileLoader;
 import maps.Map;
 import obj.*;
 
@@ -24,7 +24,6 @@ public class MainGameState extends BasicGameState {
     //Attributs du moteur
     private GameContainer container;
     private StateBasedGame game;
-    private ImageLoader imageLoader;
 
     //Attributs d'interface
     Image turret;
@@ -58,14 +57,13 @@ public class MainGameState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.game=sbg;
         this.container=gc;
-        imageLoader=new ImageLoader();
         winHeight=gc.getHeight();
         winWidth=gc.getWidth();
 
         try {
-            turret=imageLoader.getImage("resources/sprites/cook.png");
+            turret= FileLoader.getImage("sprites/cook.png");
             alpha=turret.getRotation();
-            stateButton = new StateButton(container, sbg, imageLoader.getImage("resources/interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
+            stateButton = new StateButton(sbg, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
 
         } catch (URISyntaxException | FileNotFoundException e) {
             e.printStackTrace();
