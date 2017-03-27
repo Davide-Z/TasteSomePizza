@@ -5,6 +5,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
+import states.GameConfig;
 
 /**
  * Classe représentant une case de la carte, avec les éléments qu'elle contient, son image, sa position sur la carte, son accessibilité
@@ -22,12 +23,13 @@ public class Case extends MouseOverArea {
 	private GameContainer container;
 	private StateBasedGame sbg;
 	private Graphics g;
+	private GameConfig config;
 	private boolean clicked=false;
 	private Map map;
 	private Image image;
 	private Turret turret=null;
 
-	public Case(StateBasedGame sbg, int x, int y, Map map) throws SlickException{
+	public Case(StateBasedGame sbg, int x, int y, Map map, GameConfig conf) throws SlickException{
 	    super(sbg.getContainer(),null,x,y,48,48);
 		this.x=x;
 		this.y=y;
@@ -38,6 +40,7 @@ public class Case extends MouseOverArea {
 		this.g=container.getGraphics();
 		this.map=map;
 		this.image=null;
+		this.config=conf;
 	}
 
 	public void reset(){
@@ -53,9 +56,8 @@ public class Case extends MouseOverArea {
 		g.draw(cadre);
 
 		if (turret != null){
-			turret.render(x, y);
+			turret.render(x-6, y-6);
 		}
-
 	}
 
 	@Override
@@ -64,7 +66,10 @@ public class Case extends MouseOverArea {
 	    if (over&&sbg.getCurrentStateID()==1&&!clicked){ //Si la souris est sur la case, on est sr l'écran de jeu & si on n'a pas déjà cliqué trop récemment
             System.out.println("Case cliquée:"+(1+(this.getX()/48))+"x"+(1+(this.getY()/48)));
             if(turret==null){
-
+            	this.turret=config.getTurret();
+			}
+			else{
+            	this.turret=null;
 			}
 		}
 		this.map.addClicked(this);

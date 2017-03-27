@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.StateBasedGame;
+import states.GameConfig;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,17 +26,19 @@ public class Map {
     public Vec posBase;
     public Vec spawn;
     public int baseHP;
+    private GameConfig config;
 
-    public Map(StateBasedGame sbg, int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
+    public Map(StateBasedGame sbg, int taille, GameConfig conf) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
         this.gc=sbg.getContainer();
         this.sbg=sbg;
         this.g=sbg.getContainer().getGraphics();
         cases = new Case[taille][taille];
         clickedCases=new ArrayList<Case>();
+        this.config=conf;
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j]=new Case(sbg, 1+ i*720/taille, 1+ j*720/taille,this);
+                cases[i][j]=new Case(sbg, 1+ i*720/taille, 1+ j*720/taille,this, this.config);
             }
         }
         

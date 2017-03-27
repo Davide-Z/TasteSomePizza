@@ -55,14 +55,13 @@ public class TurretButton extends MouseOverArea {
         over=hitbox.contains(mx,my);
         super.mousePressed(button, mx, my);
         if(over){
-            if(config.getTurret()!=null){
+            if(config.getTurret()!=this.turret){
                 config.setSelectedTurret(this.turret);
             }
             else if(config.getTurret()==this.turret){
                 config.setSelectedTurret(null);
             }
         }
-
     }
 
     public void setTurret(Turret turret){
@@ -75,6 +74,7 @@ public class TurretButton extends MouseOverArea {
         graphics.fill(hitbox);
         graphics.setColor(Color.black);
         graphics.draw(hitbox);
+
         this.turret.render(x, y);
     }
 

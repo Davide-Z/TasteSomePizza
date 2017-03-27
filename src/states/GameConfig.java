@@ -31,7 +31,7 @@ public class GameConfig {
     private GameConfig(StateBasedGame sbg) throws SlickException, FileNotFoundException, URISyntaxException {
         money=100;
         stateBasedGame=sbg;
-        map=new Map(stateBasedGame, 15);
+        map=new Map(stateBasedGame, 15, this);
         usableTurrets=new ArrayList<>();
     }
 
@@ -72,6 +72,6 @@ public class GameConfig {
      * Ajoute une tourelle à la liste des tourelles utilisables
      * @param turret
      */
-    public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {for(int i = 0; i<8; i++){this.usableTurrets.add(new Turret(turret.getType(), turret.getPos(), stateBasedGame));}}
+    public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {for(int i = 0; i<1; i++){this.usableTurrets.add(new Turret(turret.getType(), turret.getPos(), stateBasedGame));}}
 
 }
