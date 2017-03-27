@@ -53,7 +53,7 @@ public class Case extends MouseOverArea {
 		g.draw(cadre);
 
 		if (turret != null){
-			turret.render();
+			turret.render(x, y);
 		}
 
 	}

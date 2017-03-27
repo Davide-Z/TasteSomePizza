@@ -1,13 +1,18 @@
 package obj;
 
-import maps.Map;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.LinkedList;
-import java.util.List;
+import maps.Map;
+import maps.Vec;
+import obj.Enemy;
+import obj.Projectile;
+import obj.Turret;
 
 public class Wave {
 	

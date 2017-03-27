@@ -39,8 +39,11 @@ public class Turret extends Displayable{
 	 * Constructeur utilisé pour copier une tourelle
 	 * @param original
 	 */
-	public Turret(Turret original){
-		super(original.type, original.pos, original.sbg, original.actualWave);
+	public Turret(String type, Vec pos, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
+		super(sbg);
+		super.type=type;
+		super.pos=pos;
+		super.sprite=FileLoader.getSpriteImage("cook.png");
 	}
 	
 	public void assignType(String t){

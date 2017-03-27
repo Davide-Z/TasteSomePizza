@@ -20,7 +20,8 @@ public class GameStates extends StateBasedGame{
         this.addState(new MenuState());
         this.addState(new MainGameState());
         this.addState(new WaveState());
-        this.enterState(0);
+        //this.enterState(0);
+        this.enterState(1);
     }
 
 }

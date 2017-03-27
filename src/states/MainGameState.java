@@ -3,8 +3,7 @@ package states;
 
 import gui.Buttons.StateButton;
 import gui.FileLoader;
-import gui.TurretMenu;
-import maps.Map;
+import obj.Turret;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -23,15 +22,11 @@ public class MainGameState extends BasicGameState {
     private GameConfig config;
 
     //Attributs d'interface
-    Image turret;
-    float alpha;
     int winHeight;
     int winWidth;
-    StateButton stateButton;
+    StateButton menuButton;
     float mouseX;
     float mouseY;
-    Map map;
-    TurretMenu turretMenu;
 
     //Dav test
     //public Wave wave;
@@ -63,18 +58,18 @@ public class MainGameState extends BasicGameState {
         winWidth=container.getWidth();
 
         try {
-            turret= FileLoader.getImage("sprites/cook.png");
-            alpha=turret.getRotation();
-            stateButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
+            menuButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
 
         } catch (URISyntaxException | FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        map=config.getMap();
-        //config.setTurretMenu();
-        //turretMenu=config.getTurretMenu();
-
+        try {
+            config.addUsableTurret(new Turret(game));
+            config.setTurretMenu(gameContainer);
+        } catch (FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
         //Dav test
      //   wave = new Wave(56, map, sbg, gc);
 
@@ -90,13 +85,10 @@ public class MainGameState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.decode("0xdba24f"));
-        turret.draw(winWidth-184,winHeight/2-32);
-        turret.setRotation(alpha);
         g.setColor(Color.white);
-        g.drawString(""+(alpha), 500,0);
         g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
-        stateButton.render(g);
+        menuButton.render(g);
 
         //Segmentation temporaire de l'écran
         g.setColor(Color.black);
@@ -105,11 +97,13 @@ public class MainGameState extends BasicGameState {
         g.drawString("Tourelles/menu",winWidth*0.703125f+6, 0);
 
 
-        map.render();
+       config.getMap().render();
 
         g.setColor(Color.black);
 
         g.drawString("Carte",3, 3);
+
+        config.getTurretMenu().render();
         
       /*  //Dav test
         g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
@@ -130,9 +124,8 @@ public class MainGameState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        alpha=(float)((Math.atan2((mouseX+184-winWidth),-(mouseY+32-winHeight/2))*360/(2*Math.PI)));
-        map.resetClicked();
-
+       config.getMap().resetClicked();
+       config.getTurretMenu().update();
         //Dav test
       /*  wave.spawn();
         wave.aliveEnemiesUpdate(i); */

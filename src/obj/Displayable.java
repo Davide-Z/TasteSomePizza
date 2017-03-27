@@ -105,6 +105,8 @@ public abstract class Displayable {
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
 	}
-	public void render(){}
+	public void render(int x, int y){
+		this.sprite.draw(x, y);
+	}
 	public abstract void appear();
 }

@@ -26,6 +26,7 @@ public class StateButton extends MouseOverArea{
     private StateBasedGame game;
     private GameContainer container;
     private String action;
+
     public StateButton(StateBasedGame sbg, Image image, int x, int y,String text, String action) throws SlickException {
         super(sbg.getContainer(), image, x, y);
         this.x=x;
