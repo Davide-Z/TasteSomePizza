@@ -1,5 +1,6 @@
 package maps;
 
+import obj.Displayable;
 import obj.Turret;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
@@ -27,7 +28,7 @@ public class Case extends MouseOverArea {
 	private boolean clicked=false;
 	private Map map;
 	private Image image;
-	private Turret turret=null;
+	private Displayable turret=null;
 
 	public Case(StateBasedGame sbg, int x, int y, Map map, GameConfig conf) throws SlickException{
 	    super(sbg.getContainer(),null,x,y,48,48);
@@ -63,17 +64,25 @@ public class Case extends MouseOverArea {
 	@Override
     public void mousePressed(int button, int mx, int my){
 	    over=interieur.contains(mx,my);
-	    if (over&&sbg.getCurrentStateID()==1&&!clicked){ //Si la souris est sur la case, on est sr l'écran de jeu & si on n'a pas déjà cliqué trop récemment
+	    if (over && sbg.getCurrentStateID()==1 && !clicked){ //Si la souris est sur la case, on est sr l'écran de jeu & si on n'a pas déjà cliqué trop récemment
             System.out.println("Case cliquée:"+(1+(this.getX()/48))+"x"+(1+(this.getY()/48)));
             if(turret==null){
-            	this.turret=config.getTurret();
+				this.turret=config.getTurret();
+//				System.out.println(this.turret.toString());
 			}
 			else{
-            	this.turret=null;
+				this.turret=null;
 			}
+
+			if(turret==null){
+				System.out.println("null");
+			}
+			else{
+				System.out.println(this.turret.getType());
+			}
+			config.getMap().addClicked(this);
+			clicked=true;
 		}
-		this.map.addClicked(this);
-		clicked=true;
     }
 
 	@Override
@@ -102,7 +111,7 @@ public class Case extends MouseOverArea {
 		this.image = image;
 	}
 
-	public Turret getTurret() {
+	public Displayable getTurret() {
 		return turret;
 	}
 

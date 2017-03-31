@@ -2,6 +2,7 @@ package states;
 
 import gui.TurretMenu;
 import maps.Map;
+import obj.Displayable;
 import obj.Turret;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -23,7 +24,8 @@ public class GameConfig {
     private GameContainer gc;
     private int money; //TODO: combien d'argent au début?
     private String playerName;
-    private Turret selectedTurret;
+    private boolean turretIsSelected=false;
+    private Displayable selectedTurret;
     private Map map;
     private ArrayList<Turret> usableTurrets;
     private TurretMenu turretMenu;
@@ -55,15 +57,15 @@ public class GameConfig {
     //       LES GETTERS       //
     public int getMoney() {return money;}
     public String getPlayerName(){return playerName;}
-    public Turret getTurret(){return selectedTurret;}
+    public Displayable getTurret(){return selectedTurret;}
     public Map getMap(){return map;}
     public ArrayList<Turret> getUsableTurrets(){return usableTurrets;}
     public TurretMenu getTurretMenu() {return turretMenu;}
-
+    public boolean isTurretSelected(){return this.turretIsSelected;}
     //       LES SETTERS       //
     public void setMoney(int money) {this.money = money;}
     public void setPlayerName(String name){this.playerName=name;}
-    public void setSelectedTurret(Turret turret){this.selectedTurret=turret;}
+    public void setSelectedTurret(Displayable turret){this.selectedTurret=turret;}
     public void setMap(Map map){this.map=map;}
     public void setTurretMenu(GameContainer gameContainer) throws SlickException, FileNotFoundException, URISyntaxException {
         this.turretMenu=new TurretMenu(stateBasedGame, gameContainer);
@@ -73,5 +75,5 @@ public class GameConfig {
      * @param turret
      */
     public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {for(int i = 0; i<1; i++){this.usableTurrets.add(new Turret(turret.getType(), turret.getPos(), stateBasedGame));}}
-
+    public void setTurretIsSelected(boolean setting){this.turretIsSelected=setting;}
 }

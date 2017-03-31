@@ -25,8 +25,11 @@ public class MainGameState extends BasicGameState {
     int winHeight;
     int winWidth;
     StateButton menuButton;
+    StateButton waveButton;
+    StateButton turretMenuButton;
     float mouseX;
     float mouseY;
+    double updateTime=System.currentTimeMillis();
 
     //Dav test
     //public Wave wave;
@@ -59,7 +62,8 @@ public class MainGameState extends BasicGameState {
 
         try {
             menuButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
-
+            waveButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-156, "Lancer la vague", "wave");
+            turretMenuButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret");
         } catch (URISyntaxException | FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -89,14 +93,20 @@ public class MainGameState extends BasicGameState {
         g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         menuButton.render(g);
+        waveButton.render(g);
+        turretMenuButton.render(g);
 
         //Segmentation temporaire de l'écran
         g.setColor(Color.black);
         g.setLineWidth(4);
         g.drawLine(2+winWidth*0.703125f,0,2+winWidth*0.703125f, winHeight);
         g.drawString("Tourelles/menu",winWidth*0.703125f+6, 0);
-
-
+        if (config.getTurret()!=null) {
+            g.drawString("tourelle: " + config.getTurret().getType(), winWidth * 0.703125f, winHeight - 300);
+        }
+        else {
+            g.drawString("tourelle: Aucune", winWidth * 0.703125f, winHeight - 300);
+        }
        config.getMap().render();
 
         g.setColor(Color.black);
@@ -124,7 +134,8 @@ public class MainGameState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-       config.getMap().resetClicked();
+       config.getMap().resetClicked(i);
+       config.getMap().resetButtons(i);
        config.getTurretMenu().update();
         //Dav test
       /*  wave.spawn();

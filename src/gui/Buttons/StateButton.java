@@ -8,6 +8,7 @@ import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
+import states.GameConfig;
 
 import java.awt.Font;
 
@@ -15,7 +16,6 @@ import java.awt.Font;
  * Created by tic-tac on 14/02/17.
  */
 public class StateButton extends MouseOverArea{
-
     private int width;
     private int height;
     private int x;
@@ -26,8 +26,11 @@ public class StateButton extends MouseOverArea{
     private StateBasedGame game;
     private GameContainer container;
     private String action;
+    private GameConfig config;
+    private Font font;
+    private TrueTypeFont ttf;
 
-    public StateButton(StateBasedGame sbg, Image image, int x, int y,String text, String action) throws SlickException {
+    public StateButton(StateBasedGame sbg, Image image, int x, int y, String text, String action) throws SlickException {
         super(sbg.getContainer(), image, x, y);
         this.x=x;
         this.y=y;
@@ -38,16 +41,14 @@ public class StateButton extends MouseOverArea{
         this.text=text;
         this.hitbox = new RoundedRectangle(x+3,y+7,image.getWidth()-14,image.getHeight()-20,13);
         this.container=game.getContainer();
+        this.config = GameConfig.getInstance(sbg);
     }
 
     public void render(Graphics g) {
         this.render(container, g);
         g.setColor(Color.white);
-        UnicodeFont font = new UnicodeFont(new Font("Verdana", Font.BOLD, 32), 32, true, false);
-        int ttfWidth = font.getWidth(text);
-        int ttfHeight = font.getLineHeight();
-        g.drawString(text, x + hitbox.getWidth() / 2 - ttfWidth / 4.5f, y + hitbox.getHeight() / 2 - ttfHeight / 4.5f); //Affiche le texte du bouton, centré
-        g.setLineWidth(2);
+        g.drawString(text, (int)(x + hitbox.getWidth() / 2 -60), (int)(y + hitbox.getHeight() / 2-20)); //Affiche le texte du bouton, centré
+        g.setLineWidth(1);
         g.draw(hitbox);
     }
     @Override
@@ -65,7 +66,10 @@ public class StateButton extends MouseOverArea{
                 game.enterState(0);
             }
             else if((action.matches("wave !"))&&(game.getCurrentStateID()==1)){ //Début de vague
-
+                game.enterState(2);
+            }
+            else if((action.matches("turret"))&&(game.getCurrentStateID()==1)){
+                config.getTurretMenu().turretMode=!config.getTurretMenu().turretMode;
             }
         }
     }

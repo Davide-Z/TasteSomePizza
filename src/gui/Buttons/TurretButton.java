@@ -1,6 +1,7 @@
 package gui.Buttons;
 
 import gui.FileLoader;
+import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
@@ -29,7 +30,8 @@ public class TurretButton extends MouseOverArea {
     private String text;
     private Shape hitbox;
     private Turret turret;
-
+    private Enemy enemy;
+    private boolean clicked=false;
 
     public TurretButton(StateBasedGame sbg, GameContainer container, Image image, int x, int y, Turret turret) throws SlickException, FileNotFoundException, URISyntaxException {
         super(container, FileLoader.getImage("vide.png"), x, y);
@@ -43,6 +45,18 @@ public class TurretButton extends MouseOverArea {
         this.hitbox=new Rectangle(x,y,152,160);
         System.out.println(x+ " "+y);
     }
+    public TurretButton(StateBasedGame sbg, GameContainer container, Image image, int x, int y, Enemy enemy) throws SlickException, FileNotFoundException, URISyntaxException {
+        super(container, FileLoader.getImage("vide.png"), x, y);
+        this.x=x+152;
+        this.y=y;
+        this.game=sbg;
+        this.container=sbg.getContainer();
+        this.graphics=container.getGraphics();
+        this.enemy=enemy;
+        config=GameConfig.getInstance(sbg);
+        this.hitbox=new Rectangle(this.x,this.y,152,160);
+        System.out.println(x+ " "+y);
+    }
 
     /**
      * Si on clique dessus, on sélectionne la tourelle de ce bouton
@@ -52,22 +66,15 @@ public class TurretButton extends MouseOverArea {
      * @param my
      */
     public void mousePressed(int button, int mx, int my){
-        over=hitbox.contains(mx,my);
-        super.mousePressed(button, mx, my);
-        if(over){
-            if(config.getTurret()!=this.turret){
-                config.setSelectedTurret(this.turret);
-            }
-            else if(config.getTurret()==this.turret){
-                config.setSelectedTurret(null);
-            }
-        }
     }
 
     public void setTurret(Turret turret){
         this.turret=turret;
     }
 
+    public Turret getTurret(){
+        return this.turret;
+    }
     public void render(){
         graphics.setLineWidth(1);
         graphics.setColor(Color.lightGray);
@@ -75,10 +82,17 @@ public class TurretButton extends MouseOverArea {
         graphics.setColor(Color.black);
         graphics.draw(hitbox);
 
-        this.turret.render(x, y);
+        if(turret!=null) {
+            this.turret.render(x, y);
+        }
+        else if(enemy!=null){
+            this.enemy.render(x,y);
+        }
     }
 
     public void update(){
 
     }
+
+    public void reset(){clicked=false;}
 }

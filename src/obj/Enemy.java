@@ -1,10 +1,13 @@
 package obj;
+import gui.FileLoader;
 import maps.Map;
 import maps.Vec;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 
 public class Enemy extends Displayable{
@@ -22,6 +25,20 @@ public class Enemy extends Displayable{
 		wave.enemiesAlive.add(this);
 		this.spriteName="client.png";
 
+	}
+
+	public Enemy(String t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
+		super(sbg);
+		super.type=t;
+		this.type=t;
+		this.speed=speed;
+		this.damage=damage;
+		this.hp=hp;
+		super.gc=sbg.getContainer();
+		super.g=gc.getGraphics();
+		this.pos=pos;
+		super.sprite= FileLoader.getSpriteImage("client.png");
+		this.sprite=super.sprite;
 	}
 
 	//Attributs;

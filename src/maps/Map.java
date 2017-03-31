@@ -1,6 +1,6 @@
 package maps;
 
-import org.lwjgl.input.Mouse;
+import gui.Buttons.TurretButton;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
@@ -19,7 +19,6 @@ public class Map {
     private int taille;
     private Case[][] cases;
     private ArrayList<Case> clickedCases;
-    private Mouse mouse;
     private GUIContext gc;
     private StateBasedGame sbg;
     private Graphics g;
@@ -27,6 +26,8 @@ public class Map {
     public Vec spawn;
     public int baseHP;
     private GameConfig config;
+    private ArrayList<TurretButton> clickedButtons;
+    private int time;
 
     public Map(StateBasedGame sbg, int taille, GameConfig conf) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
@@ -34,7 +35,8 @@ public class Map {
         this.sbg=sbg;
         this.g=sbg.getContainer().getGraphics();
         cases = new Case[taille][taille];
-        clickedCases=new ArrayList<Case>();
+        clickedCases= new ArrayList<>();
+        clickedButtons=new ArrayList<>();
         this.config=conf;
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
@@ -59,6 +61,7 @@ public class Map {
     public void addClicked(Case c){
         this.clickedCases.add(c);
     }
+    public void addClickedButtons(TurretButton turretButton) {this.clickedButtons.add(turretButton);}
     public ArrayList<Case> getClicked(){return this.clickedCases;}
 
     public Case[][] getCases(){
@@ -68,10 +71,27 @@ public class Map {
         return this.taille;
     }
 
-    public void resetClicked(){     //Evite le double clic sur une case
-        for(int i=clickedCases.size()-1;i>0;i--){
-            clickedCases.get(i).reset();
-            clickedCases.remove(i);
+    public void resetClicked(int t){     //Evite le double clic sur une case
+        time+=t;
+        if(time>=10*t) {
+            for (int i = 0; i < clickedCases.size(); i++) {
+                clickedCases.get(i).reset();
+                clickedCases.remove(i);
+            }
+            time=0;
+        }
+    }
+    public void resetButtons(int t){
+       // System.out.println("t="+t);
+        time+=t;
+      //  System.out.println("time="+time);
+        if(time>=10*t) {
+            for (int i = 0; i < clickedButtons.size(); i++) {
+                System.out.println("resetButtons :");
+                System.out.println(clickedButtons.get(i).getTurret() == null);
+                clickedButtons.get(i).reset();
+                clickedButtons.remove(i);
+            }
         }
     }
     
@@ -86,5 +106,4 @@ public class Map {
 		}
 		return path;
 	}
-
 }

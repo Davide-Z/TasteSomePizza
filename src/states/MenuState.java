@@ -73,11 +73,12 @@ public class MenuState extends BasicGameState {
             backgroundImage=FileLoader.getImage("interface/bgi.png");
             imgBouton=FileLoader.getImage("interface/boutonOrange.png");
             piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
+            startButton = new StateButton(game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start");
+            exitButton=new StateButton(game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
         }
-        startButton = new StateButton(game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start");
-        exitButton=new StateButton(game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
+
         animPiz= new Animation(piz,75);
     }
 
