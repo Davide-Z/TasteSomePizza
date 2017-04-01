@@ -67,7 +67,7 @@ public class Son implements Runnable {
     }
 
     public static void main(String[] args) {
-        Son son = new Son("/home/tic-tac/TasteSomePizza/src/Audio/Intro.wav");
+        Son son = new Son("C:/Users/ASUS N56VZ/git/TasteSomePizza/src/Audio/Intro.wav");
         son.run();
     }
 }

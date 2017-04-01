@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class Enemy extends Displayable{
 	
-	public Enemy(String t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) throws SlickException {
+	public Enemy(int t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) throws SlickException {
 		super(t, sbg, wave);
 		this.actualMap = map;
 		this.posInPath = 0;
@@ -27,7 +27,7 @@ public class Enemy extends Displayable{
 
 	}
 
-	public Enemy(String t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Enemy(int t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(sbg);
 		super.type=t;
 		this.type=t;

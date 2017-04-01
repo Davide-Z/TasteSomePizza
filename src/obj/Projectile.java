@@ -24,12 +24,11 @@ public class Projectile extends Displayable{
 	public void appear(){
 	}
 	
-	public void assignType(String t){
-		if(t.equals("default")){
-			this.speed=10;
-			this.damage=10000000; // it's a test
-			this.setTypeId(1);
-		}
+	public void assignType(int t){
+		//default
+		this.speed=10;
+		this.damage=10000000; // it's a test
+		this.setTypeId(1);
 	}	
 	public boolean move(Vec pos){
 		// return true if projectile arrived at the position pos
@@ -76,10 +75,10 @@ public class Projectile extends Displayable{
 		this.disappear(); // true because hit the enemy
 	}
 	
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public int getSpeed() {

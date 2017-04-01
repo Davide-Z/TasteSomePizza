@@ -16,9 +16,8 @@ public abstract class Displayable {
 	protected GameContainer gc;
 	protected Graphics g;
 	protected GameConfig config;
-
 	protected Vec pos;
-	protected String type;
+	protected int type;
 	private int typeId;
 	// private int lastId=0; //  A remettre si finalement on se sert de id. Sert pour creer les identifiants uniques
 	protected Map actualMap;
@@ -27,8 +26,8 @@ public abstract class Displayable {
 
 	protected Image sprite;
 
-	public Displayable(String t, StateBasedGame sbg, Wave w) throws SlickException {
-		type=t;
+	public Displayable(int t, StateBasedGame sbg, Wave w) throws SlickException {
+		this.type=t;
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
@@ -36,7 +35,7 @@ public abstract class Displayable {
 		this.config=GameConfig.getInstance(sbg);
 	}
 	
-	public Displayable(String t, Vec p, StateBasedGame sbg, Wave w){
+	public Displayable(int t, Vec p, StateBasedGame sbg, Wave w){
 		type=t;
 		pos=p;
 		this.sbg=sbg;
@@ -81,10 +80,10 @@ public abstract class Displayable {
 	public void setPos(Vec pos) {
 		this.pos = pos;
 	}
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public float getAimedDirection() {
