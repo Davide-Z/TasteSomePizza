@@ -19,7 +19,18 @@ public abstract class FileLoader {
     public  static Image getSpriteImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
         return new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash + "sprites" + slash + resource), resource, false);
     }
-    public static InputStream getRes(String file){
+    public static InputStream getInputStream(String file){
         return Thread.currentThread().getContextClassLoader().getResourceAsStream("resources"+slash+file);
+    }
+
+    /**récupère un lien vers un fichier du dossier resources/sound
+     *
+     * @param resource  chemin du fichier dans le dossier sound
+     * @return  chemin vers le fichier
+     */
+    public static String getSoundPath(String resource){
+        String path="";
+        path+=Thread.currentThread().getContextClassLoader().getResource("resources"+slash+"sound"+slash+resource).getPath();
+        return path;
     }
 }

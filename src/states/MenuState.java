@@ -63,7 +63,7 @@ public class MenuState extends BasicGameState {
         container=gameContainer;
         config=GameConfig.getInstance(game);
         InputStream inputStream= null;
-        inputStream = FileLoader.getRes("fly_n_walk.ttf");
+        inputStream = FileLoader.getInputStream("fly_n_walk.ttf");
         winHeight=container.getHeight();
         winWidth=container.getWidth();
         try {
