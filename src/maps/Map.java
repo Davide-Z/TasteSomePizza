@@ -71,27 +71,16 @@ public class Map {
         return this.taille;
     }
 
-    public void resetClicked(int t){     //Evite le double clic sur une case
-        time+=t;
-        if(time>=10*t) {
-            for (int i = 0; i < clickedCases.size(); i++) {
-                clickedCases.get(i).reset();
-                clickedCases.remove(i);
-            }
-            time=0;
+    public void resetClicked(){     //Evite le double clic sur une case
+        for (int i = 0; i < clickedCases.size(); i++) {
+            clickedCases.get(i).reset();
+            clickedCases.remove(i);
         }
     }
-    public void resetButtons(int t){
-       // System.out.println("t="+t);
-        time+=t;
-      //  System.out.println("time="+time);
-        if(time>=10*t) {
-            for (int i = 0; i < clickedButtons.size(); i++) {
-                System.out.println("resetButtons :");
-                System.out.println(clickedButtons.get(i).getTurret() == null);
-                clickedButtons.get(i).reset();
-                clickedButtons.remove(i);
-            }
+    public void resetButtons(){
+        for (int i = 0; i < clickedButtons.size(); i++) {
+            clickedButtons.get(i).reset();
+            clickedButtons.remove(i);
         }
     }
     

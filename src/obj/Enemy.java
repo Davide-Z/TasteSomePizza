@@ -41,6 +41,13 @@ public class Enemy extends Displayable{
 		this.sprite=super.sprite;
 	}
 
+	public Enemy(Enemy enemy) throws FileNotFoundException, SlickException, URISyntaxException {
+		super(enemy.sbg);
+		super.type=enemy.type;
+		super.pos=enemy.pos;
+		super.sprite=FileLoader.getSpriteImage("client.png");
+	}
+
 	//Attributs;
 	private double speed;
 	private int damage;

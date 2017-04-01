@@ -66,6 +66,21 @@ public class TurretButton extends MouseOverArea {
      * @param my
      */
     public void mousePressed(int button, int mx, int my){
+        over=this.hitbox.contains(mx, my);
+        if(over && !clicked){
+            if(config.getTurretMenu().turretMode){
+                config.setSelectedTurret(this.turret);
+                System.out.println("turret mouse");
+                config.setSelectedEnemy(null);
+            }
+            else{
+                config.setSelectedEnemy(this.enemy);
+                System.out.println(this.enemy.getType());
+                config.setSelectedTurret(null);
+            }
+            config.getMap().addClickedButtons(this);
+            clicked=true;
+        }
     }
 
     public void setTurret(Turret turret){
@@ -76,17 +91,21 @@ public class TurretButton extends MouseOverArea {
         return this.turret;
     }
     public void render(){
-        graphics.setLineWidth(1);
-        graphics.setColor(Color.lightGray);
-        graphics.fill(hitbox);
-        graphics.setColor(Color.black);
-        graphics.draw(hitbox);
-
-        if(turret!=null) {
+        if(turret != null && config.getTurretMenu().turretMode) {
+            graphics.setLineWidth(1);
+            graphics.setColor(Color.lightGray);
+            graphics.fill(hitbox);
+            graphics.setColor(Color.black);
+            graphics.draw(hitbox);
             this.turret.render(x, y);
         }
-        else if(enemy!=null){
-            this.enemy.render(x,y);
+        else if(enemy != null && !config.getTurretMenu().turretMode){
+            graphics.setLineWidth(1);
+            graphics.setColor(Color.lightGray);
+            graphics.fill(hitbox);
+            graphics.setColor(Color.black);
+            graphics.draw(hitbox);
+            this.enemy.render(x, y);
         }
     }
 

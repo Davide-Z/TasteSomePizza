@@ -1,12 +1,16 @@
 package maps;
 
 import obj.Displayable;
+import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 /**
  * Classe représentant une case de la carte, avec les éléments qu'elle contient, son image, sa position sur la carte, son accessibilité
@@ -28,7 +32,8 @@ public class Case extends MouseOverArea {
 	private boolean clicked=false;
 	private Map map;
 	private Image image;
-	private Displayable turret=null;
+	private Turret turret=null;
+	private Enemy enemy=null;
 
 	public Case(StateBasedGame sbg, int x, int y, Map map, GameConfig conf) throws SlickException{
 	    super(sbg.getContainer(),null,x,y,48,48);
@@ -59,6 +64,9 @@ public class Case extends MouseOverArea {
 		if (turret != null){
 			turret.render(x-6, y-6);
 		}
+		else if(enemy != null){
+			enemy.render(x,y);
+		}
 	}
 
 	@Override
@@ -66,19 +74,31 @@ public class Case extends MouseOverArea {
 	    over=interieur.contains(mx,my);
 	    if (over && sbg.getCurrentStateID()==1 && !clicked){ //Si la souris est sur la case, on est sr l'écran de jeu & si on n'a pas déjà cliqué trop récemment
             System.out.println("Case cliquée:"+(1+(this.getX()/48))+"x"+(1+(this.getY()/48)));
-            if(turret==null){
-				this.turret=config.getTurret();
+            if(config.getTurretMenu().turretMode){
+				if(turret==null && enemy==null && config.getTurret()!=null){
+					try {
+						this.turret=new Turret(config.getTurret());
+					} catch (FileNotFoundException | SlickException | URISyntaxException e) {
+						e.printStackTrace();
+					}
 //				System.out.println(this.turret.toString());
+				}
+				else{
+					this.turret=null;
+				}
 			}
 			else{
-				this.turret=null;
-			}
-
-			if(turret==null){
-				System.out.println("null");
-			}
-			else{
-				System.out.println(this.turret.getType());
+            	if(enemy==null && turret==null && config.getEnemy()!=null){
+					try {
+						this.enemy=new Enemy(config.getEnemy());
+						System.out.println(this.enemy.getType());
+					} catch (FileNotFoundException | SlickException | URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+				else{
+            		this.enemy=null;
+				}
 			}
 			config.getMap().addClicked(this);
 			clicked=true;

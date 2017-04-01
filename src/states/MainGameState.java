@@ -64,14 +64,9 @@ public class MainGameState extends BasicGameState {
             menuButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
             waveButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-156, "Lancer la vague", "wave");
             turretMenuButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret");
-        } catch (URISyntaxException | FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
             config.addUsableTurret(new Turret(game));
             config.setTurretMenu(gameContainer);
-        } catch (FileNotFoundException | URISyntaxException e) {
+        } catch (URISyntaxException | FileNotFoundException e) {
             e.printStackTrace();
         }
         //Dav test
@@ -134,8 +129,8 @@ public class MainGameState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-       config.getMap().resetClicked(i);
-       config.getMap().resetButtons(i);
+       config.getMap().resetClicked();
+       config.getMap().resetButtons();
        config.getTurretMenu().update();
         //Dav test
       /*  wave.spawn();

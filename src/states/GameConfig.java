@@ -2,7 +2,7 @@ package states;
 
 import gui.TurretMenu;
 import maps.Map;
-import obj.Displayable;
+import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -25,12 +25,13 @@ public class GameConfig {
     private int money; //TODO: combien d'argent au début?
     private String playerName;
     private boolean turretIsSelected=false;
-    private Displayable selectedTurret;
+    private Turret selectedTurret;
+    private Enemy selectedEnemy;
     private Map map;
     private ArrayList<Turret> usableTurrets;
     private TurretMenu turretMenu;
 
-    private GameConfig(StateBasedGame sbg) throws SlickException, FileNotFoundException, URISyntaxException {
+    private GameConfig(StateBasedGame sbg) throws SlickException{
         money=100;
         stateBasedGame=sbg;
         map=new Map(stateBasedGame, 15, this);
@@ -44,11 +45,7 @@ public class GameConfig {
      */
     public static GameConfig getInstance(StateBasedGame sbg) throws SlickException{
         if (instance==null){
-            try {
-                instance=new GameConfig(sbg);
-            } catch (FileNotFoundException | URISyntaxException e) {
-                e.printStackTrace();
-            }
+            instance=new GameConfig(sbg);
         }
         return GameConfig.instance;
     }
@@ -57,7 +54,8 @@ public class GameConfig {
     //       LES GETTERS       //
     public int getMoney() {return money;}
     public String getPlayerName(){return playerName;}
-    public Displayable getTurret(){return selectedTurret;}
+    public Turret getTurret(){return selectedTurret;}
+    public Enemy getEnemy(){return selectedEnemy;}
     public Map getMap(){return map;}
     public ArrayList<Turret> getUsableTurrets(){return usableTurrets;}
     public TurretMenu getTurretMenu() {return turretMenu;}
@@ -65,7 +63,8 @@ public class GameConfig {
     //       LES SETTERS       //
     public void setMoney(int money) {this.money = money;}
     public void setPlayerName(String name){this.playerName=name;}
-    public void setSelectedTurret(Displayable turret){this.selectedTurret=turret;}
+    public void setSelectedTurret(Turret turret){this.selectedTurret=turret;}
+    public void setSelectedEnemy(Enemy enemy){this.selectedEnemy=enemy;}
     public void setMap(Map map){this.map=map;}
     public void setTurretMenu(GameContainer gameContainer) throws SlickException, FileNotFoundException, URISyntaxException {
         this.turretMenu=new TurretMenu(stateBasedGame, gameContainer);
@@ -74,6 +73,6 @@ public class GameConfig {
      * Ajoute une tourelle à la liste des tourelles utilisables
      * @param turret
      */
-    public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {for(int i = 0; i<1; i++){this.usableTurrets.add(new Turret(turret.getType(), turret.getPos(), stateBasedGame));}}
+    public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {for(int i = 0; i<1; i++){this.usableTurrets.add(new Turret(turret));}}
     public void setTurretIsSelected(boolean setting){this.turretIsSelected=setting;}
 }

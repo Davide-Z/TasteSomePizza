@@ -12,10 +12,10 @@ import states.GameConfig;
 
 
 public abstract class Displayable {
-	protected StateBasedGame sbg;
-	protected GameContainer gc;
-	protected Graphics g;
-	protected GameConfig config;
+	StateBasedGame sbg;
+	GameContainer gc;
+	Graphics g;
+	GameConfig config;
 	protected Vec pos;
 	protected int type;
 	private int typeId;
