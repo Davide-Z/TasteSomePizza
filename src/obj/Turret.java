@@ -10,21 +10,20 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 public class Turret extends Displayable{
-
+	int type;
+	int projectileType;
+	int damage;
+	float fireRate;
+	int range;
 	int buyPrice;
 	int sellPrice;
-	int range;
-	long fireRate;
+	int upgradePrice;
 	int level;
 	boolean upgrade;
-	// Ce qui n'etait pas dans l'UML :
-	String projectileType;
 	long lastFire=System.currentTimeMillis();
-	int idEnemy; // Ennemi a cibler
-	int upgradePrice;
 	Enemy lastEnemy=null;
 	
-	public Turret(String t, Vec p, StateBasedGame sbg, Wave w) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Turret(int t, Vec p, StateBasedGame sbg, Wave w) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(t, p, sbg, w);
 		actualWave.getTurretsAlive().add(this);
 		assignType(t);
@@ -32,31 +31,45 @@ public class Turret extends Displayable{
 	}
 	public Turret(StateBasedGame sbg){
 		super(sbg);
-		super.type="tourelle de test";
+		super.type=0;
 	}
 
 	/**
 	 * Constructeur utilisé pour copier une tourelle
 	 * @param original
 	 */
-	public Turret(String type, Vec pos, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Turret(int type, Vec pos, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(sbg);
 		super.type=type;
 		super.pos=pos;
+		this.level=1;
 		super.sprite=FileLoader.getSpriteImage("cook.png");
 	}
 	
-	public void assignType(String t){
-		if(t.equals("default")){
-			this.buyPrice=10;
-			this.sellPrice=8;
-			this.range=1000000; // it's a test
-			this.level=1;
-			this.upgrade=false;
-			this.projectileType="default";
-			this.upgradePrice=6;
-			this.setTypeId(1);
+	public void assignType(int t){
+		if (t==1){
+			// HighFireRate
+			assignValues(1, 130, 2f, 10000, 200, 160, 200);
 		}
+		else if(t==2){
+			// HighDamage
+			assignValues(2, 300, 1.3f, 10000, 220, 190, 220);
+		}
+		else{
+			// Default
+			assignValues(0, 200, 1f, 10000, 150, 90, 150);
+		}
+		this.upgrade=false;
+	}
+	
+	public void assignValues(int type,int damage, float fireRate, int range, int buyPrice, int sellPrice, int upgradePrice){
+		this.type=type;
+		this.damage=damage;
+		this.fireRate=fireRate;
+		this.range=range;
+		this.buyPrice=buyPrice;
+		this.sellPrice=sellPrice;
+		this.upgradePrice=upgradePrice;
 	}
 	
 	public void update(){
@@ -121,23 +134,18 @@ public class Turret extends Displayable{
 	}*/
 	
 	// getters and setters :
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
-	public String getProjectileType() {
+	public int getProjectileType() {
 		return projectileType;
 	}
 	@Override
 	public void appear() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public String toString(){
-		return this.type;
 	}
 }

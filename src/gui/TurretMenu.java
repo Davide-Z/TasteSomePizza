@@ -45,7 +45,7 @@ public class TurretMenu {
                 j=0;
             }
         }
-        enemyButtons.add(new TurretButton(game, container, null, 724, 1, new Enemy("enemyTest", new Vec(724,1), 1, 10, 10, sbg)));
+        enemyButtons.add(new TurretButton(game, container, null, 724, 1, new Enemy(0, new Vec(724,1), 1, 10, 10, sbg)));
     }
 
     public void render(){
