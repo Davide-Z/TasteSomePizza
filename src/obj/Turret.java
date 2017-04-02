@@ -28,22 +28,25 @@ public class Turret extends Displayable{
 		actualWave.getTurretsAlive().add(this);
 		assignType(t);
 		super.sprite=FileLoader.getSpriteImage("cook.png");
+
 	}
 	public Turret(StateBasedGame sbg){
 		super(sbg);
 		super.type=0;
+		super.name="Turret";
 	}
 
 	/**
-	 * Constructeur utilisé pour copier une tourelle
+	 * Constructeur utilisé pour copier une tourelle à une position donnée
 	 * @param turret
 	 */
-	public Turret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Turret(Turret turret, Vec pos) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(turret.sbg);
 		super.type=turret.type;
-		super.pos=turret.pos;
+		super.pos=pos;
 		this.level=1;
 		super.sprite=FileLoader.getSpriteImage("cook.png");
+		super.name="Turret";
 	}
 	
 	public void assignType(int t){

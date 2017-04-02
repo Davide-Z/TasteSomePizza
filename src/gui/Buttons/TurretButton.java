@@ -1,6 +1,7 @@
 package gui.Buttons;
 
 import gui.FileLoader;
+import maps.Vec;
 import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.*;
@@ -32,7 +33,7 @@ public class TurretButton extends MouseOverArea {
     private Turret turret;
     private Enemy enemy;
     private boolean clicked=false;
-
+    int pass=0;
     public TurretButton(StateBasedGame sbg, GameContainer container, Image image, int x, int y, Turret turret) throws SlickException, FileNotFoundException, URISyntaxException {
         super(container, FileLoader.getImage("vide.png"), x, y);
         this.x=x;
@@ -40,19 +41,19 @@ public class TurretButton extends MouseOverArea {
         this.game=sbg;
         this.container=sbg.getContainer();
         this.graphics=container.getGraphics();
-        this.turret=turret;
+        this.turret=new Turret(turret, new Vec(x,y));
         config=GameConfig.getInstance(sbg);
-        this.hitbox=new Rectangle(x,y,152,160);
+        this.hitbox=new Rectangle(this.x,this.y,152,160);
         System.out.println(x+ " "+y);
     }
     public TurretButton(StateBasedGame sbg, GameContainer container, Image image, int x, int y, Enemy enemy) throws SlickException, FileNotFoundException, URISyntaxException {
         super(container, FileLoader.getImage("vide.png"), x, y);
-        this.x=x+152;
+        this.x=x;
         this.y=y;
         this.game=sbg;
         this.container=sbg.getContainer();
         this.graphics=container.getGraphics();
-        this.enemy=enemy;
+        this.enemy=new Enemy(enemy, new Vec(x,y));
         config=GameConfig.getInstance(sbg);
         this.hitbox=new Rectangle(this.x,this.y,152,160);
         System.out.println(x+ " "+y);
@@ -66,21 +67,28 @@ public class TurretButton extends MouseOverArea {
      * @param my
      */
     public void mousePressed(int button, int mx, int my){
+        /*
         over=this.hitbox.contains(mx, my);
-        if(over && !clicked){
+        if(over && pass<1){
             if(config.getTurretMenu().turretMode){
                 config.setSelectedTurret(this.turret);
-                System.out.println("turret mouse");
                 config.setSelectedEnemy(null);
+                System.out.println("turret null? "+(this.turret==null));
             }
             else{
                 config.setSelectedEnemy(this.enemy);
-                System.out.println(this.enemy.getType());
                 config.setSelectedTurret(null);
+                System.out.println("enemy null? "+(this.enemy==null));
             }
-            config.getMap().addClickedButtons(this);
-            clicked=true;
+            //config.getMap().addClickedButtons(this);
+            //clicked=true;
+            pass++;
         }
+        else if(over && pass>=2){
+            pass=0;
+        }
+        System.out.println(pass);
+        */
     }
 
     public void setTurret(Turret turret){
@@ -97,7 +105,7 @@ public class TurretButton extends MouseOverArea {
             graphics.fill(hitbox);
             graphics.setColor(Color.black);
             graphics.draw(hitbox);
-            this.turret.render(x, y);
+            this.turret.render();
         }
         else if(enemy != null && !config.getTurretMenu().turretMode){
             graphics.setLineWidth(1);
@@ -105,12 +113,38 @@ public class TurretButton extends MouseOverArea {
             graphics.fill(hitbox);
             graphics.setColor(Color.black);
             graphics.draw(hitbox);
-            this.enemy.render(x, y);
+            this.enemy.render();
         }
     }
 
-    public void update(){
-
+    public void update() {
+        over = this.hitbox.contains(config.getMx(), config.getMy());
+        if(over){
+            if (config.isMouseClicked() && (System.currentTimeMillis()-config.clickPing)<=20) {
+                if (config.getTurretMenu().turretMode) {
+                    if(config.getTurret()==null){
+                        config.setSelectedTurret(this.turret);
+                    }
+                    else if(config.getTurret().getType()!=this.turret.getType()){
+                        config.setSelectedTurret(this.turret);
+                    }
+                    else if(config.getTurret().getType()==this.turret.getType()){
+                        config.setSelectedTurret(null);
+                    }
+                    config.setSelectedEnemy(null);
+                    System.out.println("turret null? " + (this.turret == null));
+                } else {
+                    config.setSelectedEnemy(this.enemy);
+                    config.setSelectedTurret(null);
+                    System.out.println("enemy null? " + (this.enemy == null));
+                }
+                //config.getMap().addClickedButtons(this);
+                //clicked=true;
+            }
+        }
+        //System.out.println(pass);
+        pass++;
+        if(pass >=8){pass=0;} //TODO utiliser le temps plutot
     }
 
     public void reset(){clicked=false;}

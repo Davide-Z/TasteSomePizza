@@ -24,7 +24,7 @@ public class Enemy extends Displayable{
 		this.points = points;
 		wave.enemiesAlive.add(this);
 		this.spriteName="client.png";
-
+		super.name="Enemy";
 	}
 
 	public Enemy(int t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
@@ -39,13 +39,15 @@ public class Enemy extends Displayable{
 		this.pos=pos;
 		super.sprite= FileLoader.getSpriteImage("client.png");
 		this.sprite=super.sprite;
+		super.name="Enemy";
 	}
 
-	public Enemy(Enemy enemy) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Enemy(Enemy enemy, Vec pos) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(enemy.sbg);
 		super.type=enemy.type;
-		super.pos=enemy.pos;
+		super.pos=pos;
 		super.sprite=FileLoader.getSpriteImage("client.png");
+		super.name="Enemy";
 	}
 
 	//Attributs;

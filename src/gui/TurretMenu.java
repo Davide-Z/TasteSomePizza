@@ -1,7 +1,6 @@
 package gui;
 
 import gui.Buttons.TurretButton;
-import maps.Vec;
 import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.GameContainer;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
  * Created by tic-tac on 26/03/17.
  */
 public class TurretMenu {
+    private final ArrayList<Enemy> usableEnemies;
     //Attributs du moteur
     private GameContainer container;
     private StateBasedGame game;
@@ -29,23 +29,33 @@ public class TurretMenu {
     private ArrayList<Turret> usableTurrets;
 
     public TurretMenu(StateBasedGame sbg, GameContainer gameContainer) throws SlickException, FileNotFoundException, URISyntaxException {
-        game=sbg;
-        container=gameContainer;
-        turretButtons =new ArrayList<>();
-        enemyButtons=new ArrayList<>();
+        game = sbg;
+        container = gameContainer;
+        turretButtons = new ArrayList<>();
+        enemyButtons = new ArrayList<>();
         config = GameConfig.getInstance(sbg);
-        usableTurrets=config.getUsableTurrets();
-        int i=0;
-        int j=0;
-        for(Turret t : usableTurrets){
-            turretButtons.add(new TurretButton(game ,container, null, 724+j*148, 1+i*160, t)); //On crée un bouton
+        usableTurrets = config.getUsableTurrets();
+        usableEnemies = config.getUsableEnemies();
+        int i = 0;
+        int j = 0;
+        for (Turret t : usableTurrets) {
+            turretButtons.add(new TurretButton(game, container, null, 724 + j * 148, 1 + i * 160, t)); //On crée un bouton
             j++;
-            if(j>=2){
+            if (j >= 2) {
                 i++;
-                j=0;
+                j = 0;
             }
         }
-        enemyButtons.add(new TurretButton(game, container, null, 724, 1, new Enemy(0, new Vec(724,1), 1, 10, 10, sbg)));
+        i = 0;
+        j = 0;
+        for (Enemy e : usableEnemies) {
+            enemyButtons.add(new TurretButton(game, container, null, 724 + j * 148, 1 + i * 160, e));
+            j++;
+            if (j >= 2) {
+                i++;
+                j = 0;
+            }
+        }
     }
 
     public void render(){

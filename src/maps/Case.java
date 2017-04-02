@@ -34,6 +34,7 @@ public class Case extends MouseOverArea {
 	private Image image;
 	private Turret turret=null;
 	private Enemy enemy=null;
+	private int pass=0;
 
 	public Case(StateBasedGame sbg, int x, int y, Map map, GameConfig conf) throws SlickException{
 	    super(sbg.getContainer(),null,x,y,48,48);
@@ -62,47 +63,46 @@ public class Case extends MouseOverArea {
 		g.draw(cadre);
 
 		if (turret != null){
-			turret.render(x-6, y-6);
+			turret.render();
 		}
 		else if(enemy != null){
-			enemy.render(x,y);
+			enemy.render();
+		}
+	}
+
+	public void update() throws InterruptedException {
+		over=interieur.contains(config.getMx(),config.getMy());
+		if (over && sbg.getCurrentStateID()==1) { //Si la souris est sur la case, on est sr l'écran de jeu
+			if (config.isMouseClicked() && (System.currentTimeMillis()-config.clickPing)<=20) {
+				System.out.println("Case cliquée:" + (1 + (this.getX() / 48)) + "x" + (1 + (this.getY() / 48)));
+				if (config.getTurretMenu().turretMode) {
+					if (turret == null && enemy == null && config.getTurret() != null) {
+						try {
+							this.turret = new Turret(config.getTurret(), new Vec(this.x, this.y));
+						} catch (FileNotFoundException | SlickException | URISyntaxException e) {
+							e.printStackTrace();
+						}
+					} else {
+						this.turret = null;
+					}
+				} else {
+					if (enemy == null && turret == null && config.getEnemy() != null) {
+						try {
+							this.enemy = new Enemy(config.getEnemy(), new Vec(this.x, this.y));
+							System.out.println(this.enemy.getType());
+						} catch (FileNotFoundException | SlickException | URISyntaxException e) {
+							e.printStackTrace();
+						}
+					} else {
+						this.enemy = null;
+					}
+				}
+			}
 		}
 	}
 
 	@Override
     public void mousePressed(int button, int mx, int my){
-	    over=interieur.contains(mx,my);
-	    if (over && sbg.getCurrentStateID()==1 && !clicked){ //Si la souris est sur la case, on est sr l'écran de jeu & si on n'a pas déjà cliqué trop récemment
-            System.out.println("Case cliquée:"+(1+(this.getX()/48))+"x"+(1+(this.getY()/48)));
-            if(config.getTurretMenu().turretMode){
-				if(turret==null && enemy==null && config.getTurret()!=null){
-					try {
-						this.turret=new Turret(config.getTurret());
-					} catch (FileNotFoundException | SlickException | URISyntaxException e) {
-						e.printStackTrace();
-					}
-//				System.out.println(this.turret.toString());
-				}
-				else{
-					this.turret=null;
-				}
-			}
-			else{
-            	if(enemy==null && turret==null && config.getEnemy()!=null){
-					try {
-						this.enemy=new Enemy(config.getEnemy());
-						System.out.println(this.enemy.getType());
-					} catch (FileNotFoundException | SlickException | URISyntaxException e) {
-						e.printStackTrace();
-					}
-				}
-				else{
-            		this.enemy=null;
-				}
-			}
-			config.getMap().addClicked(this);
-			clicked=true;
-		}
     }
 
 	@Override

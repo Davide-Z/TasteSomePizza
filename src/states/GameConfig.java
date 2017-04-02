@@ -4,6 +4,7 @@ import gui.TurretMenu;
 import maps.Map;
 import obj.Enemy;
 import obj.Turret;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -30,12 +31,20 @@ public class GameConfig {
     private Map map;
     private ArrayList<Turret> usableTurrets;
     private TurretMenu turretMenu;
+    private ArrayList<Enemy> usableEnemies;
+    //Position de la souris
+    private int mx=0;
+    private int my=0;
+    private boolean mouseClicked=false;
+    public long clickPing=0;
 
     private GameConfig(StateBasedGame sbg) throws SlickException{
         money=100;
         stateBasedGame=sbg;
+        gc=sbg.getContainer();
         map=new Map(stateBasedGame, 15, this);
         usableTurrets=new ArrayList<>();
+        usableEnemies=new ArrayList<>();
     }
 
     /**
@@ -73,6 +82,39 @@ public class GameConfig {
      * Ajoute une tourelle à la liste des tourelles utilisables
      * @param turret
      */
-    public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {for(int i = 0; i<1; i++){this.usableTurrets.add(new Turret(turret));}}
+    public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {
+        for(int i = 0; i<1; i++){
+            this.usableTurrets.add(new Turret(turret, null));
+        }
+        this.usableEnemies.add(new Enemy(0, null, 1,10,10,stateBasedGame));
+    }
     public void setTurretIsSelected(boolean setting){this.turretIsSelected=setting;}
+
+    public ArrayList<Enemy> getUsableEnemies() {
+        return usableEnemies;
+    }
+/*
+    public void updateMouse() {
+        this.mx= Mouse.getX();
+        this.my= gc.getHeight()-Mouse.getY();
+        this.mouseClicked= Mouse.isButtonDown(0);
+    }
+*/
+    public int getMx() {
+        mx=Mouse.getX();
+        return mx;
+    }
+
+    public int getMy() {
+        my=gc.getHeight()-Mouse.getY();
+        return my;
+    }
+
+    public boolean isMouseClicked() {
+        mouseClicked=Mouse.isButtonDown(0);
+        if(!mouseClicked){
+            this.clickPing=System.currentTimeMillis();
+        }
+        return mouseClicked;
+    }
 }

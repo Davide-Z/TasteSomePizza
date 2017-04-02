@@ -51,9 +51,17 @@ public class Map {
     }
 
     public void render() { //Affiche chaque case
-        for(int i=0;i<taille;i++){
-            for(int j=0;j<taille;j++){
-                cases[i][j].render();
+        for(Case[] cs : cases){
+            for(Case c : cs){
+                c.render();
+            }
+        }
+    }
+
+    public void update() throws InterruptedException {
+        for(Case[] cs : cases){
+            for(Case c : cs){
+                c.update();
             }
         }
     }

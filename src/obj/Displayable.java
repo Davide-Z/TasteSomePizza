@@ -12,19 +12,20 @@ import states.GameConfig;
 
 
 public abstract class Displayable {
-	StateBasedGame sbg;
-	GameContainer gc;
-	Graphics g;
-	GameConfig config;
+	protected StateBasedGame sbg;
+	protected GameContainer gc;
+	protected Graphics g;
+	protected GameConfig config;
 	protected Vec pos;
 	protected int type;
-	private int typeId;
+	protected int typeId;
 	// private int lastId=0; //  A remettre si finalement on se sert de id. Sert pour creer les identifiants uniques
 	protected Map actualMap;
 	protected float aimedDirection;
 	protected Wave actualWave;
 
 	protected Image sprite;
+	protected String name;
 
 	public Displayable(int t, StateBasedGame sbg, Wave w) throws SlickException {
 		this.type=t;
@@ -44,6 +45,10 @@ public abstract class Displayable {
 		this.actualWave=w;
 	}
 
+	/**
+	 * initialise un Displayable avec juste l'essentiel
+	 * @param sbg
+	 */
 	public Displayable(StateBasedGame sbg){
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
@@ -104,8 +109,15 @@ public abstract class Displayable {
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
 	}
-	public void render(int x, int y){
-		this.sprite.draw(x, y);
+	public void render(){
+		this.sprite.draw(pos.getX(), pos.getY());
 	}
 	public abstract void appear();
+	public String getName(){return this.name;}
+	public void setName(String name){this.name=name;}
+
+	@Override
+	public String toString(){
+		return this.name+"-"+this.type;
+	}
 }
