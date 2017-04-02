@@ -39,7 +39,7 @@ public class StateButton extends MouseOverArea{
         this.height=image.getHeight();
         this.action=action;
         this.text=text;
-        this.hitbox = new RoundedRectangle(x+3,y+7,image.getWidth()-14,image.getHeight()-20,13);
+        this.hitbox = new RoundedRectangle(x,y,image.getWidth(),image.getHeight(),13);
         this.container=game.getContainer();
         this.config = GameConfig.getInstance(sbg);
     }
@@ -47,7 +47,9 @@ public class StateButton extends MouseOverArea{
     public void render(Graphics g) {
         this.render(container, g);
         g.setColor(Color.white);
-        g.drawString(text, (int)(x + hitbox.getWidth() / 2 -60), (int)(y + hitbox.getHeight() / 2-20)); //Affiche le texte du bouton, centré
+        if(text!=null) {
+            g.drawString(text, (int) (x + hitbox.getWidth() / 2 - 60), (int) (y + hitbox.getHeight() / 2 - 20)); //Affiche le texte du bouton, centré
+        }
         g.setLineWidth(1);
         g.draw(hitbox);
     }
@@ -65,7 +67,7 @@ public class StateButton extends MouseOverArea{
             else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==0)){    //aller au menu
                 game.enterState(0);
             }
-            else if((action.matches("wave !"))&&(game.getCurrentStateID()==1)){ //Début de vague
+            else if((action.matches("wave"))&&(game.getCurrentStateID()==1)){ //Début de vague
                 game.enterState(2);
             }
             else if((action.matches("turret"))&&(game.getCurrentStateID()==1)){

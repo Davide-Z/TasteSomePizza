@@ -22,6 +22,7 @@ public class TurretMenu {
     private StateBasedGame game;
     private GameConfig config;
 
+    //Si true, mode pose de tourelles, si false, pose d'ennemis
     public boolean turretMode=true;
 
     private ArrayList<TurretButton> turretButtons;

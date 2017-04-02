@@ -27,7 +27,8 @@ public class MenuState extends BasicGameState {
 
     //Paramètres d'interface
     private Image backgroundImage;
-    private Image imgBouton;
+    private Image imgBoutonStart;
+    private Image imgBoutonExit;
     private StateButton startButton;
     private StateButton exitButton;
     private SpriteSheet piz;
@@ -71,10 +72,11 @@ public class MenuState extends BasicGameState {
             font=font.deriveFont(font.getSize()*45f);
             ttf=new TrueTypeFont(font, true);
             backgroundImage=FileLoader.getImage("interface/bgi.png");
-            imgBouton=FileLoader.getImage("interface/boutonOrange.png");
+            imgBoutonStart =FileLoader.getImage("interface/boutonDemarrer.png");
+            imgBoutonExit =FileLoader.getImage("interface/boutonQuitter.png");
             piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
-            startButton = new StateButton(game, imgBouton, winWidth/2-152,winHeight/2-55, "Demarrer", "start");
-            exitButton=new StateButton(game, imgBouton, winWidth/2-152,winHeight/2+50, "Quitter", "quit");
+            startButton = new StateButton(game, imgBoutonStart, winWidth/2-152,winHeight/2-55, null, "start");
+            exitButton=new StateButton(game, imgBoutonExit, winWidth/2-152,winHeight/2+50, null, "quit");
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
         }

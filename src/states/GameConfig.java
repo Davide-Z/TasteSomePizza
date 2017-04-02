@@ -6,6 +6,7 @@ import obj.Enemy;
 import obj.Turret;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -111,7 +112,7 @@ public class GameConfig {
     }
 
     public boolean isMouseClicked() {
-        mouseClicked=Mouse.isButtonDown(0);
+        mouseClicked=Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON);
         if(!mouseClicked){
             this.clickPing=System.currentTimeMillis();
         }

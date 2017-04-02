@@ -148,20 +148,6 @@ public class MainGameState extends BasicGameState {
     }
 
     /**
-     * Méthode pour pouvoir changer d'état plus rapidement ou quitter, avec le clavier
-     * @param key Touche appuyée
-     * @param c charactère reçu
-     */
-    public void keyPressed(int key, char c){
-        if(key== Input.KEY_ESCAPE){
-            container.exit();
-        }
-        if(key==Input.KEY_SPACE){
-            game.enterState(0);
-        }
-    }
-
-    /**
      * Méthode donnant les mouvements de la sourie
      * @param oldX
      * @param oldY

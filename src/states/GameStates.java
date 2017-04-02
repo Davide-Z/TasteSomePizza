@@ -1,6 +1,7 @@
 package states;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -11,6 +12,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameStates extends StateBasedGame{
 
+    int currentState;
+    int lastState;
     public GameStates(String name) {
         super(name);
     }
@@ -24,4 +27,23 @@ public class GameStates extends StateBasedGame{
         this.enterState(1);
     }
 
+    @Override
+    /**
+     * Méthode qui est utilisée quand une touche est appuyée, pour les raccourcis claviers disponibles partout
+     * (echappe = quitter, espace = aller au menu/en revenir)
+     */
+    public void keyPressed(int key, char c) {
+        if (key == Input.KEY_ESCAPE) {
+            this.getContainer().exit();
+        }
+        if (key == Input.KEY_SPACE) {
+            currentState=this.getCurrentStateID();
+            if (currentState != 0) {
+                lastState=currentState;
+                this.enterState(0);
+            } else {
+                this.enterState(lastState);
+            }
+        }
+    }
 }

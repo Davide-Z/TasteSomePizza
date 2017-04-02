@@ -119,7 +119,7 @@ public class TurretButton extends MouseOverArea {
 
     public void update() {
         over = this.hitbox.contains(config.getMx(), config.getMy());
-        if(over){
+        if(over && game.getCurrentState().getID()==1){
             if (config.isMouseClicked() && (System.currentTimeMillis()-config.clickPing)<=20) {
                 if (config.getTurretMenu().turretMode) {
                     if(config.getTurret()==null){
@@ -132,19 +132,24 @@ public class TurretButton extends MouseOverArea {
                         config.setSelectedTurret(null);
                     }
                     config.setSelectedEnemy(null);
-                    System.out.println("turret null? " + (this.turret == null));
                 } else {
-                    config.setSelectedEnemy(this.enemy);
-                    config.setSelectedTurret(null);
-                    System.out.println("enemy null? " + (this.enemy == null));
+                    if(config.getEnemy()==null){
+                        config.setSelectedEnemy(this.enemy);
+                        config.setSelectedTurret(null);
+                    }
+                    else if(config.getEnemy().getType()!=this.enemy.getType()){
+                        config.setSelectedEnemy(this.enemy);
+                        config.setSelectedTurret(null);
+                    }
+                    else if(config.getEnemy().getType()==this.enemy.getType()){
+                        config.setSelectedEnemy(null);
+                        config.setSelectedTurret(null);
+                    }
                 }
                 //config.getMap().addClickedButtons(this);
                 //clicked=true;
             }
         }
-        //System.out.println(pass);
-        pass++;
-        if(pass >=8){pass=0;} //TODO utiliser le temps plutot
     }
 
     public void reset(){clicked=false;}
