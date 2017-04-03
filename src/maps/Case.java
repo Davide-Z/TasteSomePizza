@@ -29,12 +29,10 @@ public class Case extends MouseOverArea {
 	private StateBasedGame sbg;
 	private Graphics g;
 	private GameConfig config;
-	private boolean clicked=false;
 	private Map map;
 	private Image image;
 	private Turret turret=null;
 	private Enemy enemy=null;
-	private int pass=0;
 
 	public Case(StateBasedGame sbg, int x, int y, Map map, GameConfig conf) throws SlickException{
 	    super(sbg.getContainer(),null,x,y,48,48);
@@ -50,9 +48,6 @@ public class Case extends MouseOverArea {
 		this.config=conf;
 	}
 
-	public void reset(){
-		clicked=false;
-	}
 	public void render() {
 	    g.setColor(Color.white);
 	    g.fill(interieur);

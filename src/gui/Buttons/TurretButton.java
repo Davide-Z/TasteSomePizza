@@ -59,38 +59,6 @@ public class TurretButton extends MouseOverArea {
         System.out.println(x+ " "+y);
     }
 
-    /**
-     * Si on clique dessus, on sélectionne la tourelle de ce bouton
-     * si on reclique, on déselectionne la tourelle déjà choisie
-     * @param button
-     * @param mx
-     * @param my
-     */
-    public void mousePressed(int button, int mx, int my){
-        /*
-        over=this.hitbox.contains(mx, my);
-        if(over && pass<1){
-            if(config.getTurretMenu().turretMode){
-                config.setSelectedTurret(this.turret);
-                config.setSelectedEnemy(null);
-                System.out.println("turret null? "+(this.turret==null));
-            }
-            else{
-                config.setSelectedEnemy(this.enemy);
-                config.setSelectedTurret(null);
-                System.out.println("enemy null? "+(this.enemy==null));
-            }
-            //config.getMap().addClickedButtons(this);
-            //clicked=true;
-            pass++;
-        }
-        else if(over && pass>=2){
-            pass=0;
-        }
-        System.out.println(pass);
-        */
-    }
-
     public void setTurret(Turret turret){
         this.turret=turret;
     }
@@ -152,6 +120,4 @@ public class TurretButton extends MouseOverArea {
             }
         }
     }
-
-    public void reset(){clicked=false;}
 }

@@ -95,13 +95,7 @@ public class GameConfig {
     public ArrayList<Enemy> getUsableEnemies() {
         return usableEnemies;
     }
-/*
-    public void updateMouse() {
-        this.mx= Mouse.getX();
-        this.my= gc.getHeight()-Mouse.getY();
-        this.mouseClicked= Mouse.isButtonDown(0);
-    }
-*/
+
     public int getMx() {
         mx=Mouse.getX();
         return mx;
