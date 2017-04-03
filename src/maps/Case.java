@@ -73,7 +73,7 @@ public class Case extends MouseOverArea {
 	public void update() throws InterruptedException {
 		over=interieur.contains(config.getMx(),config.getMy());
 		if (over && sbg.getCurrentStateID()==1) { //Si la souris est sur la case, on est sr l'écran de jeu
-			if (config.isMouseClicked() && (System.currentTimeMillis()-config.clickPing)<=20) {
+			if (config.isMouseClicked() && config.isMouseReleased) {   //Si la souris est cliquée et était relachée avant
 				System.out.println("Case cliquée:" + (1 + (this.getX() / 48)) + "x" + (1 + (this.getY() / 48)));
 				if (config.getTurretMenu().turretMode) {
 					if (turret == null && enemy == null && config.getTurret() != null) {
@@ -97,6 +97,7 @@ public class Case extends MouseOverArea {
 						this.enemy = null;
 					}
 				}
+				config.isMouseReleased=false; //La souris est plus relachée (pour éviter d'appuyer plusieurs fois)
 			}
 		}
 	}

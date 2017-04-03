@@ -38,6 +38,7 @@ public class GameConfig {
     private int my=0;
     private boolean mouseClicked=false;
     public long clickPing=0;
+    public boolean isMouseReleased=true;
 
     private GameConfig(StateBasedGame sbg) throws SlickException{
         money=100;
@@ -115,6 +116,7 @@ public class GameConfig {
         mouseClicked=Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON);
         if(!mouseClicked){
             this.clickPing=System.currentTimeMillis();
+            this.isMouseReleased=true;
         }
         return mouseClicked;
     }

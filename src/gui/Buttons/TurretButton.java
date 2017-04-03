@@ -120,7 +120,7 @@ public class TurretButton extends MouseOverArea {
     public void update() {
         over = this.hitbox.contains(config.getMx(), config.getMy());
         if(over && game.getCurrentState().getID()==1){
-            if (config.isMouseClicked() && (System.currentTimeMillis()-config.clickPing)<=20) {
+            if (config.isMouseClicked() && config.isMouseReleased) {
                 if (config.getTurretMenu().turretMode) {
                     if(config.getTurret()==null){
                         config.setSelectedTurret(this.turret);
@@ -146,6 +146,7 @@ public class TurretButton extends MouseOverArea {
                         config.setSelectedTurret(null);
                     }
                 }
+                config.isMouseReleased=false;
                 //config.getMap().addClickedButtons(this);
                 //clicked=true;
             }
