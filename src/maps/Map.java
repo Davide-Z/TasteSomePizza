@@ -68,15 +68,89 @@ public class Map {
         return this.taille;
     }
     
+    int[][] toMatrix() {
+    	int[][] matrix = new int[this.taille][this.taille];
+    	for (int i=0; i<this.taille; i++) {
+    		for (int j=0; j<this.taille; j++) {
+    			if (this.cases[i][j].getTurret() == null) {
+    				matrix[i][j]=0;
+    			}
+    			else {
+    				matrix[i][j]=1;
+    			}
+    		}
+    	}
+    	return matrix;
+    }
+    
+    static void cross(int[][] m, int[] coordinates) {
+		m[coordinates[0]][coordinates[1]]=2;
+	}
+    
+    static public boolean corEquals(int[] cor1, int[] cor2) {
+		return (cor1[0]==cor2[0] && cor1[1]==cor2[1]);
+	}
+	
+	static public int[] getCor(int[] corU) {
+		return (new int[] {corU[0], corU[1]});
+	}
+	
     public LinkedList<Vec> computePath(){
-		//TODO
-		LinkedList<Vec> path = new LinkedList<>();
-		int x = this.spawn.getX();
-		int y = this.spawn.getY();
-		while (x<this.posBase.getX()) {
-			x++;
-			path.add(new Vec(x, y));
-		}
-		return path;
+    			int[][] currentMap = this.toMatrix();
+    			LinkedList<int[]> mainList = new LinkedList<int[]>();
+    			LinkedList<int[]> untestedList = new LinkedList<int[]>();
+    			int n=0; //cost
+    			int[] origin = new int[] {this.spawn.getX(), this.spawn.getY(), n};
+    			int[] end = new int[] {this.posBase.getX(), this.posBase.getY()};
+    			untestedList.add(origin);
+    			LinkedList<int[]> nextUntestedList = (LinkedList<int[]>) untestedList.clone();
+    			boolean found = false;
+    			while (! found && ! nextUntestedList.isEmpty()) {
+    				n++;
+    				untestedList = (LinkedList<int[]>) nextUntestedList.clone();
+    				nextUntestedList.clear();
+    				for (int[] cor : untestedList) {
+    					cross(currentMap, cor);
+    					mainList.add(cor);
+    					if (corEquals(cor, end)) {
+    						found=true;
+    						break;
+    					}
+    					if (0 <= cor[1]+1 && cor[1]+1 < currentMap[0].length && currentMap[cor[0]][cor[1]+1] == 0) {
+    						nextUntestedList.add(new int[] {cor[0],cor[1]+1, n});
+    					}
+    					if (0 <= cor[0]+1 && cor[0]+1 < currentMap.length && currentMap[cor[0]+1][cor[1]] == 0) {
+    						nextUntestedList.add(new int[] {cor[0]+1,cor[1], n});
+    					}
+    					if (0 <= cor[0]-1 && cor[0]-1 < currentMap.length && currentMap[cor[0]-1][cor[1]] == 0) {
+    						nextUntestedList.add(new int[] {cor[0]-1,cor[1], n});
+    					}
+    					if (0 <= cor[1]-1 && cor[1]-1 < currentMap[0].length && currentMap[cor[0]][cor[1]-1] == 0) {
+    						nextUntestedList.add(new int[] {cor[0],cor[1]-1, n});
+    					}
+    				}
+    			}
+    			if (mainList.getLast()[0]!=end[0] || mainList.getLast()[1]!=end[1]) {
+    				return null;
+    			}
+    			else {
+    				LinkedList<Vec> computedPath = new LinkedList<Vec>();
+    				computedPath.addFirst(new Vec(mainList.getLast()[0], mainList.removeLast()[1]));
+    				while (! corEquals(computedPath.getFirst().toList(), origin)){
+    					while (mainList.size()>0 &&
+    							!corEquals(getCor(mainList.getLast()), new int[] {computedPath.getFirst().toList()[0],computedPath.getFirst().toList()[1]-1}) &&
+    							!corEquals(getCor(mainList.getLast()), new int[] {computedPath.getFirst().toList()[0]+1,computedPath.getFirst().toList()[1]}) &&
+    							!corEquals(getCor(mainList.getLast()), new int[] {computedPath.getFirst().toList()[0]-1,computedPath.getFirst().toList()[1]}) &&
+    							!corEquals(getCor(mainList.getLast()), new int[] {computedPath.getFirst().toList()[0],computedPath.getFirst().toList()[1]+1})){
+    							mainList.removeLast();
+    					}
+    					n=mainList.getLast()[2];
+    					computedPath.addFirst(new Vec(mainList.getLast()[0], mainList.removeLast()[1]));
+    					while (mainList.size()>0 && mainList.getLast()[2]>=n) {
+    						mainList.removeLast();
+    					}
+    				}
+    				return computedPath;
+    			}
 	}
 }

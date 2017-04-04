@@ -91,4 +91,8 @@ public class Vec {
     public boolean equals(Vec v){
     	return (this.x==v.x && this.y==v.y);
     }
+    
+    public int[] toList() {
+    	return (new int[] {this.x, this.y});
+    }
 }
