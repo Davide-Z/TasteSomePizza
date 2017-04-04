@@ -39,8 +39,8 @@ public class Map {
             }
         }
         
-        spawn = new Vec(0, 336);
-        posBase = new Vec(672, 336);
+        spawn = new Vec(1, 337);
+        posBase = new Vec(673, 337);
         baseHP = 100;
         
     }
@@ -100,8 +100,8 @@ public class Map {
     			LinkedList<int[]> mainList = new LinkedList<int[]>();
     			LinkedList<int[]> untestedList = new LinkedList<int[]>();
     			int n=0; //cost
-    			int[] origin = new int[] {this.spawn.getX(), this.spawn.getY(), n};
-    			int[] end = new int[] {this.posBase.getX(), this.posBase.getY()};
+    			int[] origin = new int[] {(this.spawn.getX()-1)/48, (this.spawn.getY()-1)/48, n}; //division to convert in integer coordinates
+    			int[] end = new int[] {(this.posBase.getX()-1)/48, (this.posBase.getY()-1)/48};
     			untestedList.add(origin);
     			LinkedList<int[]> nextUntestedList = (LinkedList<int[]>) untestedList.clone();
     			boolean found = false;
@@ -135,7 +135,7 @@ public class Map {
     			}
     			else {
     				LinkedList<Vec> computedPath = new LinkedList<Vec>();
-    				computedPath.addFirst(new Vec(mainList.getLast()[0], mainList.removeLast()[1]));
+    				computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille));
     				while (! corEquals(computedPath.getFirst().toList(), origin)){
     					while (mainList.size()>0 &&
     							!corEquals(getCor(mainList.getLast()), new int[] {computedPath.getFirst().toList()[0],computedPath.getFirst().toList()[1]-1}) &&
@@ -145,7 +145,7 @@ public class Map {
     							mainList.removeLast();
     					}
     					n=mainList.getLast()[2];
-    					computedPath.addFirst(new Vec(mainList.getLast()[0], mainList.removeLast()[1]));
+    					computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille));
     					while (mainList.size()>0 && mainList.getLast()[2]>=n) {
     						mainList.removeLast();
     					}

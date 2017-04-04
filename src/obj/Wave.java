@@ -1,5 +1,7 @@
 package obj;
 
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,12 +69,12 @@ public class Wave {
 		}
 	}
 	
-	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException { //automacally creating wave of n enemies
+	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException, FileNotFoundException, URISyntaxException { //automacally creating wave of n enemies
         super();
 		LinkedList<Enemy> enemies = new LinkedList<Enemy>();
         LinkedList<Integer> d = new LinkedList<Integer>();
         for (int i=0; i<n; i++) {
-        	enemies.add(new Enemy(0, 0.4, 5, 10, actualMap.computePath(), 1, sbg, actualMap, this));
+        	enemies.add(new Enemy(0, 0.1, 5, 10, actualMap.computePath(), 1, sbg, actualMap, this));
         	d.add(300);
         }
         this.gc=gc;

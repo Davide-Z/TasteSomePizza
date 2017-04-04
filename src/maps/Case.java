@@ -134,4 +134,12 @@ public class Case extends MouseOverArea {
 	public void setTurret(Turret turret) {
 		this.turret = turret;
 	}
+	
+	public int getXInteger() { //integer coordinate 
+		return (this.x-1)/48;
+	}
+	
+	public int getYInteger() {
+		return (this.y-1)/48;
+	}
 }

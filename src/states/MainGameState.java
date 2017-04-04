@@ -3,7 +3,10 @@ package states;
 
 import gui.Buttons.StateButton;
 import gui.FileLoader;
+import obj.Enemy;
 import obj.Turret;
+import obj.Wave;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -69,8 +72,16 @@ public class MainGameState extends BasicGameState {
         } catch (URISyntaxException | FileNotFoundException e) {
             e.printStackTrace();
         }
-        //Dav test
-     //   wave = new Wave(56, map, sbg, gc);
+        /* //Dav test
+        try {
+			wave = new Wave(100, config.getMap(), stateBasedGame, gameContainer);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} */
 
     }
 
@@ -116,13 +127,13 @@ public class MainGameState extends BasicGameState {
 
         config.getTurretMenu().render();
         
-      /*  //Dav test
+        /* //Dav test
         g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
-        g.drawString("HP : "+map.baseHP, 3, 40);
+        g.drawString("HP : "+config.getMap().baseHP, 3, 40);
         g.drawString("Number of unspawned enemies : "+wave.unspawnedEnemies.size(), 3, 60);
         for (Enemy e : wave.aliveEnemies) {
         	//g.drawString("o", e.getPos().getX(), e.getPos().getY());
-        	turret.draw(e.getPos().getX(), e.getPos().getY());
+        	e.render();
         }*/
     }
 
@@ -142,8 +153,8 @@ public class MainGameState extends BasicGameState {
             e.printStackTrace();
         }
         config.getTurretMenu().update();
-        //Dav test
-      /*  wave.spawn();
+        /* //Dav test
+        wave.spawn();
         wave.aliveEnemiesUpdate(i); */
     }
 
