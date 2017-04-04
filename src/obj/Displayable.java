@@ -17,18 +17,17 @@ public abstract class Displayable {
 	protected Graphics g;
 	protected GameConfig config;
 	protected Vec pos;
-	protected int type;
 	protected int typeId;
+	protected String name;
 	// private int lastId=0; //  A remettre si finalement on se sert de id. Sert pour creer les identifiants uniques
 	protected Map actualMap;
 	protected float aimedDirection;
 	protected Wave actualWave;
 
 	protected Image sprite;
-	protected String name;
 
 	public Displayable(int t, StateBasedGame sbg, Wave w) throws SlickException {
-		this.type=t;
+		this.typeId=t;
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
@@ -37,8 +36,8 @@ public abstract class Displayable {
 	}
 	
 	public Displayable(int t, Vec p, StateBasedGame sbg, Wave w){
-		type=t;
-		pos=p;
+		this.typeId=t;
+		this.pos=p;
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
@@ -85,11 +84,11 @@ public abstract class Displayable {
 	public void setPos(Vec pos) {
 		this.pos = pos;
 	}
-	public int getType() {
-		return type;
+	public int getTypeId() {
+		return typeId;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 	public float getAimedDirection() {
 		return aimedDirection;
@@ -97,17 +96,11 @@ public abstract class Displayable {
 	public void setAimedDirection(float aimedDirection) {
 		this.aimedDirection = aimedDirection;
 	}
-	public int getTypeId() {
-		return typeId;
-	}
 	public Wave getActualWave() {
 		return actualWave;
 	}
 	public void setActualWave(Wave actualWave) {
 		this.actualWave = actualWave;
-	}
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
 	}
 	public void render(){
 		this.sprite.draw(pos.getX(), pos.getY());
@@ -118,6 +111,6 @@ public abstract class Displayable {
 
 	@Override
 	public String toString(){
-		return this.name+"-"+this.type;
+		return this.name+"-"+this.typeId;
 	}
 }

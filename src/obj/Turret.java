@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 public class Turret extends Displayable{
-	int type;
 	int projectileType;
 	int damage;
 	float fireRate;
@@ -32,7 +31,7 @@ public class Turret extends Displayable{
 	}
 	public Turret(StateBasedGame sbg){
 		super(sbg);
-		super.type=0;
+		super.typeId=0;
 		super.name="Turret";
 	}
 
@@ -42,7 +41,7 @@ public class Turret extends Displayable{
 	 */
 	public Turret(Turret turret, Vec pos) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(turret.sbg);
-		super.type=turret.type;
+		super.typeId=turret.typeId;
 		super.pos=pos;
 		this.level=1;
 		super.sprite=FileLoader.getSpriteImage("cook.png");
@@ -66,7 +65,7 @@ public class Turret extends Displayable{
 	}
 	
 	public void assignValues(int type,int damage, float fireRate, int range, int buyPrice, int sellPrice, int upgradePrice){
-		this.type=type;
+		this.typeId=typeId;
 		this.damage=damage;
 		this.fireRate=fireRate;
 		this.range=range;
@@ -137,11 +136,11 @@ public class Turret extends Displayable{
 	}*/
 	
 	// getters and setters :
-	public int getType() {
-		return type;
+	public int getTypeId() {
+		return typeId;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 	public int getProjectileType() {
 		return projectileType;

@@ -93,10 +93,10 @@ public class TurretButton extends MouseOverArea {
                     if(config.getTurret()==null){
                         config.setSelectedTurret(this.turret);
                     }
-                    else if(config.getTurret().getType()!=this.turret.getType()){
+                    else if(config.getTurret().getTypeId()!=this.turret.getTypeId()){
                         config.setSelectedTurret(this.turret);
                     }
-                    else if(config.getTurret().getType()==this.turret.getType()){
+                    else if(config.getTurret().getTypeId()==this.turret.getTypeId()){
                         config.setSelectedTurret(null);
                     }
                     config.setSelectedEnemy(null);
@@ -105,11 +105,11 @@ public class TurretButton extends MouseOverArea {
                         config.setSelectedEnemy(this.enemy);
                         config.setSelectedTurret(null);
                     }
-                    else if(config.getEnemy().getType()!=this.enemy.getType()){
+                    else if(config.getEnemy().getTypeId()!=this.enemy.getTypeId()){
                         config.setSelectedEnemy(this.enemy);
                         config.setSelectedTurret(null);
                     }
-                    else if(config.getEnemy().getType()==this.enemy.getType()){
+                    else if(config.getEnemy().getTypeId()==this.enemy.getTypeId()){
                         config.setSelectedEnemy(null);
                         config.setSelectedTurret(null);
                     }

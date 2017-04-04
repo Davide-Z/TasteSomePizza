@@ -12,7 +12,7 @@ public class Projectile extends Displayable{
 	public Projectile(Enemy enemy, Turret mt, Wave w){
 		super(mt.projectileType, mt.getPos(), mt.sbg, w);
 		target=enemy;
-		type=mt.projectileType;
+		typeId=mt.projectileType;
 		motherTurret=mt;
 		this.pos=motherTurret.getPos();
 		actualWave.getProjectilesAlive().add(this);
@@ -75,11 +75,11 @@ public class Projectile extends Displayable{
 		this.disappear(); // true because hit the enemy
 	}
 	
-	public int getType() {
-		return type;
+	public int getTypeId() {
+		return typeId;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 	public int getSpeed() {
 		return speed;
@@ -93,19 +93,15 @@ public class Projectile extends Displayable{
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
-
 	public Turret getMotherTurret() {
 		return motherTurret;
 	}
-
 	public void setMotherTurret(Turret motherTurret) {
 		this.motherTurret = motherTurret;
 	}
-
 	public Enemy getTarget() {
 		return target;
 	}
-
 	public void setCible(Enemy tgt) {
 		this.target = tgt;
 	}

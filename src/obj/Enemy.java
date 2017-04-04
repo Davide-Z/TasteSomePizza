@@ -31,8 +31,7 @@ public class Enemy extends Displayable{
 
 	public Enemy(int t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(sbg);
-		super.type=t;
-		this.type=t;
+		this.typeId=t;
 		this.speed=speed;
 		this.damage=damage;
 		this.hp=hp;
@@ -46,7 +45,7 @@ public class Enemy extends Displayable{
 
 	public Enemy(Enemy enemy, Vec pos) throws FileNotFoundException, SlickException, URISyntaxException {
 		super(enemy.sbg);
-		super.type=enemy.type;
+		super.typeId=enemy.typeId;
 		super.pos=pos;
 		super.sprite=FileLoader.getSpriteImage("client.png");
 		super.name="Enemy";

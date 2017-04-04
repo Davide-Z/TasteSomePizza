@@ -84,7 +84,7 @@ public class Case extends MouseOverArea {
 					if (enemy == null && turret == null && config.getEnemy() != null) {
 						try {
 							this.enemy = new Enemy(config.getEnemy(), new Vec(this.x, this.y));
-							System.out.println(this.enemy.getType());
+							System.out.println(this.enemy.getTypeId());
 						} catch (FileNotFoundException | SlickException | URISyntaxException e) {
 							e.printStackTrace();
 						}
