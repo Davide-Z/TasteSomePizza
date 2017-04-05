@@ -4,6 +4,7 @@ import gui.Buttons.TurretButton;
 import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
@@ -31,7 +32,6 @@ public class TurretMenu {
 
     public TurretMenu(StateBasedGame sbg, GameContainer gameContainer) throws SlickException, FileNotFoundException, URISyntaxException {
         game = sbg;
-        container = gameContainer;
         turretButtons = new ArrayList<>();
         enemyButtons = new ArrayList<>();
         config = GameConfig.getInstance(sbg);
@@ -40,7 +40,7 @@ public class TurretMenu {
         int i = 0;
         int j = 0;
         for (Turret t : usableTurrets) {
-            turretButtons.add(new TurretButton(game, container, null, 724 + j * 148, 1 + i * 160, t)); //On crée un bouton
+            turretButtons.add(new TurretButton(724 + j * 148, 1 + i * 160, t)); //On crée un bouton
             j++;
             if (j >= 2) {
                 i++;
@@ -50,7 +50,7 @@ public class TurretMenu {
         i = 0;
         j = 0;
         for (Enemy e : usableEnemies) {
-            enemyButtons.add(new TurretButton(game, container, null, 724 + j * 148, 1 + i * 160, e));
+            enemyButtons.add(new TurretButton(724 + j * 148, 1 + i * 160, e));
             j++;
             if (j >= 2) {
                 i++;
@@ -59,28 +59,28 @@ public class TurretMenu {
         }
     }
 
-    public void render(){
+    public void render(Graphics g){
         if (turretMode) {
             for (TurretButton b : turretButtons) {
-                b.render();
+                b.render(g, config);
             }
         }
         else{
             for (TurretButton b : enemyButtons){
-                b.render();
+                b.render(g, config);
             }
         }
     }
 
-    public void update(){
+    public void update(StateBasedGame game){
         if (turretMode) {
             for (TurretButton b : turretButtons) {
-                b.update();
+                b.update(game, config);
             }
         }
         else{
             for (TurretButton b : enemyButtons){
-                b.update();
+                b.update(game, config);
             }
         }
     }

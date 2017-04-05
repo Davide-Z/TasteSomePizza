@@ -27,12 +27,8 @@ public class MainGameState extends BasicGameState {
     //Attributs d'interface
     int winHeight;
     int winWidth;
-    StateButton menuButton;
-    StateButton waveButton;
-    StateButton turretMenuButton;
     float mouseX;
     float mouseY;
-    double updateTime=System.currentTimeMillis();
 
     //Dav test
     //public Wave wave;
@@ -64,25 +60,11 @@ public class MainGameState extends BasicGameState {
         winWidth=container.getWidth();
 
         try {
-            menuButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu");
-            waveButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-156, "Lancer la vague", "wave");
-            turretMenuButton = new StateButton(stateBasedGame, FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret");
             config.addUsableTurret(new Turret(game));
             config.setTurretMenu(gameContainer);
         } catch (URISyntaxException | FileNotFoundException e) {
             e.printStackTrace();
         }
-        /* //Dav test
-        try {
-			wave = new Wave(100, config.getMap(), stateBasedGame, gameContainer);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */
-
     }
 
     /**
@@ -98,10 +80,6 @@ public class MainGameState extends BasicGameState {
         g.setColor(Color.white);
         g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
-        menuButton.render(g);
-        waveButton.render(g);
-        turretMenuButton.render(g);
-
         //Segmentation temporaire de l'écran
         g.setColor(Color.black);
         g.setLineWidth(4);
@@ -119,14 +97,13 @@ public class MainGameState extends BasicGameState {
         else {
             g.drawString("ennemi: Aucun", winWidth * 0.703125f, winHeight - 400);
         }
-       config.getMap().render();
-
         g.setColor(Color.black);
 
         g.drawString("Carte",3, 3);
 
-        config.getTurretMenu().render();
-        
+        config.getMap().render(g);
+        config.getTurretMenu().render(g);
+        config.getButtonsGroup().render(g);
         /* //Dav test
         g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
         g.drawString("HP : "+config.getMap().baseHP, 3, 40);
@@ -146,13 +123,7 @@ public class MainGameState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        //config.updateMouse();
-        try {
-            config.getMap().update();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        config.getTurretMenu().update();
+        config.update();
         /* //Dav test
         wave.spawn();
         wave.aliveEnemiesUpdate(i); */

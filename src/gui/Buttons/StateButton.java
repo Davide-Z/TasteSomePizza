@@ -15,37 +15,26 @@ import java.awt.Font;
 /**
  * Created by tic-tac on 14/02/17.
  */
-public class StateButton extends MouseOverArea{
-    private int width;
-    private int height;
+public class StateButton{
+    private final Image image;
     private int x;
     private int y;
     private boolean over;
     private String text;
     private Shape hitbox;
-    private StateBasedGame game;
-    private GameContainer container;
     private String action;
-    private GameConfig config;
-    private Font font;
-    private TrueTypeFont ttf;
 
-    public StateButton(StateBasedGame sbg, Image image, int x, int y, String text, String action) throws SlickException {
-        super(sbg.getContainer(), image, x, y);
+    public StateButton(Image image, int x, int y, String text, String action) throws SlickException {
         this.x=x;
         this.y=y;
-        this.game=sbg;
-        this.width=image.getWidth();
-        this.height=image.getHeight();
         this.action=action;
         this.text=text;
-        this.hitbox = new RoundedRectangle(x,y,image.getWidth(),image.getHeight(),13);
-        this.container=game.getContainer();
-        this.config = GameConfig.getInstance(sbg);
+        this.image=image;
+        this.hitbox = new RoundedRectangle(x,y,image.getWidth()+1,image.getHeight()+2,12);
     }
 
     public void render(Graphics g) {
-        this.render(container, g);
+        image.draw(x,y);
         g.setColor(Color.white);
         if(text!=null) {
             g.drawString(text, (int) (x + hitbox.getWidth() / 2 - 60), (int) (y + hitbox.getHeight() / 2 - 20)); //Affiche le texte du bouton, centré
@@ -53,26 +42,26 @@ public class StateButton extends MouseOverArea{
         g.setLineWidth(1);
         g.draw(hitbox);
     }
-    @Override
-    public void mousePressed(int button, int mx, int my){
-        over=hitbox.contains(mx,my);
-        super.mousePressed(button, mx, my);
-        if (over) {
-            if((action.matches("quit"))&&(game.getCurrentStateID()==0)){       //quitter le jeu
-                System.exit(0);
-            }
-            else if((action.matches("start"))&&(game.getCurrentStateID()==0)){//aller à l'écran de jeu
-                game.enterState(1);
-            }
-            else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==0)){    //aller au menu
-                game.enterState(0);
-            }
-            else if((action.matches("wave"))&&(game.getCurrentStateID()==1)){ //Début de vague
-                game.enterState(2);
-            }
-            else if((action.matches("turret"))&&(game.getCurrentStateID()==1)){
-                config.getTurretMenu().turretMode=!config.getTurretMenu().turretMode;
-            }
+    
+    public void update(StateBasedGame game, GameConfig config){
+        over = this.hitbox.contains(config.getMx(), config.getMy());
+            if ( over && config.isMouseClicked() && config.wasMouseReleased) {
+                if((action.matches("quit"))&&(game.getCurrentStateID()==0)){       //quitter le jeu
+                    System.exit(0);
+                }
+                else if((action.matches("start"))&&(game.getCurrentStateID()==0)){//aller à l'écran de jeu
+                    game.enterState(1);
+                }
+                else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==0)){    //aller au menu
+                    game.enterState(0);
+                }
+                else if((action.matches("wave"))&&(game.getCurrentStateID()==1)){ //Début de vague
+                    game.enterState(2);
+                }
+                else if((action.matches("turret"))&&(game.getCurrentStateID()==1)){
+                    config.getTurretMenu().turretMode=!config.getTurretMenu().turretMode;
+                }
+                config.wasMouseReleased =false;
         }
     }
 }

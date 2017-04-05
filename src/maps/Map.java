@@ -18,9 +18,6 @@ import java.util.LinkedList;
 public class Map {
     private int taille;
     private Case[][] cases;
-    private GUIContext gc;
-    private StateBasedGame sbg;
-    private Graphics g;
     public Vec posBase;
     public Vec spawn;
     public int baseHP;
@@ -28,35 +25,30 @@ public class Map {
 
     public Map(StateBasedGame sbg, int taille, GameConfig conf) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
-        this.gc=sbg.getContainer();
-        this.sbg=sbg;
-        this.g=sbg.getContainer().getGraphics();
         cases = new Case[taille][taille];
         this.config=conf;
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j]=new Case(sbg, 1+ i*720/taille, 1+ j*720/taille,this, this.config);
+                cases[i][j]=new Case( 1+ i*720/taille, 1+ j*720/taille,this, this.config);
             }
         }
-        
         spawn = new Vec(1, 337);
         posBase = new Vec(673, 337);
         baseHP = 100;
-        
     }
 
-    public void render() { //Affiche chaque case
+    public void render(Graphics g) { //Affiche chaque case
         for(Case[] cs : cases){
             for(Case c : cs){
-                c.render();
+                c.render(g);
             }
         }
     }
 
-    public void update() throws InterruptedException {
+    public void update(StateBasedGame game, GameConfig config)  {
         for(Case[] cs : cases){
             for(Case c : cs){
-                c.update();
+                c.update(game, config);
             }
         }
     }
@@ -68,7 +60,7 @@ public class Map {
         return this.taille;
     }
     
-    int[][] toMatrix() {
+    public int[][] toMatrix() {
     	int[][] matrix = new int[this.taille][this.taille];
     	for (int i=0; i<this.taille; i++) {
     		for (int j=0; j<this.taille; j++) {

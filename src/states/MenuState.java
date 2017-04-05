@@ -1,5 +1,6 @@
 package states;
 
+import gui.ButtonsGroup;
 import gui.FileLoader;
 import gui.Buttons.StateButton;
 import org.newdawn.slick.*;
@@ -21,16 +22,9 @@ import java.net.URISyntaxException;
 public class MenuState extends BasicGameState {
 
     //Paramètres du moteur
-    private GameContainer container;
-    private StateBasedGame game;
     private GameConfig config;
-
     //Paramètres d'interface
     private Image backgroundImage;
-    private Image imgBoutonStart;
-    private Image imgBoutonExit;
-    private StateButton startButton;
-    private StateButton exitButton;
     private SpriteSheet piz;
     private Animation animPiz;
     private int x=0;
@@ -39,6 +33,7 @@ public class MenuState extends BasicGameState {
     private int winWidth;
     private Font font;
     private TrueTypeFont ttf;
+    private ButtonsGroup buttonsGroup;
 
     public MenuState() throws SlickException {
     }
@@ -60,27 +55,20 @@ public class MenuState extends BasicGameState {
      */
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        game=stateBasedGame;
-        container=gameContainer;
-        config=GameConfig.getInstance(game);
-        InputStream inputStream= null;
-        inputStream = FileLoader.getInputStream("fly_n_walk.ttf");
-        winHeight=container.getHeight();
-        winWidth=container.getWidth();
+        winHeight=gameContainer.getHeight();
+        winWidth=gameContainer.getWidth();
+        config=GameConfig.getInstance(stateBasedGame);
+        buttonsGroup=config.getButtonsGroup();
         try {
-            font=Font.createFont(Font.TRUETYPE_FONT,inputStream);
+            font=Font.createFont(Font.TRUETYPE_FONT,FileLoader.getInputStream("fly_n_walk.ttf"));
             font=font.deriveFont(font.getSize()*45f);
             ttf=new TrueTypeFont(font, true);
             backgroundImage=FileLoader.getImage("interface/bgi.png");
-            imgBoutonStart =FileLoader.getImage("interface/boutonDemarrer.png");
-            imgBoutonExit =FileLoader.getImage("interface/boutonQuitter.png");
             piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
-            startButton = new StateButton(game, imgBoutonStart, winWidth/2-152,winHeight/2-55, null, "start");
-            exitButton=new StateButton(game, imgBoutonExit, winWidth/2-152,winHeight/2+50, null, "quit");
+            buttonsGroup.init(stateBasedGame, gameContainer);
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
         }
-
         animPiz= new Animation(piz,75);
     }
 
@@ -94,19 +82,14 @@ public class MenuState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         backgroundImage.draw();
+        buttonsGroup.render(g);
         g.setLineWidth(5);
         g.setColor(Color.white);
-        startButton.render(g);
-        exitButton.render(g);
         g.drawString("X:"+ x +"\nY:"+ y,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         g.setColor(Color.black);
         g.setFont(ttf);
         g.drawString("Taste Some Pizza !", winWidth/2-250, 100);
-        if(gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
-            g.setColor(Color.white);
-            g.drawRect(x,y,32,32);
-        }
         animPiz.draw(155,238);
     }
 
@@ -119,22 +102,8 @@ public class MenuState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+        config.getButtonsGroup().update(sbg);
         x=gc.getInput().getMouseX();
         y=gc.getInput().getMouseY();
-    }
-
-    /**
-     * Méthode pour pouvoir changer d'état plus rapidement ou quitter, avec le clavier
-     * @param key Touche appuyée
-     * @param c charactère reçu
-     */
-    @Override
-    public void keyPressed(int key, char c){
-        if(key== Input.KEY_ESCAPE){
-            container.exit();
-        }
-        if(key==Input.KEY_SPACE){
-            game.enterState(1);
-        }
     }
 }

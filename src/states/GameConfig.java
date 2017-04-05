@@ -1,5 +1,7 @@
 package states;
 
+import gui.Buttons.StateButton;
+import gui.ButtonsGroup;
 import gui.TurretMenu;
 import maps.Map;
 import obj.Enemy;
@@ -38,13 +40,15 @@ public class GameConfig {
     private int my=0;
     private boolean mouseClicked=false;
     public long clickPing=0;
-    public boolean isMouseReleased=true;
+    public boolean wasMouseReleased =true;
+    private ButtonsGroup buttonsGroup;
 
     private GameConfig(StateBasedGame sbg) throws SlickException{
         money=100;
         stateBasedGame=sbg;
         gc=sbg.getContainer();
         map=new Map(stateBasedGame, 15, this);
+        buttonsGroup=new ButtonsGroup();
         usableTurrets=new ArrayList<>();
         usableEnemies=new ArrayList<>();
     }
@@ -110,8 +114,16 @@ public class GameConfig {
         mouseClicked=Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON);
         if(!mouseClicked){
             this.clickPing=System.currentTimeMillis();
-            this.isMouseReleased=true;
+            this.wasMouseReleased =true;
         }
         return mouseClicked;
+    }
+
+    public ButtonsGroup getButtonsGroup(){return this.buttonsGroup;}
+
+    public void update(){
+        turretMenu.update(stateBasedGame);
+        buttonsGroup.update(stateBasedGame);
+        map.update(stateBasedGame, this);
     }
 }
