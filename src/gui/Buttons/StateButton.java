@@ -52,7 +52,7 @@ public class StateButton{
                 else if((action.matches("start"))&&(game.getCurrentStateID()==0)){//aller à l'écran de jeu
                     game.enterState(1);
                 }
-                else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==0)){    //aller au menu
+                else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==0 | game.getCurrentStateID()==2)){    //aller au menu
                     game.enterState(0);
                 }
                 else if((action.matches("wave"))&&(game.getCurrentStateID()==1)){ //Début de vague

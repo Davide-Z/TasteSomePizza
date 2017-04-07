@@ -6,6 +6,7 @@ import gui.TurretMenu;
 import maps.Map;
 import obj.Enemy;
 import obj.Turret;
+import obj.Wave;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
@@ -42,6 +43,8 @@ public class GameConfig {
     public long clickPing=0;
     public boolean wasMouseReleased =true;
     private ButtonsGroup buttonsGroup;
+    public Wave wave;
+    public Wave nextWave;
 
     private GameConfig(StateBasedGame sbg) throws SlickException{
         money=100;
@@ -125,5 +128,12 @@ public class GameConfig {
         turretMenu.update(stateBasedGame);
         buttonsGroup.update(stateBasedGame);
         map.update(stateBasedGame, this);
+    }
+
+    public Wave getWave() {
+        return this.wave;
+    }
+    public Wave getNextWave() {
+        return this.wave;
     }
 }

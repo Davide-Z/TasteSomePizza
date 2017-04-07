@@ -39,6 +39,7 @@ public class ButtonsGroup {
 		menuButtons.add(new StateButton(FileLoader.getImage("interface/boutonDemarrer.png"), winWidth/2-152,winHeight/2-55,null, "start"));
 		menuButtons.add(new StateButton(FileLoader.getImage("interface/boutonQuitter.png"), winWidth/2-152,winHeight/2+50,null, "quit"));
 		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu"));
+		waveButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu"));
 		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-156, "Lancer la vague", "wave"));
 		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret"));
 	}

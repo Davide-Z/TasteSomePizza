@@ -3,6 +3,7 @@ package states;
 import gui.Buttons.StateButton;
 import gui.FileLoader;
 import obj.Turret;
+import obj.Wave;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -18,8 +19,6 @@ import java.net.URISyntaxException;
  */
 public class WaveState extends BasicGameState {
     //Attributs du moteur
-    private GameContainer container;
-    private StateBasedGame game;
     private GameConfig config;
 
     //Attributs d'interface
@@ -30,8 +29,7 @@ public class WaveState extends BasicGameState {
     StateButton turretMenuButton;
     float mouseX;
     float mouseY;
-    double updateTime = System.currentTimeMillis();
-
+    public Wave wave;
     //Dav test
     //public Wave wave;
 
@@ -49,21 +47,15 @@ public class WaveState extends BasicGameState {
     /**
      * Méthode qui se fait une fois au début, pour initialiser les différents paramètres
      *
-     * @param gameContainer  Container du jeu
-     * @param stateBasedGame Le moteur du jeu
+     * @param container  Container du jeu
+     * @param game Le moteur du jeu
      * @throws SlickException
      */
     @Override
-    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        game = stateBasedGame;
-        container = gameContainer;
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
         config = GameConfig.getInstance(game);
         winHeight = container.getHeight();
         winWidth = container.getWidth();
-
-        //Dav test
-        //   wave = new Wave(56, map, sbg, gc);
-
     }
 
     /**
@@ -76,36 +68,23 @@ public class WaveState extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        /*g.setBackground(Color.decode("0xdba24f"));
+        g.setBackground(Color.decode("0xdba24f"));
         g.setColor(Color.white);
         g.drawString("X:" + (int) mouseX + "\nY:" + (int) mouseY, 0, winHeight - 35);
         g.drawString(winWidth + "x" + winHeight, winWidth - 73, 0);
-        menuButton.render(g);
-        waveButton.render(g);
-        turretMenuButton.render(g);
 
         //Segmentation temporaire de l'écran
         g.setColor(Color.black);
         g.setLineWidth(4);
         g.drawLine(2 + winWidth * 0.703125f, 0, 2 + winWidth * 0.703125f, winHeight);
         g.drawString("Tourelles/menu", winWidth * 0.703125f + 6, 0);
-        if (config.getTurret() != null) {
-            g.drawString("tourelle: " + config.getTurret().toString(), winWidth * 0.703125f, winHeight - 300);
-        } else {
-            g.drawString("tourelle: Aucune", winWidth * 0.703125f, winHeight - 300);
-        }
-        if (config.getEnemy() != null) {
-            g.drawString("ennemi: " + config.getEnemy().toString(), winWidth * 0.703125f, winHeight - 400);
-        } else {
-            g.drawString("ennemi: Aucun", winWidth * 0.703125f, winHeight - 400);
-        }
-        config.getMap().render();
-
         g.setColor(Color.black);
 
         g.drawString("Carte", 3, 3);
 
-        config.getTurretMenu().render();
+        config.getMap().render(g);
+        config.getTurretMenu().render(g);
+        config.getButtonsGroup().render(g);
 
   /*  //Dav test
     g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
@@ -127,7 +106,7 @@ public class WaveState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        //config.getTurretMenu().update();
+        config.update();
         //Dav test
   /*  wave.spawn();
     wave.aliveEnemiesUpdate(i); */
