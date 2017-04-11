@@ -1,17 +1,12 @@
 package maps;
 
-import gui.Buttons.TurretButton;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
-
-//TODO: Méthode plus légit(moins dépendante de slick) pour écouter les inputs (Jpanels, mouselisteners, canvas...)
 /**
  * Created by tic-tac on 15/02/17.
  */
@@ -89,8 +84,8 @@ public class Map {
 	
     public LinkedList<Vec> computePath(){
     			int[][] currentMap = this.toMatrix();
-    			LinkedList<int[]> mainList = new LinkedList<int[]>();
-    			LinkedList<int[]> untestedList = new LinkedList<int[]>();
+    			LinkedList<int[]> mainList = new LinkedList<>();
+    			LinkedList<int[]> untestedList = new LinkedList<>();
     			int n=0; //cost
     			int[] origin = new int[] {(this.spawn.getX()-1)/48, (this.spawn.getY()-1)/48, n}; //division to convert in integer coordinates
     			int[] end = new int[] {(this.posBase.getX()-1)/48, (this.posBase.getY()-1)/48};

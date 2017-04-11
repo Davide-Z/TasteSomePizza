@@ -36,14 +36,14 @@ public class ButtonsGroup {
 		config=GameConfig.getInstance(game);
 		int winWidth=container.getWidth();
 		int winHeight=container.getHeight();
-		menuButtons.add(new StateButton(FileLoader.getImage("interface/demarrer.png"), (int)(winWidth*0.48),(int)(winHeight*0.4),null, "start"));
-		menuButtons.add(new StateButton(FileLoader.getImage("interface/quitter.png"), (int)(winWidth*0.65),(int)(winHeight*0.1),null, "quit"));
-		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu"));
-		waveButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu"));
-		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-156, "Lancer la vague", "wave"));
-		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret"));
+		menuButtons.add(new StateButton("demarrer", (int)(winWidth*0.48),(int)(winHeight*0.4),null, "start"));
+		menuButtons.add(new StateButton("quitter", (int)(winWidth*0.65),(int)(winHeight*0.1),null, "quit"));
+		mainButtons.add(new StateButton("boutonOrange",winWidth-275,winHeight-78, "Menu principal", "menu"));
+		waveButtons.add(new StateButton("boutonOrange",winWidth-275,winHeight-78, "Menu principal", "menu"));
+		mainButtons.add(new StateButton("boutonOrange", winWidth-275, winHeight-156, "Lancer la vague", "wave"));
+		mainButtons.add(new StateButton("boutonOrange", winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret"));
 	}
-	public void render(Graphics g){
+	public void render(Graphics g) throws FileNotFoundException, SlickException, URISyntaxException {
 		for(StateButton b : buttons){
 			b.render(g);
 		}

@@ -83,7 +83,13 @@ public class WaveState extends BasicGameState {
 
         config.getMap().render(g);
         config.getTurretMenu().render(g);
-        config.getButtonsGroup().render(g);
+        try {
+            config.getButtonsGroup().render(g);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
   /*  //Dav test
     g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);

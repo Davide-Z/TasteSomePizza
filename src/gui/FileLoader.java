@@ -14,10 +14,13 @@ public abstract class FileLoader {
     private static String slash = File.separator;
 
     public static Image getImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
-        return new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash +resource), resource, false);
+        return new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash +resource+".png"), resource, false);
     }
     public  static Image getSpriteImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
         return new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash + "sprites" + slash + resource), resource, false);
+    }
+    public static Image getInterfaceImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
+        return new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash + "interface" + slash + resource+".png"), resource, false);
     }
     public static InputStream getInputStream(String file){
         return Thread.currentThread().getContextClassLoader().getResourceAsStream("resources"+slash+file);

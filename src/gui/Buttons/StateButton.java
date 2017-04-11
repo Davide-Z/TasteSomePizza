@@ -1,5 +1,6 @@
 package gui.Buttons;
 
+import gui.FileLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
@@ -11,12 +12,15 @@ import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
 import java.awt.Font;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 /**
  * Created by tic-tac on 14/02/17.
  */
 public class StateButton{
-    private final Image image;
+    private String imagePath;
+    private Image image;
     private int x;
     private int y;
     private boolean over;
@@ -24,19 +28,26 @@ public class StateButton{
     private Shape hitbox;
     private String action;
 
-    public StateButton(Image image, int x, int y, String text, String action) throws SlickException {
+    public StateButton(String imagePath, int x, int y, String text, String action) throws SlickException, FileNotFoundException, URISyntaxException {
         this.x=x;
         this.y=y;
         this.action=action;
         this.text=text;
-        this.image=image;
+        this.imagePath=imagePath;
+        this.image=FileLoader.getInterfaceImage(imagePath);
         this.hitbox = new RoundedRectangle(x,y,image.getWidth()+1,image.getHeight()+2,12);
         if(action.equals("start") | action.equals("quit")){
             System.out.println(this.image.getWidth()+"x"+this.image.getHeight());
         }
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g) throws FileNotFoundException, SlickException, URISyntaxException {
+        if(over && (action.equals("start") | action.equals("quit"))){
+            image=FileLoader.getInterfaceImage(imagePath+"_over");
+        }
+        else{
+            image=FileLoader.getInterfaceImage(imagePath);
+        }
         image.draw(x,y);
         g.setColor(Color.white);
         if(text!=null) {

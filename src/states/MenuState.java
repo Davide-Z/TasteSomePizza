@@ -58,7 +58,7 @@ public class MenuState extends BasicGameState {
         config=GameConfig.getInstance(stateBasedGame);
         buttonsGroup=config.getButtonsGroup();
         try {
-            backgroundImage=FileLoader.getImage("interface/bgi.png");
+            backgroundImage=FileLoader.getImage("interface/bgi");
             piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
             buttonsGroup.init(stateBasedGame, gameContainer);
         } catch (URISyntaxException | IOException e) {
@@ -77,7 +77,13 @@ public class MenuState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         backgroundImage.draw();
-        buttonsGroup.render(g);
+        try {
+            buttonsGroup.render(g);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         g.setLineWidth(5);
         g.setColor(Color.white);
         g.drawString("X:"+ x +"\nY:"+ y,0,winHeight-35);
