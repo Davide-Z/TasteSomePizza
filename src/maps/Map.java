@@ -29,7 +29,7 @@ public class Map {
         this.config=conf;
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                cases[i][j]=new Case( 1+ i*720/taille, 1+ j*720/taille,this, this.config);
+                cases[i][j]=new Case( 1+ i*720/taille, 1+ j*720/taille);
             }
         }
         spawn = new Vec(1, 337);

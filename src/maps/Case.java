@@ -29,7 +29,7 @@ public class Case{
 	private Turret turret=null;
 	private Enemy enemy=null;
 
-	public Case(int x, int y, Map map, GameConfig conf) throws SlickException{
+	public Case(int x, int y) throws SlickException{
 		this.x=x;
 		this.y=y;
 		interieur=new Rectangle(x+1,y-1,47,47);
@@ -38,9 +38,9 @@ public class Case{
 	}
 
 	public void render(Graphics g) {
-	    g.setColor(Color.white);
-	    g.fill(interieur);
 	    g.setColor(Color.lightGray);
+	    g.fill(interieur);
+	    g.setColor(Color.black);
 	    g.setLineWidth(2);
 		g.draw(cadre);
 		if (turret != null){
