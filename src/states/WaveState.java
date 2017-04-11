@@ -2,6 +2,7 @@ package states;
 
 import gui.Buttons.StateButton;
 import gui.FileLoader;
+import obj.Enemy;
 import obj.Turret;
 import obj.Wave;
 import org.newdawn.slick.Color;
@@ -31,6 +32,7 @@ public class WaveState extends BasicGameState {
     float mouseX;
     float mouseY;
     public Wave wave;
+    private boolean hasBegun=false;
     //Dav test
     //public Wave wave;
 
@@ -91,14 +93,14 @@ public class WaveState extends BasicGameState {
             e.printStackTrace();
         }
 
-  /*  //Dav test
+   //Dav test
     g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
-    g.drawString("HP : "+map.baseHP, 3, 40);
+    g.drawString("HP : "+config.getMap().baseHP, 3, 40);
     g.drawString("Number of unspawned enemies : "+wave.unspawnedEnemies.size(), 3, 60);
     for (Enemy e : wave.aliveEnemies) {
         //g.drawString("o", e.getPos().getX(), e.getPos().getY());
-        turret.draw(e.getPos().getX(), e.getPos().getY());
-    }*/
+        e.render();
+    }
     }
 
     /**
@@ -113,8 +115,19 @@ public class WaveState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         config.update();
         //Dav test
-  /*  wave.spawn();
-    wave.aliveEnemiesUpdate(i); */
+        if (hasBegun) {
+        try {
+			wave = new Wave(10, config.getMap(), sbg, gc);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        this.setHasBegun(false);}
+    wave.spawn();
+    wave.aliveEnemiesUpdate(i); 
     }
 
     /**
@@ -130,4 +143,10 @@ public class WaveState extends BasicGameState {
         mouseX = (float) (newX);
         mouseY = (float) (newY);
     }
+
+	public void setHasBegun(boolean hasBegun) {
+		this.hasBegun = hasBegun;
+	}
+    
+    
 }

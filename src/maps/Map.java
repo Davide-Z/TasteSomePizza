@@ -70,6 +70,18 @@ public class Map {
     	return matrix;
     }
     
+    static void print(int[][] m) {
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		for (int i=0; i < m.length; i++) {
+			for (int j=0; j < m[0].length; j++) {
+				System.out.print(m[i][j]);
+			}
+			System.out.print("/"+i);
+			System.out.println("");
+		}
+		System.out.println("---------------");
+	}
+    
     static void cross(int[][] m, int[] coordinates) {
 		m[coordinates[0]][coordinates[1]]=2;
 	}
@@ -132,7 +144,13 @@ public class Map {
     							mainList.removeLast();
     					}
     					n=mainList.getLast()[2];
-    					computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille));
+    					int deltaX = mainList.getLast()[0] - computedPath.getFirst().toList()[0];
+    					int deltaY = mainList.getLast()[1] - computedPath.getFirst().toList()[1];
+    					int[] currentLast = mainList.getLast().clone();
+    					for (int i=1; i<=720/taille; i++) {
+    						computedPath.addFirst(new Vec(1+currentLast[0]*720/taille+deltaX*i, 1+currentLast[1]*720/taille+deltaY*i));
+    					}
+    					//computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille)); //Case to case path
     					while (mainList.size()>0 && mainList.getLast()[2]>=n) {
     						mainList.removeLast();
     					}

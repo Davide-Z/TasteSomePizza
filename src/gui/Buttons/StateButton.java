@@ -10,6 +10,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
+import states.WaveState;
 
 import java.awt.Font;
 import java.io.FileNotFoundException;
@@ -70,7 +71,8 @@ public class StateButton{
                     game.enterState(0);
                 }
                 else if((action.matches("wave"))&&(game.getCurrentStateID()==1)){ //Début de vague
-                    game.enterState(2);
+                    ((WaveState) game.getState(2)).setHasBegun(true);
+                	game.enterState(2);
                 }
                 else if((action.matches("turret"))&&(game.getCurrentStateID()==1)){
                     config.getTurretMenu().turretMode=!config.getTurretMenu().turretMode;
