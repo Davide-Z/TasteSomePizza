@@ -13,23 +13,30 @@ import java.net.URISyntaxException;
 public enum TurretType {
 
 	//MODELE: (à mettre avant le ;)
-	//NomDeTypeDeTourelle(paramètres)
-	TestTurret("turretTest", 10,1,3,100,30,"cook.png")
+	//NomDuTypeDeTourelle(name,		damage	fireRate range	buyCost	upgradeCost	sellCost	)
+	Default("Default", 				100,	1.0f,	10000,	100,	30,			100,	"cook.png"),
+	HighFireRate("HighFireRate", 	65, 	2.5f,	10000,	200,	50,			160,	"cook.png"),
+	HighDamage("HighDamage", 		250, 	0.8f, 	10000,	220,	55,			180,	"cook.png");
+													// range a modifier apr�s les tests
+	
 	;
 	private String type="";
 	private int damage;
-	private int firerate;
+	private float fireRate;
 	private int range;
-	private int buyCost;
-	private int upgradeCost;
+	private int buyPrice;
+	private int sellPrice;
+	private int upgradePrice;
 	private String spritePath;
-	TurretType(String type, int damage, int firerate , int range, int buyCost, int upgradeCost, String spritePath) {
+	
+	TurretType(String type, int damage, float fireRate , int range, int buyPrice, int upgradePrice, int sellPrice, String spritePath) {
 		this.type=type;
 		this.damage=damage;
-		this.firerate=firerate;
+		this.fireRate=fireRate;
 		this.range=range;
-		this.buyCost=buyCost;
-		this.upgradeCost=upgradeCost;
+		this.buyPrice=buyPrice;
+		this.upgradePrice=upgradePrice;
+		this.sellPrice=buyPrice;
 		this.spritePath=spritePath;
 	} //TODO:Ajouter le constructeur qui prendrait en compte chaque paramètre des tourelles
 
