@@ -17,7 +17,7 @@ public enum TurretType {
 	Default("Default", 				100,	1.0f,	10000,	100,	30,			100,	"cook.png"),
 	HighFireRate("HighFireRate", 	65, 	2.5f,	10000,	200,	50,			160,	"cook.png"),
 	HighDamage("HighDamage", 		250, 	0.8f, 	10000,	220,	55,			180,	"cook.png");
-													// range a modifier après les tests
+													// range a modifier aprï¿½s les tests
 	
 	;
 	private String type="";
@@ -57,8 +57,8 @@ public enum TurretType {
 		return damage;
 	}
 
-	public int getFirerate() {
-		return firerate;
+	public float getFirerate() {
+		return fireRate;
 	}
 
 	public int getRange() {
@@ -66,10 +66,10 @@ public enum TurretType {
 	}
 
 	public int getBuyCost() {
-		return buyCost;
+		return buyPrice;
 	}
 
 	public int getUpgradeCost() {
-		return upgradeCost;
+		return upgradePrice;
 	}
 }

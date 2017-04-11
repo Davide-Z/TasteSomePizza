@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -68,11 +69,9 @@ public class WaveState extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setBackground(Color.decode("0xdba24f"));
         g.setColor(Color.white);
         g.drawString("X:" + (int) mouseX + "\nY:" + (int) mouseY, 0, winHeight - 35);
         g.drawString(winWidth + "x" + winHeight, winWidth - 73, 0);
-
         //Segmentation temporaire de l'écran
         g.setColor(Color.black);
         g.setLineWidth(4);

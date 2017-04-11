@@ -1,5 +1,6 @@
 package states;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -24,7 +25,8 @@ public class GameStates extends StateBasedGame{
         this.addState(new MainGameState());
         this.addState(new WaveState());
         //this.enterState(0);
-        this.enterState(1);
+        this.getContainer().getGraphics().setBackground(Color.decode("0xdba24f"));
+        this.enterState(0);
     }
 
     @Override

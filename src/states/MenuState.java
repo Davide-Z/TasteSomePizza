@@ -31,8 +31,6 @@ public class MenuState extends BasicGameState {
     private int y=0;
     private int winHeight;
     private int winWidth;
-    private Font font;
-    private TrueTypeFont ttf;
     private ButtonsGroup buttonsGroup;
 
     public MenuState() throws SlickException {
@@ -84,7 +82,7 @@ public class MenuState extends BasicGameState {
         g.setColor(Color.white);
         g.drawString("X:"+ x +"\nY:"+ y,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
-        animPiz.draw(winWidth-480,winHeight-245);
+        animPiz.draw(winWidth-250,winHeight-505);
     }
 
     /**

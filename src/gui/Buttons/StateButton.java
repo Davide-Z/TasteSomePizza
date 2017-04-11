@@ -42,8 +42,8 @@ public class StateButton{
         if(text!=null) {
             g.drawString(text, (int) (x + hitbox.getWidth() / 2 - 60), (int) (y + hitbox.getHeight() / 2 - 20)); //Affiche le texte du bouton, centré
         }
-        g.setLineWidth(1);
-        g.draw(hitbox);
+        //g.setLineWidth(1);
+       // g.draw(hitbox);
     }
     
     public void update(StateBasedGame game, GameConfig config){
