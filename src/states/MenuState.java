@@ -60,13 +60,10 @@ public class MenuState extends BasicGameState {
         config=GameConfig.getInstance(stateBasedGame);
         buttonsGroup=config.getButtonsGroup();
         try {
-            font=Font.createFont(Font.TRUETYPE_FONT,FileLoader.getInputStream("fly_n_walk.ttf"));
-            font=font.deriveFont(font.getSize()*45f);
-            ttf=new TrueTypeFont(font, true);
             backgroundImage=FileLoader.getImage("interface/bgi.png");
             piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
             buttonsGroup.init(stateBasedGame, gameContainer);
-        } catch (URISyntaxException | FontFormatException | IOException e) {
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
         animPiz= new Animation(piz,75);
@@ -87,10 +84,7 @@ public class MenuState extends BasicGameState {
         g.setColor(Color.white);
         g.drawString("X:"+ x +"\nY:"+ y,0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
-        g.setColor(Color.black);
-        g.setFont(ttf);
-        g.drawString("Taste Some Pizza !", winWidth/2-250, 100);
-        animPiz.draw(155,238);
+        animPiz.draw(winWidth-480,winHeight-245);
     }
 
     /**

@@ -31,6 +31,9 @@ public class StateButton{
         this.text=text;
         this.image=image;
         this.hitbox = new RoundedRectangle(x,y,image.getWidth()+1,image.getHeight()+2,12);
+        if(action.equals("start") | action.equals("quit")){
+            System.out.println(this.image.getWidth()+"x"+this.image.getHeight());
+        }
     }
 
     public void render(Graphics g) {

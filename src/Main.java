@@ -1,5 +1,7 @@
+import gui.FileLoader;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameStates;

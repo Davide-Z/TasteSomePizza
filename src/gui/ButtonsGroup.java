@@ -36,8 +36,8 @@ public class ButtonsGroup {
 		config=GameConfig.getInstance(game);
 		int winWidth=container.getWidth();
 		int winHeight=container.getHeight();
-		menuButtons.add(new StateButton(FileLoader.getImage("interface/boutonDemarrer.png"), winWidth/2-152,winHeight/2-55,null, "start"));
-		menuButtons.add(new StateButton(FileLoader.getImage("interface/boutonQuitter.png"), winWidth/2-152,winHeight/2+50,null, "quit"));
+		menuButtons.add(new StateButton(FileLoader.getImage("interface/boutonDemarrer.png"), winWidth-280,winHeight-160,null, "start"));
+		menuButtons.add(new StateButton(FileLoader.getImage("interface/boutonQuitter.png"), winWidth-280,winHeight-80,null, "quit"));
 		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu"));
 		waveButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"),winWidth-275,winHeight-78, "Menu principal", "menu"));
 		mainButtons.add(new StateButton(FileLoader.getImage("interface/boutonOrange.png"), winWidth-275, winHeight-156, "Lancer la vague", "wave"));

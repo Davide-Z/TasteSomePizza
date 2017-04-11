@@ -30,7 +30,7 @@ public abstract class FileLoader {
      */
     public static String getSoundPath(String resource){
         String path="";
-        path+=Thread.currentThread().getContextClassLoader().getResource("resources"+slash+"sound"+slash+resource).getPath();
+        path+=Thread.currentThread().getContextClassLoader().getResource("resources").getPath()+slash+"sound"+slash+resource;
         return path;
     }
 }
