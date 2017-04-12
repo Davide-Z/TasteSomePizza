@@ -21,12 +21,14 @@ public class GameStates extends StateBasedGame{
 
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException { //Création et initialisation des vues
-        this.addState(new MenuState());
-        this.addState(new MainGameState());
-        this.addState(new WaveState());
+        addState(new StartState());
+        addState(new MainGameState());
+        addState(new WaveState());
+        addState(new SettingsState());
+        addState(new EndState());
         //this.enterState(0);
-        this.getContainer().getGraphics().setBackground(Color.decode("0xdba24f"));
-        this.enterState(0);
+        getContainer().getGraphics().setBackground(Color.decode("0xdba24f"));
+        enterState(0);
     }
 
     @Override
@@ -36,15 +38,15 @@ public class GameStates extends StateBasedGame{
      */
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_ESCAPE) {
-            this.getContainer().exit();
+            getContainer().exit();
         }
         if (key == Input.KEY_SPACE) {
-            currentState=this.getCurrentStateID();
+            currentState=getCurrentStateID();
             if (currentState != 0) {
                 lastState=currentState;
-                this.enterState(0);
+                enterState(0);
             } else {
-                this.enterState(lastState);
+                enterState(lastState);
             }
         }
     }

@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  * Vue du menu principal, avec un bouton pour entrer en jeu, un pour quitter, et un pour les réglages
  * Created by tic-tac on 01/02/17.
  */
-public class MenuState extends BasicGameState {
+public class StartState extends BasicGameState {
 
     //Paramètres du moteur
     private GameConfig config;
@@ -33,7 +33,7 @@ public class MenuState extends BasicGameState {
     private int winWidth;
     private ButtonsGroup buttonsGroup;
 
-    public MenuState() throws SlickException {
+    public StartState() throws SlickException {
     }
 
     /**

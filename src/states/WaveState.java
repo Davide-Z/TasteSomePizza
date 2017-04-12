@@ -1,15 +1,12 @@
 package states;
 
 import gui.Buttons.StateButton;
-import gui.FileLoader;
 import obj.Enemy;
-import obj.Turret;
 import obj.Wave;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -59,6 +56,10 @@ public class WaveState extends BasicGameState {
         config = GameConfig.getInstance(game);
         winHeight = container.getHeight();
         winWidth = container.getWidth();
+        try {wave = new Wave(10, config.getMap(), game, container);
+        } catch (FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -115,19 +116,10 @@ public class WaveState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         config.update();
         //Dav test
-        if (hasBegun) {
-        try {
-			wave = new Wave(10, config.getMap(), sbg, gc);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        this.setHasBegun(false);}
-    wave.spawn();
-    wave.aliveEnemiesUpdate(i); 
+        if(!wave.unspawnedEnemies.isEmpty()) {
+            wave.spawn();
+        }
+        wave.aliveEnemiesUpdate(i);
     }
 
     /**

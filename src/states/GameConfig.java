@@ -50,7 +50,7 @@ public class GameConfig {
         money=100;
         stateBasedGame=sbg;
         gc=sbg.getContainer();
-        map=new Map(stateBasedGame, 15, this);
+        map=new Map(stateBasedGame, 15);
         buttonsGroup=new ButtonsGroup();
         usableTurrets=new ArrayList<>();
         usableEnemies=new ArrayList<>();

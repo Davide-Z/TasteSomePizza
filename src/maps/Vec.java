@@ -95,4 +95,7 @@ public class Vec {
     public int[] toList() {
     	return (new int[] {(this.x-1)/48, (this.y-1)/48});
     }
+
+    @Override
+    public String toString(){return "x:"+this.x+", y:"+this.y;}
 }
