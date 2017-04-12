@@ -2,17 +2,15 @@ package gui.Buttons;
 
 import gui.FileLoader;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 import states.WaveState;
 
-import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
@@ -37,13 +35,10 @@ public class StateButton{
         this.imagePath=imagePath;
         this.image=FileLoader.getInterfaceImage(imagePath);
         this.hitbox = new RoundedRectangle(x,y,image.getWidth()+1,image.getHeight()+2,12);
-        if(action.equals("start") | action.equals("quit")){
-            System.out.println(this.image.getWidth()+"x"+this.image.getHeight());
-        }
     }
 
     public void render(Graphics g) throws FileNotFoundException, SlickException, URISyntaxException {
-        if(over && (action.equals("start") | action.equals("quit"))){
+        if(over && (action.equals("start") | action.equals("quit") | action.equals("settings"))){
             image=FileLoader.getInterfaceImage(imagePath+"_over");
         }
         else{
@@ -67,7 +62,7 @@ public class StateButton{
                 else if((action.matches("start"))&&(game.getCurrentStateID()==0)){//aller à l'écran de jeu
                     game.enterState(1);
                 }
-                else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==0 | game.getCurrentStateID()==2)){    //aller au menu
+                else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==2)){    //aller au menu
                     game.enterState(0);
                 }
                 else if((action.matches("wave"))&&(game.getCurrentStateID()==1)){ //Début de vague
@@ -76,6 +71,9 @@ public class StateButton{
                 }
                 else if((action.matches("turret"))&&(game.getCurrentStateID()==1)){
                     config.getTurretMenu().turretMode=!config.getTurretMenu().turretMode;
+                }
+                else if((action.matches("settings"))&&(game.getCurrentStateID()==0)){
+                    game.enterState(3);
                 }
                 config.wasMouseReleased =false;
         }

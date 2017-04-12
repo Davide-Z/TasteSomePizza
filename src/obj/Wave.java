@@ -1,27 +1,16 @@
 package obj;
 
+import maps.Map;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
-import maps.Map;
-import maps.Vec;
-import obj.Enemy;
-import obj.Projectile;
-import obj.Turret;
-
 public class Wave {
-	
-	StateBasedGame sbg;
-	GameContainer gc;
-	Graphics g;
-
 	public LinkedList<Enemy> unspawnedEnemies;
 	public LinkedList<Integer> delays;
 	public LinkedList<Enemy> aliveEnemies;
@@ -33,10 +22,6 @@ public class Wave {
 	List<Projectile> projectilesAlive=new LinkedList<Projectile>();
 
 	public Wave(LinkedList<Enemy> unspawnedEnemies, LinkedList<Integer> delays, Map actualMap, StateBasedGame sbg, GameContainer gc) { //generate a wave with the list of enemies and their delays
-		super();
-        this.gc=gc;
-        this.sbg=sbg;
-        this.g=sbg.getContainer().getGraphics();
 		this.unspawnedEnemies = unspawnedEnemies;
 		this.delays = delays;
 		this.aliveEnemies = new LinkedList<Enemy>();
@@ -70,16 +55,12 @@ public class Wave {
 	}
 	
 	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException, FileNotFoundException, URISyntaxException { //automacally creating wave of n enemies
-        super();
 		LinkedList<Enemy> enemies = new LinkedList<Enemy>();
         LinkedList<Integer> d = new LinkedList<Integer>();
         for (int i=0; i<n; i++) {
-        	enemies.add(new Enemy(0, 0.5, 5, 10, actualMap.computePath(), 1, sbg, actualMap, this));
+        	enemies.add(new Enemy(0, 0.1, 5, 10, actualMap.computePath(), 1, sbg, actualMap, this));
         	d.add(300);
         }
-        this.gc=gc;
-        this.sbg=sbg;
-        this.g=sbg.getContainer().getGraphics();
 		this.unspawnedEnemies = enemies;
 		this.delays = d;
 		this.aliveEnemies = new LinkedList<Enemy>();

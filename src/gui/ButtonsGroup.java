@@ -7,7 +7,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -38,6 +37,7 @@ public class ButtonsGroup {
 		int winHeight=container.getHeight();
 		menuButtons.add(new StateButton("demarrer", (int)(winWidth*0.48),(int)(winHeight*0.4),null, "start"));
 		menuButtons.add(new StateButton("quitter", (int)(winWidth*0.65),(int)(winHeight*0.1),null, "quit"));
+		menuButtons.add(new StateButton("reglages", (int)(winWidth*0.9),(int)(winHeight*0.1),null, "settings"));
 		mainButtons.add(new StateButton("boutonOrange",winWidth-275,winHeight-78, "Menu principal", "menu"));
 		waveButtons.add(new StateButton("boutonOrange",winWidth-275,winHeight-78, "Menu principal", "menu"));
 		mainButtons.add(new StateButton("boutonOrange", winWidth-275, winHeight-156, "Lancer la vague", "wave"));
