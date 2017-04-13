@@ -22,8 +22,6 @@ public class MainGameState extends BasicGameState {
     //Attributs d'interface
     int winHeight;
     int winWidth;
-    float mouseX;
-    float mouseY;
 
     //Dav test
     //public Wave wave;
@@ -68,7 +66,7 @@ public class MainGameState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setColor(Color.white);
-        g.drawString("X:"+(int)mouseX+"\nY:"+(int)mouseY,0,winHeight-35);
+        g.drawString("X:"+config.getMx()+"\nY:"+config.getMy(),0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
         //Segmentation temporaire de l'écran
         g.setColor(Color.black);
@@ -117,18 +115,5 @@ public class MainGameState extends BasicGameState {
         /* //Dav test
         wave.spawn();
         wave.aliveEnemiesUpdate(i); */
-    }
-
-    /**
-     * Méthode donnant les mouvements de la sourie
-     * @param oldX
-     * @param oldY
-     * @param newX
-     * @param newY
-     */
-    @Override
-    public void mouseMoved(int oldX, int oldY, int newX, int newY){
-        mouseX=(float)(newX);
-        mouseY=(float)(newY);
     }
 }
