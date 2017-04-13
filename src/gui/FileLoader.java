@@ -23,6 +23,7 @@ public abstract class FileLoader {
         //String path=Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash + "interface" + slash + resource+".png");
         String path=Thread.currentThread().getContextClassLoader().getResource("resources").getPath() + slash + "interface" + slash + resource+".png";
         System.out.println(path);
+
         return new Image(path, false);
     }
     public static InputStream getInputStream(String file){
