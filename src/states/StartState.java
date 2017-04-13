@@ -2,17 +2,13 @@ package states;
 
 import gui.ButtonsGroup;
 import gui.FileLoader;
-import gui.Buttons.StateButton;
 import org.newdawn.slick.*;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.awt.*;
-import java.awt.Font;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
@@ -58,7 +54,7 @@ public class StartState extends BasicGameState {
         config=GameConfig.getInstance(stateBasedGame);
         buttonsGroup=config.getButtonsGroup();
         try {
-            backgroundImage=FileLoader.getImage("interface/bgi");
+            backgroundImage=FileLoader.getImage("interface"+File.separator+"bgi");
             piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
             buttonsGroup.init(stateBasedGame, gameContainer);
         } catch (URISyntaxException | IOException e) {

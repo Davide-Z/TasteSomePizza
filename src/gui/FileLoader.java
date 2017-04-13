@@ -14,13 +14,12 @@ public abstract class FileLoader {
     private static String slash = File.separator;
 
     public static Image getImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
-        return new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash +resource+".png"), resource, false);
+        return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+ slash +resource+".png", false);
     }
     public  static Image getSpriteImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
-        return new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash + "sprites" + slash + resource), resource, false);
+        return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+ slash + "sprites" + slash + resource, false);
     }
     public static Image getInterfaceImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
-        //String path=Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash + "interface" + slash + resource+".png");
         return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+slash+"interface"+slash+resource+".png", false);
     }
     public static InputStream getInputStream(String file){
@@ -33,8 +32,6 @@ public abstract class FileLoader {
      * @return  chemin vers le fichier
      */
     public static String getSoundPath(String resource){
-        String path="";
-        path+=Thread.currentThread().getContextClassLoader().getResource("resources").getPath()+slash+"sound"+slash+resource;
-        return path;
+        return System.getProperty("user.dir")+slash+"src"+slash+"resources"+slash+"sound"+slash+resource;
     }
 }
