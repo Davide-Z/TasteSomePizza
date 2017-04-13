@@ -1,6 +1,5 @@
 package states;
 
-import gui.Buttons.StateButton;
 import gui.ButtonsGroup;
 import gui.TurretMenu;
 import maps.Map;
@@ -13,8 +12,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -81,14 +78,14 @@ public class GameConfig {
     public void setSelectedTurret(Turret turret){this.selectedTurret=turret;}
     public void setSelectedEnemy(Enemy enemy){this.selectedEnemy=enemy;}
     public void setMap(Map map){this.map=map;}
-    public void setTurretMenu(GameContainer gameContainer) throws SlickException, FileNotFoundException, URISyntaxException {
+    public void setTurretMenu(GameContainer gameContainer) throws SlickException{
         this.turretMenu=new TurretMenu(stateBasedGame, gameContainer);
     }
     /**
      * Ajoute une tourelle à la liste des tourelles utilisables
      * @param turret
      */
-    public void addUsableTurret(Turret turret) throws FileNotFoundException, SlickException, URISyntaxException {
+    public void addUsableTurret(Turret turret) throws SlickException {
         for(int i = 0; i<1; i++){
             this.usableTurrets.add(new Turret(turret, null));
         }
@@ -118,7 +115,7 @@ public class GameConfig {
 
     public ButtonsGroup getButtonsGroup(){return this.buttonsGroup;}
 
-    public void update(){
+    public void update() throws SlickException {
         turretMenu.update(stateBasedGame);
         buttonsGroup.update(stateBasedGame);
         map.update(stateBasedGame, this);

@@ -10,9 +10,6 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 /**
  * Classe représentant une case de la carte, avec les éléments qu'elle contient, son image, sa position sur la carte, son accessibilité
  * Created by tic-tac on 16/02/17.
@@ -52,28 +49,20 @@ public class Case{
 		}
 	}
 
-	public void update(StateBasedGame sbg, GameConfig config) {
+	public void update(StateBasedGame sbg, GameConfig config) throws SlickException {
 		over=interieur.contains(config.getMx(),config.getMy());
 		if (over && sbg.getCurrentStateID()==1) { //Si la souris est sur la case, on est sr l'écran de jeu
 			if (config.isMouseClicked() && config.wasMouseReleased) {   //Si la souris est cliquée et était relachée avant
 				System.out.println("Case cliquée:" + (1 + (this.getX() / 48)) + "x" + (1 + (this.getY() / 48)));
 				if (config.getTurretMenu().turretMode) {
 					if (turret == null && enemy == null && config.getTurret() != null) {
-						try {
-							this.turret = new Turret(config.getTurret(), new Vec(this.x, this.y));
-						} catch (FileNotFoundException | SlickException | URISyntaxException e) {
-							e.printStackTrace();
-						}
+						this.turret = new Turret(config.getTurret(), new Vec(this.x, this.y));
 					} else {
 						this.turret = null;
 					}
 				} else {
 					if (enemy == null && turret == null && config.getEnemy() != null) {
-						try {
-							this.enemy = new Enemy(config.getEnemy(), new Vec(this.x, this.y));
-						} catch (FileNotFoundException | SlickException | URISyntaxException e) {
-							e.printStackTrace();
-						}
+						this.enemy = new Enemy(config.getEnemy(), new Vec(this.x, this.y));
 					} else {
 						this.enemy = null;
 					}

@@ -6,9 +6,6 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 /**
  * Created by Tic-Tac on 12/04/2017.
  */
@@ -32,11 +29,7 @@ public class SettingsState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.config=GameConfig.getInstance(game);
-		try {
-			backgroundImage= FileLoader.getInterfaceImage("bgi");
-		} catch (URISyntaxException | FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		backgroundImage= FileLoader.getInterfaceImage("bgi");
 	}
 
 	@Override

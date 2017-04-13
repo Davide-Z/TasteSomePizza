@@ -39,7 +39,7 @@ public class Map {
         }
     }
 
-    public void update(StateBasedGame game, GameConfig config)  {
+    public void update(StateBasedGame game, GameConfig config) throws SlickException {
         for(Case[] cs : cases){
             for(Case c : cs){
                 c.update(game, config);

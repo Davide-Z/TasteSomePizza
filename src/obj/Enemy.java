@@ -6,13 +6,11 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.LinkedList;
 
 public class Enemy extends Displayable{
 	
-	public Enemy(int t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) throws SlickException, FileNotFoundException, URISyntaxException {
+	public Enemy(int t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) throws SlickException{
 		super(t, sbg, wave);
 		this.actualMap = map;
 		this.posInPath = 0;
@@ -29,7 +27,7 @@ public class Enemy extends Displayable{
 		super.name="Enemy";
 	}
 
-	public Enemy(int t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Enemy(int t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws SlickException {
 		super(sbg);
 		this.typeId=t;
 		this.speed=speed;
@@ -43,7 +41,7 @@ public class Enemy extends Displayable{
 		super.name="Enemy";
 	}
 
-	public Enemy(Enemy enemy, Vec pos) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Enemy(Enemy enemy, Vec pos) throws SlickException {
 		super(enemy.sbg);
 		super.typeId=enemy.typeId;
 		super.pos=pos;

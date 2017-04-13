@@ -7,9 +7,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 /**
  * Vue du menu principal, avec un bouton pour entrer en jeu, un pour quitter, et un pour les réglages
@@ -53,13 +50,9 @@ public class StartState extends BasicGameState {
         winWidth=gameContainer.getWidth();
         config=GameConfig.getInstance(stateBasedGame);
         buttonsGroup=config.getButtonsGroup();
-        try {
             backgroundImage=FileLoader.getImage("interface"+File.separator+"bgi");
             piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
             buttonsGroup.init(stateBasedGame, gameContainer);
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
-        }
         animPiz= new Animation(piz,75);
     }
 
@@ -73,13 +66,7 @@ public class StartState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         backgroundImage.draw();
-        try {
-            buttonsGroup.render(g);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        buttonsGroup.render(g);
         g.setLineWidth(5);
         g.setColor(Color.white);
         g.drawString("X:"+ x +"\nY:"+ y,0,winHeight-35);

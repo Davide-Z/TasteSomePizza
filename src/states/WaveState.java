@@ -10,9 +10,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 /**
  * Created by tic-tac on 24/03/17.
  */
@@ -56,10 +53,7 @@ public class WaveState extends BasicGameState {
         config = GameConfig.getInstance(game);
         winHeight = container.getHeight();
         winWidth = container.getWidth();
-        try {wave = new Wave(10, config.getMap(), game, container);
-        } catch (FileNotFoundException | URISyntaxException e) {
-            e.printStackTrace();
-        }
+        wave = new Wave(10, config.getMap(), game, container);
     }
 
     /**
@@ -86,15 +80,9 @@ public class WaveState extends BasicGameState {
 
         config.getMap().render(g);
         config.getTurretMenu().render(g);
-        try {
-            config.getButtonsGroup().render(g);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        config.getButtonsGroup().render(g);
 
-   //Dav test
+        //Dav test
     g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
     g.drawString("HP : "+config.getMap().baseHP, 3, 40);
     g.drawString("Number of unspawned enemies : "+wave.unspawnedEnemies.size(), 3, 60);

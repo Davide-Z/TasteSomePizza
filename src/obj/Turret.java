@@ -6,9 +6,6 @@ import maps.Vec;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 public class Turret extends Displayable{
 	int projectileType;
 	int damage;
@@ -22,7 +19,7 @@ public class Turret extends Displayable{
 	long lastFire=System.currentTimeMillis();
 	Enemy lastEnemy=null;
 	
-	public Turret(int t, Vec p, StateBasedGame sbg, Wave w) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Turret(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
 		super(t, p, sbg, w);
 		actualWave.getTurretsAlive().add(this);
 		assignType(t);
@@ -39,7 +36,7 @@ public class Turret extends Displayable{
 	 * Constructeur utilisé pour copier une tourelle à une position donnée
 	 * @param turret
 	 */
-	public Turret(Turret turret, Vec pos) throws FileNotFoundException, SlickException, URISyntaxException {
+	public Turret(Turret turret, Vec pos) throws SlickException {
 		super(turret.sbg);
 		super.typeId=turret.typeId;
 		super.pos=pos;

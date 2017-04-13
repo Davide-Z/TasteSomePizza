@@ -9,8 +9,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +28,7 @@ public class TurretMenu {
     private ArrayList<TurretButton> enemyButtons;
     private ArrayList<Turret> usableTurrets;
 
-    public TurretMenu(StateBasedGame sbg, GameContainer gameContainer) throws SlickException, FileNotFoundException, URISyntaxException {
+    public TurretMenu(StateBasedGame sbg, GameContainer gameContainer) throws SlickException{
         game = sbg;
         turretButtons = new ArrayList<>();
         enemyButtons = new ArrayList<>();

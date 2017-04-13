@@ -5,8 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +52,7 @@ public class Wave {
 		}
 	}
 	
-	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException, FileNotFoundException, URISyntaxException { //automacally creating wave of n enemies
+	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException { //automacally creating wave of n enemies
 		LinkedList<Enemy> enemies = new LinkedList<>();
         LinkedList<Integer> d = new LinkedList<>();
         for (int i=0; i<n; i++) {

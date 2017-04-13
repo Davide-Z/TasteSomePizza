@@ -1,18 +1,15 @@
 package gui.Buttons;
 
-import gui.FileLoader;
 import maps.Vec;
 import obj.Enemy;
 import obj.Turret;
-import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
-
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 /**
  * Created by tic-tac on 08/03/17.
@@ -27,13 +24,13 @@ public class TurretButton {
     private Turret turret;
     private Enemy enemy;
 
-    public TurretButton(int x, int y, Turret turret) throws SlickException, FileNotFoundException, URISyntaxException {
+    public TurretButton(int x, int y, Turret turret) throws SlickException{
         this.x=x;
         this.y=y;
         this.turret=new Turret(turret, new Vec(x,y));
         this.hitbox=new Rectangle(this.x,this.y,152,160);
     }
-    public TurretButton(int x, int y, Enemy enemy) throws SlickException, FileNotFoundException, URISyntaxException {
+    public TurretButton(int x, int y, Enemy enemy) throws SlickException{
         this.x=x;
         this.y=y;
         this.enemy=new Enemy(enemy, new Vec(x,y));

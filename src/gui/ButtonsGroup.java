@@ -7,8 +7,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -31,7 +29,7 @@ public class ButtonsGroup {
 		endButtons = new ArrayList<>();
 		stateID = 0;
 	}
-	public void init(StateBasedGame game,GameContainer container) throws FileNotFoundException, SlickException, URISyntaxException {
+	public void init(StateBasedGame game,GameContainer container) throws SlickException{
 		config=GameConfig.getInstance(game);
 		int winWidth=container.getWidth();
 		int winHeight=container.getHeight();
@@ -43,7 +41,7 @@ public class ButtonsGroup {
 		mainButtons.add(new StateButton("boutonOrange", winWidth-275, winHeight-156, "Lancer la vague", "wave"));
 		mainButtons.add(new StateButton("boutonOrange", winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret"));
 	}
-	public void render(Graphics g) throws FileNotFoundException, SlickException, URISyntaxException {
+	public void render(Graphics g) throws SlickException {
 		for(StateButton b : buttons){
 			b.render(g);
 		}

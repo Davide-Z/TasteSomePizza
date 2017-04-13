@@ -11,9 +11,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 import states.WaveState;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 /**
  * Created by tic-tac on 14/02/17.
  */
@@ -30,7 +27,7 @@ public class StateButton{
     private Shape hitbox;
     private String action;
 
-    public StateButton(String imagePath, int x, int y, String text, String action) throws SlickException, FileNotFoundException, URISyntaxException {
+    public StateButton(String imagePath, int x, int y, String text, String action) throws SlickException {
         this.x=x;
         this.y=y;
         this.action=action;
@@ -45,7 +42,7 @@ public class StateButton{
         currentImage=baseImage;
     }
 
-    public void render(Graphics g) throws FileNotFoundException, SlickException, URISyntaxException {
+    public void render(Graphics g) throws SlickException{
         if(over && (action.equals("start") | action.equals("quit") | action.equals("settings"))){
             currentImage=overImage;
         }

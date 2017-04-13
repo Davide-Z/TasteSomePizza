@@ -1,18 +1,13 @@
 package states;
 
 
-import gui.Buttons.StateButton;
-import gui.FileLoader;
-import obj.Enemy;
 import obj.Turret;
-import obj.Wave;
-
-import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 /**
  * Vue du jeu principal, où on va placer les tourelles et lancer la vague
@@ -59,12 +54,8 @@ public class MainGameState extends BasicGameState {
         winHeight=container.getHeight();
         winWidth=container.getWidth();
 
-        try {
-            config.addUsableTurret(new Turret(game));
-            config.setTurretMenu(gameContainer);
-        } catch (URISyntaxException | FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        config.addUsableTurret(new Turret(game));
+        config.setTurretMenu(gameContainer);
     }
 
     /**
@@ -102,13 +93,7 @@ public class MainGameState extends BasicGameState {
 
         config.getMap().render(g);
         config.getTurretMenu().render(g);
-        try {
-            config.getButtonsGroup().render(g);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        config.getButtonsGroup().render(g);
         /* //Dav test
         g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
         g.drawString("HP : "+config.getMap().baseHP, 3, 40);

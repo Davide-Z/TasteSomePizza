@@ -4,9 +4,6 @@ import gui.FileLoader;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 /**
  * Created by Tic-Tac on 08/04/2017.
  */
@@ -45,7 +42,7 @@ public enum TurretType {
 		return this.type;
 	}
 
-	public Image getSprite() throws FileNotFoundException, SlickException, URISyntaxException {
+	public Image getSprite() throws SlickException {
 		return FileLoader.getSpriteImage(this.spritePath);
 	}
 
