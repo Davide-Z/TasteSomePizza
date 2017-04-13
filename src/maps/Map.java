@@ -132,8 +132,7 @@ public class Map {
             return null;
         }
         else {
-        	long ping=System.currentTimeMillis();
-            LinkedList<Vec> computedPath = new LinkedList<Vec>();
+        	LinkedList<Vec> computedPath = new LinkedList<Vec>();
             computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille));
             while (! corEquals(computedPath.getFirst().toList(), origin)){
                 while (mainList.size()>0 &&
@@ -155,8 +154,7 @@ public class Map {
                     mainList.removeLast();
                 }
             }
-	        System.out.println(System.currentTimeMillis()-ping);
-	        return computedPath;
+            return computedPath;
         }
 	}
 }

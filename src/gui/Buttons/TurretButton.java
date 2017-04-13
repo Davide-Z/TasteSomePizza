@@ -32,14 +32,12 @@ public class TurretButton {
         this.y=y;
         this.turret=new Turret(turret, new Vec(x,y));
         this.hitbox=new Rectangle(this.x,this.y,152,160);
-        System.out.println(x+ " "+y);
     }
     public TurretButton(int x, int y, Enemy enemy) throws SlickException, FileNotFoundException, URISyntaxException {
         this.x=x;
         this.y=y;
         this.enemy=new Enemy(enemy, new Vec(x,y));
         this.hitbox=new Rectangle(this.x,this.y,152,160);
-        System.out.println(x+ " "+y);
     }
 
     public void setTurret(Turret turret){

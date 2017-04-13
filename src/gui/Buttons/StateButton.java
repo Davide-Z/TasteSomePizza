@@ -19,7 +19,10 @@ import java.net.URISyntaxException;
  */
 public class StateButton{
     private String imagePath;
-    private Image image;
+    private Image currentImage;
+    private Image baseImage;
+    private Image overImage;
+    private Image mask;
     private int x;
     private int y;
     private boolean over;
@@ -33,18 +36,23 @@ public class StateButton{
         this.action=action;
         this.text=text;
         this.imagePath=imagePath;
-        this.image=FileLoader.getInterfaceImage(imagePath);
-        this.hitbox = new RoundedRectangle(x,y,image.getWidth()+1,image.getHeight()+2,12);
+        this.baseImage=FileLoader.getInterfaceImage(imagePath);
+        this.hitbox = new RoundedRectangle(x,y,baseImage.getWidth()+1,baseImage.getHeight()+2,12);
+        if(action.equals("start") | action.equals("quit") | action.equals("settings")) {
+            overImage=FileLoader.getInterfaceImage(imagePath+"_over");
+            mask = FileLoader.getInterfaceImage(imagePath + "_mask");
+        }
+        currentImage=baseImage;
     }
 
     public void render(Graphics g) throws FileNotFoundException, SlickException, URISyntaxException {
         if(over && (action.equals("start") | action.equals("quit") | action.equals("settings"))){
-            image=FileLoader.getInterfaceImage(imagePath+"_over");
+            currentImage=overImage;
         }
         else{
-            image=FileLoader.getInterfaceImage(imagePath);
+           currentImage=baseImage;
         }
-        image.draw(x,y);
+        currentImage.draw(x,y);
         g.setColor(Color.white);
         if(text!=null) {
             g.drawString(text, (int) (x + hitbox.getWidth() / 2 - 60), (int) (y + hitbox.getHeight() / 2 - 20)); //Affiche le texte du bouton, centré
@@ -54,8 +62,13 @@ public class StateButton{
     }
     
     public void update(StateBasedGame game, GameConfig config){
-        over = this.hitbox.contains(config.getMx(), config.getMy());
-            if ( over && config.isMouseClicked() && config.wasMouseReleased) {
+        if(action.equals("start") | action.equals("quit") | action.equals("settings")) { //Si c'est des boutons pour lesquels un masque est prévu, on s'en sert
+            over = (this.hitbox.contains(config.getMx(), config.getMy())) && (this.mask.getColor(config.getMx()-this.x, config.getMy()-this.y).equals(Color.white));
+        }
+        else{
+            over = this.hitbox.contains(config.getMx(), config.getMy());
+        }
+            if ( over && config.isMouseClicked() && config.wasMouseReleased) {//Si le bouton est appuyé & n'était pas appuyé juste avant
                 if((action.matches("quit"))&&(game.getCurrentStateID()==0)){       //quitter le jeu
                     System.exit(0);
                 }
@@ -75,7 +88,7 @@ public class StateButton{
                 else if((action.matches("settings"))&&(game.getCurrentStateID()==0)){
                     game.enterState(3);
                 }
-                config.wasMouseReleased =false;
+                config.wasMouseReleased =false; //le bouton n'est plus appuyé
         }
     }
 }

@@ -1,32 +1,51 @@
 package states;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import gui.ButtonsGroup;
+import gui.FileLoader;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 /**
  * Created by Tic-Tac on 12/04/2017.
  */
 public class SettingsState extends BasicGameState {
+
+	//Paramètres du moteur
+	private GameConfig config;
+	//Paramètres d'interface
+	private Image backgroundImage;
+	private SpriteSheet piz;
+	private Animation animPiz;
+	private int winHeight;
+	private int winWidth;
+	private ButtonsGroup buttonsGroup;
+
 	@Override
 	public int getID() {
 		return 3;
 	}
 
 	@Override
-	public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-
+	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		this.config=GameConfig.getInstance(game);
+		try {
+			backgroundImage= FileLoader.getInterfaceImage("bgi");
+		} catch (URISyntaxException | FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-
+	public void render(GameContainer container, StateBasedGame game, Graphics graphics) throws SlickException {
+		backgroundImage.draw();
 	}
 
 	@Override
-	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int i) throws SlickException {
 
 	}
 }

@@ -29,7 +29,6 @@ public class GameConfig {
     private GameContainer gc;
     private int money; //TODO: combien d'argent au début?
     private String playerName;
-    private boolean turretIsSelected=false;
     private Turret selectedTurret;
     private Enemy selectedEnemy;
     private Map map;
@@ -40,7 +39,6 @@ public class GameConfig {
     private int mx=0;
     private int my=0;
     private boolean mouseClicked=false;
-    public long clickPing=0;
     public boolean wasMouseReleased =true;
     private ButtonsGroup buttonsGroup;
     public Wave wave;
@@ -77,7 +75,6 @@ public class GameConfig {
     public Map getMap(){return map;}
     public ArrayList<Turret> getUsableTurrets(){return usableTurrets;}
     public TurretMenu getTurretMenu() {return turretMenu;}
-    public boolean isTurretSelected(){return this.turretIsSelected;}
     //       LES SETTERS       //
     public void setMoney(int money) {this.money = money;}
     public void setPlayerName(String name){this.playerName=name;}
@@ -97,8 +94,6 @@ public class GameConfig {
         }
         this.usableEnemies.add(new Enemy(0, null, 1,10,10,stateBasedGame));
     }
-    public void setTurretIsSelected(boolean setting){this.turretIsSelected=setting;}
-
     public ArrayList<Enemy> getUsableEnemies() {
         return usableEnemies;
     }
@@ -116,7 +111,6 @@ public class GameConfig {
     public boolean isMouseClicked() {
         mouseClicked=Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON);
         if(!mouseClicked){
-            this.clickPing=System.currentTimeMillis();
             this.wasMouseReleased =true;
         }
         return mouseClicked;
