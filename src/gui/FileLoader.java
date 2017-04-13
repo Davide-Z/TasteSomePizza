@@ -21,10 +21,7 @@ public abstract class FileLoader {
     }
     public static Image getInterfaceImage(String resource) throws URISyntaxException, FileNotFoundException, SlickException {
         //String path=Thread.currentThread().getContextClassLoader().getResourceAsStream("resources" + slash + "interface" + slash + resource+".png");
-        String path=Thread.currentThread().getContextClassLoader().getResource("resources").getPath() + slash + "interface" + slash + resource+".png";
-        System.out.println(path);
-
-        return new Image(path, false);
+        return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+slash+"interface"+slash+resource+".png", false);
     }
     public static InputStream getInputStream(String file){
         return Thread.currentThread().getContextClassLoader().getResourceAsStream("resources"+slash+file);
