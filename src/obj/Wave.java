@@ -55,15 +55,15 @@ public class Wave {
 	}
 	
 	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException, FileNotFoundException, URISyntaxException { //automacally creating wave of n enemies
-		LinkedList<Enemy> enemies = new LinkedList<Enemy>();
-        LinkedList<Integer> d = new LinkedList<Integer>();
+		LinkedList<Enemy> enemies = new LinkedList<>();
+        LinkedList<Integer> d = new LinkedList<>();
         for (int i=0; i<n; i++) {
-        	enemies.add(new Enemy(0, 0.1, 5, 10, actualMap.computePath(), 1, sbg, actualMap, this));
+        	enemies.add(new Enemy(0, 0.8, 5, 10, actualMap.computePath(), 1, sbg, actualMap, this));
         	d.add(300);
         }
 		this.unspawnedEnemies = enemies;
 		this.delays = d;
-		this.aliveEnemies = new LinkedList<Enemy>();
+		this.aliveEnemies = new LinkedList<>();
 		this.lastSpawn = System.currentTimeMillis();
 		this.actualMap = actualMap;
         
