@@ -1,6 +1,8 @@
 package obj;
 
 import maps.Map;
+import maps.Vec;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -52,18 +54,19 @@ public class Wave {
 		}
 	}
 	
-	public Wave(int n, Map actualMap, StateBasedGame sbg, GameContainer gc) throws SlickException { //automacally creating wave of n enemies
+	public Wave(int n, Map currentMap, StateBasedGame sbg, GameContainer gc) throws SlickException { //automacally creating wave of n enemies
 		LinkedList<Enemy> enemies = new LinkedList<>();
         LinkedList<Integer> d = new LinkedList<>();
+        LinkedList<Vec> currentPath = currentMap.computePath();
         for (int i=0; i<n; i++) {
-        	enemies.add(new Enemy(0, 0.1, 5, 10, actualMap.computePath(), 1, sbg, actualMap, this));
+        	enemies.add(new Enemy(0, 0.4, 5, 10, currentPath, 1, sbg, currentMap, this));
         	d.add(300);
         }
 		this.unspawnedEnemies = enemies;
 		this.delays = d;
 		this.aliveEnemies = new LinkedList<>();
 		this.lastSpawn = System.currentTimeMillis();
-		this.actualMap = actualMap;
+		this.actualMap = currentMap;
         
 	}
 	

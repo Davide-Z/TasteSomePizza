@@ -115,17 +115,17 @@ public class Map {
                     found=true;
                     break;
                 }
-                if (0 <= cor[1]+1 && cor[1]+1 < currentMap[0].length && currentMap[cor[0]][cor[1]+1] == 0) {
-                    nextUntestedList.add(new int[] {cor[0],cor[1]+1, n});
-                }
-                if (0 <= cor[0]+1 && cor[0]+1 < currentMap.length && currentMap[cor[0]+1][cor[1]] == 0) {
-                    nextUntestedList.add(new int[] {cor[0]+1,cor[1], n});
-                }
                 if (0 <= cor[0]-1 && cor[0]-1 < currentMap.length && currentMap[cor[0]-1][cor[1]] == 0) {
                     nextUntestedList.add(new int[] {cor[0]-1,cor[1], n});
                 }
+                if (0 <= cor[1]+1 && cor[1]+1 < currentMap[0].length && currentMap[cor[0]][cor[1]+1] == 0) {
+                    nextUntestedList.add(new int[] {cor[0],cor[1]+1, n});
+                }
                 if (0 <= cor[1]-1 && cor[1]-1 < currentMap[0].length && currentMap[cor[0]][cor[1]-1] == 0) {
                     nextUntestedList.add(new int[] {cor[0],cor[1]-1, n});
+                }
+                if (0 <= cor[0]+1 && cor[0]+1 < currentMap.length && currentMap[cor[0]+1][cor[1]] == 0) {
+                    nextUntestedList.add(new int[] {cor[0]+1,cor[1], n});
                 }
             }
         }
@@ -146,13 +146,12 @@ public class Map {
                 n=mainList.getLast()[2];
                 int deltaX = mainList.getLast()[0] - computedPath.getFirst().toList()[0];
                 int deltaY = mainList.getLast()[1] - computedPath.getFirst().toList()[1];
-                int[] currentLast = mainList.getLast().clone();
-                /*
-                for (int i=1; i<=720/taille; i++) {
-                    computedPath.addFirst(new Vec(1+currentLast[0]*720/taille+deltaX*i, 1+currentLast[1]*720/taille+deltaY*i));
+                int[] currentFirst = new int[] {computedPath.getFirst().toList()[0],computedPath.getFirst().toList()[1]};
+                for (int i=1; i<720/taille; i+=1) {
+                    computedPath.addFirst(new Vec(1+currentFirst[0]*720/taille+deltaX*i, 1+currentFirst[1]*720/taille+deltaY*i));
                 }
-                */
-                computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille)); //Case to case path
+                computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille));
+                //computedPath.addFirst(new Vec(1+mainList.getLast()[0]*720/taille, 1+mainList.removeLast()[1]*720/taille)); //Case to case path
                 while (mainList.size()>0 && mainList.getLast()[2]>=n) {
                     mainList.removeLast();
                 }
