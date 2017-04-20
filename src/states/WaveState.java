@@ -53,7 +53,6 @@ public class WaveState extends BasicGameState {
         config = GameConfig.getInstance(game);
         winHeight = container.getHeight();
         winWidth = container.getWidth();
-        wave = new Wave(10, config.getMap(), game, container);
     }
 
     /**
@@ -66,7 +65,7 @@ public class WaveState extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setColor(Color.white);
+    	g.setColor(Color.white);
         g.drawString("X:" + (int) mouseX + "\nY:" + (int) mouseY, 0, winHeight - 35);
         g.drawString(winWidth + "x" + winHeight, winWidth - 73, 0);
         //Segmentation temporaire de l'écran
@@ -102,6 +101,10 @@ public class WaveState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+    	if (hasBegun) {
+            wave = new Wave(10, config.getMap(), sbg, gc);
+            hasBegun=false;
+    	}
         config.update();
         //Dav test
         if(!wave.unspawnedEnemies.isEmpty()) {
