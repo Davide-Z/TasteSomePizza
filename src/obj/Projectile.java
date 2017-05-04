@@ -60,7 +60,7 @@ public class Projectile extends Displayable{
 	}
 	
 	public void update(){
-		if(target==null || target.isAlive()==false){
+		if(target==null || !target.isAlive()){
 			disappear();
 		}
 		else{
