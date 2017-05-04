@@ -29,6 +29,15 @@ public class Vec {
 		return (int)Math.sqrt(  (double)(this.getX()-pos.getX())*(this.getX()-pos.getX())   +(this.getY()-pos.getY())*(this.getY()-pos.getY())         );
 	}
     
+    public double distanceDouble(Vec pos){
+    	return Math.sqrt(  (double)(this.getX()-pos.getX())*(this.getX()-pos.getX())   +(this.getY()-pos.getY())*(this.getY()-pos.getY())         );
+	}
+    
+    //to avoid pointers errors
+    public Vec copy(){
+    	return new Vec(this.x, this.y);
+    }
+    
     public int getX() {
         return x;
     }

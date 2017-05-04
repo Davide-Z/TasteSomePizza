@@ -2,6 +2,7 @@ package obj;
 
 import maps.Map;
 import maps.Vec;
+import obj.Turret;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -17,9 +18,7 @@ public class Wave {
 	long lastSpawn;
 	Map actualMap;
 
-	List<Turret> turretsAlive=new LinkedList<Turret>(); //Dav, je pense que ces listes ne devraient pas etre dans cette interface parce que on est entrain d'encapsuler les classes
-	List<Enemy> enemiesAlive=new LinkedList<Enemy>(); //Dav, genre à la fin chaque ennemi aura comme attribut la liste d'ennemis
-	List<Projectile> projectilesAlive=new LinkedList<Projectile>();
+	public LinkedList<Projectile> aliveProjectiles=new LinkedList<Projectile>();
 
 	public Wave(LinkedList<Enemy> unspawnedEnemies, LinkedList<Integer> delays, Map actualMap, StateBasedGame sbg, GameContainer gc) { //generate a wave with the list of enemies and their delays
 		this.unspawnedEnemies = unspawnedEnemies;
@@ -44,7 +43,8 @@ public class Wave {
 			Object aliveEnemiesCopie = aliveEnemies.clone(); //Solution to concurrency problem
 			for (Enemy e : (LinkedList<Enemy>) aliveEnemiesCopie) {
 				if (! e.isAlive()){ //remove dead enemies
-					aliveEnemies.remove(e);
+					e.disappear();
+					//aliveEnemies.remove(e);
 				}
 				else {
 					e.move(i); //move alive enemies
@@ -58,16 +58,22 @@ public class Wave {
 		LinkedList<Enemy> enemies = new LinkedList<>();
         LinkedList<Integer> d = new LinkedList<>();
         LinkedList<Vec> currentPath = currentMap.computePath();
+		this.aliveEnemies = new LinkedList<Enemy>();
+		
+		// updates the actualWave for each Turret
+        if(Turret.aliveTurrets.isEmpty()==false){
+        	for(Turret t : Turret.aliveTurrets){
+            	t.setActualWave(this);
+            }
+        }
         for (int i=0; i<n; i++) {
-        	enemies.add(new Enemy(0, 0.4, 5, 10, currentPath, 1, sbg, currentMap, this));
+        	enemies.add(new Enemy(0, 0.5, 5, 10, currentPath, 1, sbg, currentMap, this));
         	d.add(300);
         }
 		this.unspawnedEnemies = enemies;
 		this.delays = d;
-		this.aliveEnemies = new LinkedList<>();
 		this.lastSpawn = System.currentTimeMillis();
-		this.actualMap = currentMap;
-        
+		this.actualMap = currentMap;		
 	}
 	
 	
@@ -77,23 +83,11 @@ public class Wave {
 	public LinkedList<Integer> getDelays() {
 		return delays;
 	}
-	public List<Turret> getTurretsAlive() {
-		return turretsAlive;
+	public LinkedList<Projectile> getAliveProjectiles() {
+		return aliveProjectiles;
 	}
-	public void setTurretsAlive(List<Turret> turretsAlive) {
-		this.turretsAlive = turretsAlive;
-	}
-	public List<Enemy> getEnemiesAlive() {
-		return enemiesAlive;
-	}
-	public void setEnemiesAlive(List<Enemy> enemiesAlive) {
-		this.enemiesAlive = enemiesAlive;
-	}
-	public List<Projectile> getProjectilesAlive() {
-		return projectilesAlive;
-	}
-	public void setProjectilesAlive(List<Projectile> projectilesAlive) {
-		this.projectilesAlive = projectilesAlive;
+	public void setAliveProjectiles(LinkedList<Projectile> aliveProjectiles) {
+		this.aliveProjectiles = aliveProjectiles;
 	}
 	
 }

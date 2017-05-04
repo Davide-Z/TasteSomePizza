@@ -11,16 +11,15 @@ import java.util.LinkedList;
 public class Enemy extends Displayable{
 	
 	public Enemy(int t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) throws SlickException{
-		super(t, sbg, wave);
+		super(t, map.spawn, sbg, wave);
 		this.actualMap = map;
 		this.posInPath = 0;
-		this.pos = actualMap.spawn;
 		this.speed = speed;
 		this.damage = damage;
 		this.hp = hp;
 		this.path = path;
 		this.points = points;
-		wave.enemiesAlive.add(this);
+		wave.aliveEnemies.add(this);
 		this.spriteName="client.png";
 		super.sprite= FileLoader.getSpriteImage("client.png");
 		this.sprite=super.sprite;
@@ -84,12 +83,6 @@ public class Enemy extends Displayable{
 			this.posInPath=this.path.size()-1;
 		}
 		this.pos=this.path.get(this.posInPath);
-
-	}
-	
-	@Override
-	public void appear(){
-
 	}
 	
 	@Override
@@ -98,20 +91,10 @@ public class Enemy extends Displayable{
 		super.disappear();
 	}
 
-	public int getHp() {
-		return hp;
-	}
-
-	public void setHp(int hp) {
-		this.hp = hp;
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
-	public void setPoints(int points) {
-		this.points = points;
-	}
+	// GETTERS AND SETTERS
+	public int getHp() {	return hp;	}
+	public void setHp(int hp) {	this.hp = hp;	}
+	public int getPoints() {	return points;	}
+	public void setPoints(int points) {	this.points = points;	}
 
 }

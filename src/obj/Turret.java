@@ -5,8 +5,10 @@ import gui.FileLoader;
 import maps.Vec;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import java.util.LinkedList;
 
 public class Turret extends Displayable{
+	public static LinkedList<Turret> aliveTurrets=new LinkedList<Turret>();
 	int projectileType;
 	int damage;
 	float fireRate;
@@ -16,53 +18,77 @@ public class Turret extends Displayable{
 	int upgradePrice;
 	int level;
 	boolean upgrade;
-	long lastFire=System.currentTimeMillis();
+	long lastFire=System.currentTimeMillis()-100000;//-1000000 for the first shot
 	Enemy lastEnemy=null;
 	
+	
+	//Main constructor, for the "physical" turrets who will attack and  be rendered
 	public Turret(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
 		super(t, p, sbg, w);
-		actualWave.getTurretsAlive().add(this);
+		if(aliveTurrets==null){
+			aliveTurrets=new LinkedList<Turret>();
+		}
 		assignType(t);
 		super.sprite=FileLoader.getSpriteImage("cook.png");
-
+		aliveTurrets.add(this);
 	}
-	public Turret(StateBasedGame sbg){
+	
+	public Turret(StateBasedGame sbg, Vec p) throws SlickException {
 		super(sbg);
 		super.typeId=0;
+		super.sprite=FileLoader.getSpriteImage("cook.png");
 		super.name="Turret";
+		if(pos!=null){
+			this.pos=p;
+		}
+		else{
+			this.pos=new Vec(0,0);
+		}
 	}
 
 	/**
 	 * Constructeur utilisé pour copier une tourelle à une position donnée
 	 * @param turret
 	 */
-	public Turret(Turret turret, Vec pos) throws SlickException {
-		super(turret.sbg);
-		super.typeId=turret.typeId;
-		super.pos=pos;
-		this.level=1;
+	public Turret(Turret turret, Vec pos, StateBasedGame sbg, Wave w) throws SlickException {
+		super(turret.getTypeId(), pos, turret.sbg, w);
+		System.out.println("lastId="+lastId);
+		id=lastId;
+		lastId++;
+		if(w!=null){
+			this.actualWave=w;
+		}
+		assignType(this.typeId);
 		super.sprite=FileLoader.getSpriteImage("cook.png");
 		super.name="Turret";
+		aliveTurrets.add(this);
+		System.out.println("tourette ajout�e "+aliveTurrets.size());
 	}
+	public Turret(StateBasedGame sbg){
+		super(sbg);
+		super.typeId=0;
+		super.name="Turret";
+}
 	
 	public void assignType(int t){
 		if (t==1){
 			// HighFireRate
-			assignValues(1, 130, 2f, 10000, 200, 160, 200);
+			assignValues(1, 130, 600f, 10000, 200, 160, 200);
 		}
 		else if(t==2){
 			// HighDamage
-			assignValues(2, 300, 1.3f, 10000, 220, 190, 220);
+			assignValues(2, 300, 600f, 10000, 220, 190, 220);
 		}
 		else{
 			// Default
-			assignValues(0, 200, 1f, 10000, 150, 90, 150);
+			assignValues(0, 200, 600f, 10000, 150, 90, 150);
 		}
 		this.upgrade=false;
+		this.level=1;
 	}
 	
 	public void assignValues(int type,int damage, float fireRate, int range, int buyPrice, int sellPrice, int upgradePrice){
-		this.typeId=typeId;
+		this.typeId=type;
 		this.damage=damage;
 		this.fireRate=fireRate;
 		this.range=range;
@@ -71,11 +97,17 @@ public class Turret extends Displayable{
 		this.upgradePrice=upgradePrice;
 	}
 	
-	public void update(){
+	public void update(Wave wave) throws SlickException{
+		this.actualWave=wave;
 		Enemy e=null; // will be the target, if it exists
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
+		//System.out.println("CanFire: "+canFire()+"\tsearcheEnemy==null : "+(searchEnemy()==null));
 		if( canFire() && (e=searchEnemy())!=null){
-			Projectile p=new Projectile(e, this, actualWave); // On cree un nouveau projectile
+			System.out.println("Turret "+id+" created a new projectile");
+			for(Projectile p : wave.aliveProjectiles){
+				System.out.println(p.toString()+"\n");
+			}
+			wave.aliveProjectiles.add(new Projectile(e, this, sbg, actualWave)); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 			lastEnemy=e;
 			this.aimedDirection=aimingAt(e.getPos());
@@ -92,16 +124,17 @@ public class Turret extends Displayable{
 	}
 	
 	public boolean canFire(){
-		return System.currentTimeMillis() - lastFire > fireRate;
+		return System.currentTimeMillis() - lastFire >= fireRate;
 	}
 	
 	public void sell(){
+		//TODO
 		config.setMoney(config.getMoney()+sellPrice);
-		this.disappear();
+		this.disappear(); // disappear will aliveTurrets.remove()
 	}
 
 	public void upgrade(){
-		// It is just a first idea, i'll modify it later
+		//TODO
 		config.setMoney(config.getMoney()+upgradePrice);
 		level++;
 		sellPrice+=0.8*upgradePrice;
@@ -111,9 +144,11 @@ public class Turret extends Displayable{
 	
 	public Enemy searchEnemy(){
 		// we travel the list of enemies until finding the first one who is at correct distance
-		for(Enemy e : actualWave.getEnemiesAlive()){
-			if( this.getPos().distance(e.getPos())	<	range*range){	// if the enemy is close enough
-				return e;
+		if(actualWave.getAliveEnemies().isEmpty()==false){
+			for(Enemy e : actualWave.getAliveEnemies()){
+				if( (int)this.getPos().distance(e.getPos())	<=	range*range){	// if the enemy is close enough
+					return e;
+				}
 			}
 		}
 		// If we didn't find an ennemy close enough
@@ -124,27 +159,15 @@ public class Turret extends Displayable{
 		return (float) (Math.PI/2 - pos.getAngle() - this.pos.getAngle());
 	}
 	
-	/*public float amingAt() { //direction of the turret 
-		Enemy aimedEnemy = searchEnemy();
-		if (aimedEnemy != null) {
-			return (float) (Math.PI/2 - aimedEnemy.pos.getAngle() - this.pos.getAngle());
-		}
-		else return (float) -Math.PI/2;
-	}*/
-	
 	// getters and setters :
-	public int getTypeId() {
-		return typeId;
-	}
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
-	}
-	public int getProjectileType() {
-		return projectileType;
-	}
+	public int getTypeId() {	return typeId;	}
+	public void setTypeId(int typeId) {		this.typeId = typeId;	}
+	public int getProjectileType() {	return projectileType;	}
+	public static LinkedList<Turret> getAliveTurrets() {	return aliveTurrets;}
+	public static void setAliveTurrets(LinkedList<Turret> aliveTurrets) {	Turret.aliveTurrets = aliveTurrets;	}
+	
 	@Override
-	public void appear() {
-		// TODO Auto-generated method stub
-		
+	public String toString(){
+		return "Tourelle "+id+" "+this.pos.toString()+" ";
 	}
 }

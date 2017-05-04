@@ -2,6 +2,8 @@ package states;
 
 import gui.Buttons.StateButton;
 import obj.Enemy;
+import obj.Projectile;
+import obj.Turret;
 import obj.Wave;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -9,6 +11,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by tic-tac on 24/03/17.
@@ -27,9 +31,7 @@ public class WaveState extends BasicGameState {
     float mouseY;
     public Wave wave;
     private boolean hasBegun=false;
-    //Dav test
-    //public Wave wave;
-
+    
     public WaveState() throws SlickException {
     }
 
@@ -89,6 +91,14 @@ public class WaveState extends BasicGameState {
         //g.drawString("o", e.getPos().getX(), e.getPos().getY());
         e.render();
     }
+    
+    for(Turret t : Turret.aliveTurrets){
+    	t.render();
+    }
+    
+    for(Projectile p : wave.aliveProjectiles){
+    	p.render();
+    }
     }
 
     /**
@@ -111,6 +121,18 @@ public class WaveState extends BasicGameState {
             wave.spawn();
         }
         wave.aliveEnemiesUpdate(i);
+
+        if(wave.getAliveEnemies().isEmpty()==false && Turret.aliveTurrets.isEmpty()==false){
+            for(Turret t : Turret.aliveTurrets){
+               	t.update(wave);
+            }
+            
+            // To avoid ConcurrentModificationException, does a copy
+            Object copyOfAliveProjectiles=wave.aliveProjectiles.clone();
+            for(Projectile p : (LinkedList<Projectile>)copyOfAliveProjectiles){
+            	p.update();
+            }
+        }
     }
 
     /**

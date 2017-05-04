@@ -9,6 +9,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
+import gui.FileLoader;
 
 
 public abstract class Displayable {
@@ -19,29 +20,28 @@ public abstract class Displayable {
 	protected Vec pos;
 	protected int typeId;
 	protected String name;
-	// private int lastId=0; //  A remettre si finalement on se sert de id. Sert pour creer les identifiants uniques
 	protected Map actualMap;
 	protected float aimedDirection;
 	protected Wave actualWave;
-
+	protected static int lastId=0;
+	protected int id;	// Usefull for tests
 	protected Image sprite;
 
-	public Displayable(int t, StateBasedGame sbg, Wave w) throws SlickException {
+	public Displayable(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
 		this.typeId=t;
+		if(p!=null){
+			this.pos=p.copy();
+		}
+		else{
+			this.pos=new Vec(0,0);
+		}
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
 		this.actualWave=w;
+		this.id=lastId;
+		lastId++;
 		this.config=GameConfig.getInstance(sbg);
-	}
-	
-	public Displayable(int t, Vec p, StateBasedGame sbg, Wave w){
-		this.typeId=t;
-		this.pos=p;
-		this.sbg=sbg;
-		this.gc=sbg.getContainer();
-		this.g=gc.getGraphics();
-		this.actualWave=w;
 	}
 
 	/**
@@ -52,24 +52,21 @@ public abstract class Displayable {
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
+		this.pos=new Vec(0,0);
+		this.id=lastId;
+		lastId++;
 	}
-	
-	// A remettre si finalement on se sert de id
-	/*public int createNewId(){
-		return ++lastId;
-	}*/
-	
 	
 	public void disappear(){
 		// remove the object of the corresponding linkedList
 		if(this instanceof Turret){
-			actualWave.getTurretsAlive().remove(this);
+			Turret.aliveTurrets.remove(this);
 		}
 		else if(this instanceof Enemy){
-			actualWave.getEnemiesAlive().remove(this);
+			actualWave.aliveEnemies.remove(this);
 		}
 		else if(this instanceof Projectile){
-			actualWave.getProjectilesAlive().remove(this);
+			actualWave.aliveProjectiles.remove(this);
 		}
 	}
 	
@@ -78,39 +75,33 @@ public abstract class Displayable {
 	}
 	
 	 // Getters and Setters __________________________________________________
-	public Vec getPos() {
-		return pos;
-	}
-	public void setPos(Vec pos) {
-		this.pos = pos;
-	}
-	public int getTypeId() {
-		return typeId;
-	}
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
-	}
-	public float getAimedDirection() {
-		return aimedDirection;
-	}
-	public void setAimedDirection(float aimedDirection) {
-		this.aimedDirection = aimedDirection;
-	}
-	public Wave getActualWave() {
-		return actualWave;
-	}
-	public void setActualWave(Wave actualWave) {
-		this.actualWave = actualWave;
-	}
-	public void render(){
-		this.sprite.draw(pos.getX(), pos.getY());
-	}
-	public abstract void appear();
+	public Vec getPos() {	return pos;	}
+	public void setPos(Vec pos) {	this.pos = pos;	}
+	public int getTypeId() {	return typeId;	}
+	public void setTypeId(int typeId) {	this.typeId = typeId;	}
+	public float getAimedDirection() {	return aimedDirection;	}
+	public void setAimedDirection(float aimedDirection) {	this.aimedDirection = aimedDirection;	}
+	public Wave getActualWave() {	return actualWave;	}
+	public void setActualWave(Wave actualWave) {	this.actualWave = actualWave;	}
+	public void render(){	this.sprite.draw(pos.getX(), pos.getY());	}
 	public String getName(){return this.name;}
 	public void setName(String name){this.name=name;}
-
+	public StateBasedGame getSbg() {	return sbg;	}
+	public void setSbg(StateBasedGame sbg) {	this.sbg = sbg;	}
+	
 	@Override
 	public String toString(){
-		return this.name+"-"+this.typeId;
+		if(this instanceof Turret){
+			return "Turret "+id+" "+this.pos.toString()+" ";
+		}
+		else if(this instanceof Enemy){
+			return "Enemy "+id+" "+this.pos.toString()+" ";
+		}
+		else if(this instanceof Projectile){
+			return "Projectile "+id+" "+this.pos.toString()+" ";
+		}
+		else{
+			return "Displayable"+id;
+		}
 	}
 }

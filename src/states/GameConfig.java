@@ -87,7 +87,7 @@ public class GameConfig {
      */
     public void addUsableTurret(Turret turret) throws SlickException {
         for(int i = 0; i<1; i++){
-            this.usableTurrets.add(new Turret(turret, null));
+            this.usableTurrets.add(new Turret(turret.getSbg(), null));
         }
         this.usableEnemies.add(new Enemy(0, null, 1,10,10,stateBasedGame));
     }

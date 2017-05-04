@@ -1,67 +1,87 @@
 package obj;
-//Author : Flo
+import gui.FileLoader;
 import maps.Vec;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+import java.util.LinkedList;
+import java.math.*;
 
 public class Projectile extends Displayable{
-	int speed;
+	double speed;
 	int damage;
 	Turret motherTurret;
 	Enemy target;
-	//Listes des ennemis en vie + leur nombre
 	
-	public Projectile(Enemy enemy, Turret mt, Wave w){
+	public Projectile(Enemy e, Turret mt, StateBasedGame sbg,  Wave w) throws SlickException{
 		super(mt.projectileType, mt.getPos(), mt.sbg, w);
-		target=enemy;
-		typeId=mt.projectileType;
-		motherTurret=mt;
-		this.pos=motherTurret.getPos();
-		actualWave.getProjectilesAlive().add(this);
-		assignType(motherTurret.getProjectileType());
-		appear();
+		//System.out.println("projectile créé par id="+mt.id+" mt.pos:"+mt.getPos().toString());
+		super.sprite=FileLoader.getSpriteImage("pizza.png");
+		this.target=e;
+		this.typeId=mt.projectileType;
+		this.motherTurret=mt;
+		this.pos=mt.getPos().copy();
+		this.actualWave.aliveProjectiles.add(this);
+		assignType(typeId);
 	}
-	
-	@Override
-	public void appear(){
-	}
-	
+
 	public void assignType(int t){
-		//default
-		this.speed=10;
+		//TODO
+		this.speed=0.8;
 		this.damage=10000000; // it's a test
 		this.setTypeId(1);
 	}	
-	public boolean move(Vec pos){
-		// return true if projectile arrived at the position pos
+	public boolean move(Vec p){
+		// return true if projectile has arrived at the position pos
 		
 		// The projectile will move forward of a distance "speed"
 		// The trajectory will be a line between target position pos
 		// and projectile current position
-		int distance=this.getPos().distance(pos);
+		double distance=this.pos.distanceDouble(p);
 		
 		//If the target is closer than speed, then projectile is immediately 
 		// put on the location of the target and return true
 		if(distance<speed){
-			getPos().setX(pos.getX());
-			getPos().setY(pos.getY());
+			this.pos=new Vec(p.getX(), p.getY());
 			return true;
 		}
 		else{
-			int x=getPos().getX(); // initial position of the projectile
-			int y=getPos().getY();
+			int x=this.pos.getX(); // initial position of the projectile
+			int y=this.pos.getY();
 
-			int moveX=speed*(pos.getX()-getPos().getX())/distance;
-			int moveY=speed*(pos.getY()-getPos().getY())/distance;
+			int moveX=(int)Math.round(speed/distance*(p.getX()-this.pos.getX()));
+			int moveY=(int)Math.round(speed/distance*(p.getY()-this.pos.getY()));
 			
-			getPos().setX(x+moveX);
-			getPos().setY(y+moveY);
+			this.pos=new Vec(x+moveX, y+moveY);
 			
 			return false;
+			}
+	}
+	
+	public void searchAnotherEnemy(){
+		boolean foundNewEnemy=false;
+		Object aliveEnemiesCopie = actualWave.aliveEnemies.clone(); //Solution to concurrency problem
+		for (Enemy e : (LinkedList<Enemy>) aliveEnemiesCopie) {
+			if(e.isAlive()){
+				target=e;
+				foundNewEnemy=true;
+				System.out.println(this.toString()+" "+"found the "+e.toString()+" and it has "+e.getHp()+" hp");
+				if(move(target.getPos())){	// return true if the projectile hits the enemy
+					hit(target);
+				}
+				break;
+			}
+		}
+		//debug
+		if(foundNewEnemy==false){
+			System.out.println("projectile "+this.id+" \t\tDIDNT FIND ANY ENEMY_____________");
+			this.disappear();
 		}
 	}
 	
 	public void update(){
 		if(target==null || target.isAlive()==false){
-			disappear();
+			searchAnotherEnemy();	// will search for an other enemy alive, and if there isn't any
+									// it calls disappear(), move() and hit(newTarget)
 		}
 		else{
 			if(move(target.getPos())){	// return true if the projectile hits the enemy
@@ -75,35 +95,15 @@ public class Projectile extends Displayable{
 		this.disappear(); // true because hit the enemy
 	}
 	
-	public int getTypeId() {
-		return typeId;
-	}
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
-	}
-	public int getSpeed() {
-		return speed;
-	}
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-	public int getDamage() {
-		return damage;
-	}
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
-	public Turret getMotherTurret() {
-		return motherTurret;
-	}
-	public void setMotherTurret(Turret motherTurret) {
-		this.motherTurret = motherTurret;
-	}
-	public Enemy getTarget() {
-		return target;
-	}
-	public void setCible(Enemy tgt) {
-		this.target = tgt;
-	}
-	
+	// GETTERS AND SETTERS
+	public int getTypeId() {	return typeId;	}
+	public void setTypeId(int typeId) {	this.typeId = typeId;	}
+	public double getSpeed() {	return speed;	}
+	public void setSpeed(double speed) {	this.speed = speed;	}
+	public int getDamage() {	return damage;	}
+	public void setDamage(int damage) {	this.damage = damage;	}
+	public Turret getMotherTurret() {	return motherTurret;	}
+	public void setMotherTurret(Turret motherTurret) {	this.motherTurret = motherTurret;	}
+	public Enemy getTarget() {	return target;	}
+	public void setCible(Enemy tgt) {	this.target = tgt;	}
 }
