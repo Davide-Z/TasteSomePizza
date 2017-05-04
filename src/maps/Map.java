@@ -6,7 +6,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
 import java.util.LinkedList;
-
 /**
  * Created by tic-tac on 15/02/17.
  *
@@ -17,7 +16,6 @@ public class Map {
     public Vec posBase;
     public Vec spawn;
     public int baseHP;
-
     public Map(StateBasedGame sbg, int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
         cases = new Case[taille][taille];
@@ -73,7 +71,7 @@ public class Map {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		for (int i=0; i < m.length; i++) {
 			for (int j=0; j < m[0].length; j++) {
-				System.out.print(m[i][j]);
+				System.out.print(m[j][i]);
 			}
 			System.out.print("/"+i);
 			System.out.println("");
@@ -156,7 +154,7 @@ public class Map {
                     mainList.removeLast();
                 }
             }
-            return computedPath;
+                return computedPath;
         }
 	}
 }
