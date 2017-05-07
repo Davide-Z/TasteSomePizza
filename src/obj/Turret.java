@@ -71,17 +71,18 @@ public class Turret extends Displayable{
 }
 	
 	public void assignType(int t){
+		//type, damage, fireRate, range, buyPrice, sellPrice, upgradePrice
 		if (t==1){
 			// HighFireRate
-			assignValues(1, 130, 600f, 10000, 200, 160, 200);
+			assignValues(1, 130, 500f, 10000, 200, 160, 200);
 		}
 		else if(t==2){
 			// HighDamage
-			assignValues(2, 300, 600f, 10000, 220, 190, 220);
+			assignValues(2, 300, 1.100f, 10000, 220, 190, 220);
 		}
 		else{
 			// Default
-			assignValues(0, 200, 600f, 10000, 150, 90, 150);
+			assignValues(0, 200, 800f, 10000, 150, 90, 150);
 		}
 		this.upgrade=false;
 		this.level=1;

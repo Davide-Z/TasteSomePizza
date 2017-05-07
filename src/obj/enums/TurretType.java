@@ -11,9 +11,9 @@ public enum TurretType {
 
 	//MODELE: (à mettre avant le ;)
 	//NomDuTypeDeTourelle(name,		damage	fireRate range	buyCost	upgradeCost	sellCost	)
-	Default("Default", 				100,	1.0f,	10000,	100,	30,			100,	"cook.png"),
-	HighFireRate("HighFireRate", 	65, 	2.5f,	10000,	200,	50,			160,	"cook.png"),
-	HighDamage("HighDamage", 		250, 	0.8f, 	10000,	220,	55,			180,	"cook.png");
+	Default("Default", 				100,	1.0f,	10000,	100,	30,			80,		"cook.png"),
+	HighFireRate("HighFireRate", 	65, 	0.5f,	10000,	160,	50,			140,	"cook.png"),
+	HighDamage("HighDamage", 		400, 	2f, 	10000,	180,	55,			160,	"cook.png");
 													// range a modifier apr�s les tests
 	
 	;

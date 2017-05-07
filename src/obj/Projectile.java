@@ -11,6 +11,8 @@ public class Projectile extends Displayable{
 	int damage;
 	Turret motherTurret;
 	Enemy target;
+	double precisePosX; // if pos.x should be 16.02; then pos.x=16 and precisePosX=0.02
+	double precisePosY;
 	
 	public Projectile(Enemy e, Turret mt, StateBasedGame sbg,  Wave w) throws SlickException{
 		super(mt.projectileType, mt.getPos(), mt.sbg, w);
@@ -22,6 +24,9 @@ public class Projectile extends Displayable{
 		this.pos=mt.getPos().copy();
 		this.actualWave.aliveProjectiles.add(this);
 		assignType(typeId);
+		this.precisePosX=0;
+		this.precisePosY=0;
+		
 	}
 
 	public void assignType(int t){
@@ -40,21 +45,35 @@ public class Projectile extends Displayable{
 		
 		//If the target is closer than speed, then projectile is immediately 
 		// put on the location of the target and return true
-		if(distance<speed){
-			this.pos=new Vec(p.getX(), p.getY());
+		if(distance<speed || distance<=2){
+			this.pos.setX(p.getX());
+			this.pos.setY(p.getY());
 			return true;
 		}
 		else{
 			int x=this.pos.getX(); // initial position of the projectile
 			int y=this.pos.getY();
+			
+			double moveX=speed/distance*(p.getX()-x)+precisePosX;
+			double moveY=speed/distance*(p.getY()-y)+precisePosY;
 
-			int moveX=(int)Math.round(speed/distance*(p.getX()-this.pos.getX()));
-			int moveY=(int)Math.round(speed/distance*(p.getY()-this.pos.getY()));
-			
-			this.pos=new Vec(x+moveX, y+moveY);
-			
-			return false;
+			if(Math.abs(moveX) < 1){	// If it should move less than one pixel, keeps in mind the position
+				this.precisePosX=moveX;
 			}
+			else{
+				this.precisePosX=moveX-(int)(moveX);
+			}
+			
+			if(Math.abs(moveY) < 1){
+				this.precisePosY=moveY;
+			}
+			else{
+				this.precisePosY=moveY-(int)(moveY);
+			}
+			this.pos.setX(x+(int)(moveX));
+			this.pos.setY(y+(int)(moveY));
+			return false;
+		}
 	}
 	
 	public void searchAnotherEnemy(){
