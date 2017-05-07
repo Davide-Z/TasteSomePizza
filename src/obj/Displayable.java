@@ -74,20 +74,11 @@ public abstract class Displayable {
 		return (float) (Math.PI/2 - pos.getAngle() - this.pos.getAngle());
 	}
 	
-	 // Getters and Setters __________________________________________________
-	public Vec getPos() {	return pos;	}
-	public void setPos(Vec pos) {	this.pos = pos;	}
-	public int getTypeId() {	return typeId;	}
-	public void setTypeId(int typeId) {	this.typeId = typeId;	}
-	public float getAimedDirection() {	return aimedDirection;	}
-	public void setAimedDirection(float aimedDirection) {	this.aimedDirection = aimedDirection;	}
-	public Wave getActualWave() {	return actualWave;	}
-	public void setActualWave(Wave actualWave) {	this.actualWave = actualWave;	}
-	public void render(){	this.sprite.draw(pos.getX(), pos.getY());	}
-	public String getName(){return this.name;}
-	public void setName(String name){this.name=name;}
-	public StateBasedGame getSbg() {	return sbg;	}
-	public void setSbg(StateBasedGame sbg) {	this.sbg = sbg;	}
+
+	public void render(){
+		this.sprite.draw(pos.getX(), pos.getY());
+	}
+	
 	
 	@Override
 	public String toString(){
@@ -104,4 +95,18 @@ public abstract class Displayable {
 			return "Displayable"+id;
 		}
 	}
+	
+	 // Getters and Setters __________________________________________________
+	public Vec getPos() {	return pos;	}
+	public void setPos(Vec pos) {	this.pos = pos;	}
+	public int getTypeId() {	return typeId;	}
+	public void setTypeId(int typeId) {	this.typeId = typeId;	}
+	public float getAimedDirection() {	return aimedDirection;	}
+	public void setAimedDirection(float aimedDirection) {	this.aimedDirection = aimedDirection;	}
+	public Wave getActualWave() {	return actualWave;	}
+	public void setActualWave(Wave actualWave) {	this.actualWave = actualWave;	}
+	public String getName(){return this.name;}
+	public void setName(String name){this.name=name;}
+	public StateBasedGame getSbg() {	return sbg;	}
+	public void setSbg(StateBasedGame sbg) {	this.sbg = sbg;	}
 }

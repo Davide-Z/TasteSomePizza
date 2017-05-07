@@ -53,7 +53,7 @@ public class Enemy extends Displayable{
 	private int damage;
 	private int hp;
 	private LinkedList<Vec> path;
-	private int posInPath;
+	private double posInPath;
 	private int points;
 	private String spriteName;
 	private Image sprite;
@@ -73,7 +73,6 @@ public class Enemy extends Displayable{
 	public boolean isAlive(){
 		return (this.hp>0);
 	}
-	
 
 	public void move(int i){
 		if (this.posInPath+this.speed*i<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
@@ -82,7 +81,7 @@ public class Enemy extends Displayable{
 		else {	//si on arrive a la fin
 			this.posInPath=this.path.size()-1;
 		}
-		this.pos=this.path.get(this.posInPath);
+		this.pos=this.path.get((int)this.posInPath);
 	}
 	
 	@Override
