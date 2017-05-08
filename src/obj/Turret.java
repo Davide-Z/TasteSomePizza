@@ -3,14 +3,13 @@ package obj;
 
 import gui.FileLoader;
 import maps.Vec;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
 
 public class Turret extends Displayable{
 	public static LinkedList<Turret> aliveTurrets=new LinkedList<Turret>();
-	int projectileType;
-	int damage;
 	float fireRate;
 	int range;
 	int buyPrice;
@@ -20,6 +19,11 @@ public class Turret extends Displayable{
 	boolean upgrade;
 	long lastFire=System.currentTimeMillis()-100000;//-1000000 for the first shot
 	Enemy lastEnemy=null;
+	protected String projectileSpriteName;
+	
+	// Data of the projectile
+	int projectileType;
+	int damage;
 	
 	
 	//Main constructor, for the "physical" turrets who will attack and  be rendered
@@ -70,25 +74,25 @@ public class Turret extends Displayable{
 		super.name="Turret";
 }
 	
-	public void assignType(int t){
-		//type, damage, fireRate, range, buyPrice, sellPrice, upgradePrice
+	public void assignType(int t) throws SlickException{
+		//type, damage, fireRate, range, buyPrice, sellPrice, upgradePrice, spriteName, projectileSpriteName
 		if (t==1){
 			// HighFireRate
-			assignValues(1, 130, 500f, 10000, 200, 160, 200);
+			assignValues(1, 130, 500f, 10000, 200, 160, 200, "HighFireRateTurret", "HighFireRateProjectile.png");
 		}
 		else if(t==2){
 			// HighDamage
-			assignValues(2, 300, 1.100f, 10000, 220, 190, 220);
+			assignValues(2, 300, 1.100f, 10000, 220, 190, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
 		}
 		else{
 			// Default
-			assignValues(0, 200, 800f, 10000, 150, 90, 150);
+			assignValues(0, 200, 800f, 10000, 150, 90, 150, "DefaultTurret.png", "DefaultProjectile.png");
 		}
 		this.upgrade=false;
 		this.level=1;
 	}
 	
-	public void assignValues(int type,int damage, float fireRate, int range, int buyPrice, int sellPrice, int upgradePrice){
+	public void assignValues(int type,int damage, float fireRate, int range, int buyPrice, int sellPrice, int upgradePrice, String spriteName, String projectileSpriteName) throws SlickException{
 		this.typeId=type;
 		this.damage=damage;
 		this.fireRate=fireRate;
@@ -96,6 +100,8 @@ public class Turret extends Displayable{
 		this.buyPrice=buyPrice;
 		this.sellPrice=sellPrice;
 		this.upgradePrice=upgradePrice;
+		this.sprite=FileLoader.getSpriteImage(spriteName);
+		this.projectileSpriteName=projectileSpriteName;
 	}
 	
 	public void update(Wave wave) throws SlickException{
@@ -129,18 +135,16 @@ public class Turret extends Displayable{
 	}
 	
 	public void sell(){
-		//TODO
 		config.setMoney(config.getMoney()+sellPrice);
 		this.disappear(); // disappear will aliveTurrets.remove()
 	}
 
 	public void upgrade(){
-		//TODO
-		config.setMoney(config.getMoney()+upgradePrice);
+		config.setMoney(config.getMoney()-upgradePrice);
 		level++;
 		sellPrice+=0.8*upgradePrice;
-		upgradePrice*=1.3;
-		fireRate*=1.1;
+		upgradePrice*=1.2;
+		damage*=1.1;
 		}
 	
 	public Enemy searchEnemy(){
@@ -160,15 +164,28 @@ public class Turret extends Displayable{
 		return (float) (Math.PI/2 - pos.getAngle() - this.pos.getAngle());
 	}
 	
+	@Override
+	public String toString(){
+		return "Tourelle "+id+" "+this.pos.toString()+" ";
+	}
+	
 	// getters and setters :
 	public int getTypeId() {	return typeId;	}
 	public void setTypeId(int typeId) {		this.typeId = typeId;	}
 	public int getProjectileType() {	return projectileType;	}
 	public static LinkedList<Turret> getAliveTurrets() {	return aliveTurrets;}
 	public static void setAliveTurrets(LinkedList<Turret> aliveTurrets) {	Turret.aliveTurrets = aliveTurrets;	}
-	
-	@Override
-	public String toString(){
-		return "Tourelle "+id+" "+this.pos.toString()+" ";
-	}
+	public int getBuyPrice() {	return buyPrice;	}
+	public int getSellPrice() {	return sellPrice;	}
+	public int getUpgradePrice() {	return upgradePrice;	}
+	public int getLevel() {	return level;	}
+	public int getDamage() {	return damage;	}
+	public void setBuyPrice(int buyPrice) {	this.buyPrice = buyPrice;	}
+	public void setSellPrice(int sellPrice) {	this.sellPrice = sellPrice;	}
+	public void setUpgradePrice(int upgradePrice) {	this.upgradePrice = upgradePrice;	}
+	public void setLevel(int level) {	this.level = level;	}
+	public void setProjectileType(int projectileType) {	this.projectileType = projectileType;	}
+	public void setDamage(int damage) {	this.damage = damage;	}
+	public String getProjectileSpriteName() {	return projectileSpriteName;	}
+	public void setProjectileSpriteName(Image projectileSpriteName) {	projectileSpriteName = projectileSpriteName;	}
 }

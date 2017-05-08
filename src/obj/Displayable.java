@@ -24,7 +24,7 @@ public abstract class Displayable {
 	protected float aimedDirection;
 	protected Wave actualWave;
 	protected static int lastId=0;
-	protected int id;	// Usefull for tests
+	protected int id;	// Useful for tests
 	protected Image sprite;
 
 	public Displayable(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {

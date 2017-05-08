@@ -16,8 +16,6 @@ public class Projectile extends Displayable{
 	
 	public Projectile(Enemy e, Turret mt, StateBasedGame sbg,  Wave w) throws SlickException{
 		super(mt.projectileType, mt.getPos(), mt.sbg, w);
-		//System.out.println("projectile créé par id="+mt.id+" mt.pos:"+mt.getPos().toString());
-		super.sprite=FileLoader.getSpriteImage("pizza.png");
 		this.target=e;
 		this.typeId=mt.projectileType;
 		this.motherTurret=mt;
@@ -26,15 +24,28 @@ public class Projectile extends Displayable{
 		assignType(typeId);
 		this.precisePosX=0;
 		this.precisePosY=0;
-		
 	}
 
-	public void assignType(int t){
+	public void assignType(int t) throws SlickException {
 		//TODO
-		this.speed=0.8;
-		this.damage=10000000; // it's a test
-		this.setTypeId(1);
+		if(t==1){	//HighFireRate
+			this.speed=1;
+			this.damage=motherTurret.getDamage();
+			this.setTypeId(1);
+		}
+		else if(t==2){	//HighDamage
+			this.speed=0.6;
+			this.damage=motherTurret.getDamage();
+			this.setTypeId(2);
+		}
+		else{	// Default
+			this.speed=0.8;
+			this.damage=motherTurret.getDamage();
+			this.setTypeId(0);
+		}
+		this.sprite=FileLoader.getSpriteImage(motherTurret.getProjectileSpriteName());
 	}	
+	
 	public boolean move(Vec p){
 		// return true if projectile has arrived at the position pos
 		
@@ -64,12 +75,11 @@ public class Projectile extends Displayable{
 				this.precisePosX=moveX-(int)(moveX);
 			}
 			
-			if(Math.abs(moveY) < 1){
+			if(Math.abs(moveY) < 1)
 				this.precisePosY=moveY;
-			}
-			else{
+			else
 				this.precisePosY=moveY-(int)(moveY);
-			}
+			
 			this.pos.setX(x+(int)(moveX));
 			this.pos.setY(y+(int)(moveY));
 			return false;
@@ -90,11 +100,9 @@ public class Projectile extends Displayable{
 				break;
 			}
 		}
-		//debug
-		if(foundNewEnemy==false){
-			System.out.println("projectile "+this.id+" \t\tDIDNT FIND ANY ENEMY_____________");
+		
+		if(foundNewEnemy==false)
 			this.disappear();
-		}
 	}
 	
 	public void update(){

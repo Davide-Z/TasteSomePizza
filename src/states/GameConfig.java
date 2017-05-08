@@ -62,7 +62,17 @@ public class GameConfig {
         }
         return GameConfig.instance;
     }
-
+    
+    public boolean withdraw(int asked){
+    	// Return false if not enough money. Else returns true and withdraws
+    	if(money>asked){
+    		this.money-=asked;
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
 
     //       LES GETTERS       //
     public int getMoney() {return money;}
