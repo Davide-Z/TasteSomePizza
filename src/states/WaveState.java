@@ -91,6 +91,7 @@ public class WaveState extends BasicGameState {
     g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
     g.drawString("HP : "+config.getMap().baseHP, 3, 40);
     g.drawString("Number of unspawned enemies : "+wave.unspawnedEnemies.size(), 3, 60);
+    g.drawString("Money : "+config.getMoney(), 3, 80);
     for (Enemy e : wave.aliveEnemies) {
         //g.drawString("o", e.getPos().getX(), e.getPos().getY());
         e.render();
