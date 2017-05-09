@@ -58,6 +58,7 @@ public class Case{
 					if (turret == null && enemy == null && config.getTurret() != null) {
 						this.turret = new Turret(config.getTurret(), new Vec(this.x, this.y), sbg, null);
 					} else {
+						config.aliveTurrets.remove(this.turret);
 						this.turret = null;
 					}
 				} else {

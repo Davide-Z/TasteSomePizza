@@ -111,6 +111,7 @@ public class Projectile extends Displayable{
 			//searchAnotherEnemy();	// will search for an other enemy alive, and if there isn't any
 									// it calls disappear(), move() and hit(newTarget)
 		}
+		
 		else{
 			if(move(target.getPos())){	// return true if the projectile hits the enemy
 				hit(target);
