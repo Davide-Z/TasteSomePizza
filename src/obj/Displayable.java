@@ -60,7 +60,7 @@ public abstract class Displayable {
 	public void disappear(){
 		// remove the object of the corresponding linkedList
 		if(this instanceof Turret){
-			Turret.aliveTurrets.remove(this);
+			config.aliveTurrets.remove(this);
 		}
 		else if(this instanceof Enemy){
 			actualWave.aliveEnemies.remove(this);

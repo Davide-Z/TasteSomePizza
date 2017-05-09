@@ -13,6 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Singleton qui contiendra toutes les données relatives à la partie: pv, argent, bonus, tourelles selectionnées, posées...
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class GameConfig {
 
     //       ATTRIBUTS       //
-    private static GameConfig instance;
+    private static GameConfig instance=null;
     private StateBasedGame stateBasedGame;
     private GameContainer gc;
     private int money; //TODO: combien d'argent au début?
@@ -32,6 +33,7 @@ public class GameConfig {
     private ArrayList<Turret> usableTurrets;
     private TurretMenu turretMenu;
     private ArrayList<Enemy> usableEnemies;
+    public LinkedList<Turret> aliveTurrets;
     //Position de la souris
     private int mx=0;
     private int my=0;
@@ -49,6 +51,7 @@ public class GameConfig {
         buttonsGroup=new ButtonsGroup();
         usableTurrets=new ArrayList<>();
         usableEnemies=new ArrayList<>();
+        aliveTurrets=new LinkedList<>();
     }
 
     /**

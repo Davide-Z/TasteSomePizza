@@ -97,7 +97,7 @@ public class WaveState extends BasicGameState {
         e.render();
     }
     
-    for(Turret t : Turret.aliveTurrets){
+    for(Turret t : config.aliveTurrets){
     	t.render();
     }
     
@@ -117,7 +117,7 @@ public class WaveState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
     	if (hasBegun) {
-            wave = new Wave(10, config.getMap(), sbg, gc);
+            wave = new Wave(10, config.getMap(), sbg);
             hasBegun=false;
     	}
         config.update();
@@ -127,8 +127,8 @@ public class WaveState extends BasicGameState {
         }
         wave.aliveEnemiesUpdate(i);
 
-        if(wave.getAliveEnemies().isEmpty()==false && Turret.aliveTurrets.isEmpty()==false){
-            for(Turret t : Turret.aliveTurrets){
+        if(wave.getAliveEnemies().isEmpty()==false && config.aliveTurrets.isEmpty()==false){
+            for(Turret t : config.aliveTurrets){
                	t.update(wave);
             }
             
