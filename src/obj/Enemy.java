@@ -9,35 +9,33 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
 
 public class Enemy extends Displayable{
+	//Attributs;
+	private double speed;
+	private int damage;
+	private int hp;
+	private LinkedList<Vec> path;
+	private double posInPath;
+	private int points;
+	private String spriteName;
+	private Image sprite;
+	private int reward; // received for killing the enemy
 	
-	public Enemy(int t, double speed, int damage, int hp, LinkedList<Vec> path, int points, StateBasedGame sbg, Map map, Wave wave) throws SlickException{
+	public Enemy(int t, LinkedList<Vec> path, StateBasedGame sbg, Map map, Wave wave) throws SlickException{
 		super(t, map.spawn, sbg, wave);
 		this.actualMap = map;
 		this.posInPath = 0;
-		this.speed = speed;
-		this.damage = damage;
-		this.hp = hp;
 		this.path = path;
-		this.points = points;
-		//wave.aliveEnemies.add(this);
-		this.spriteName="client.png";
-		super.sprite= FileLoader.getSpriteImage("client.png");
-		this.sprite=super.sprite;
-		super.name="Enemy";
+		this.assignValues(t);
 	}
 
-	public Enemy(int t,Vec pos, double speed, int damage, int hp, StateBasedGame sbg) throws SlickException {
+	public Enemy(int t,Vec pos, StateBasedGame sbg) throws SlickException {
 		super(sbg);
-		this.typeId=t;
-		this.speed=speed;
-		this.damage=damage;
-		this.hp=hp;
 		super.gc=sbg.getContainer();
 		super.g=gc.getGraphics();
 		this.pos=pos;
 		super.sprite= FileLoader.getSpriteImage("client.png");
 		this.sprite=super.sprite;
-		super.name="Enemy";
+		this.assignValues(t);
 	}
 
 	public Enemy(Enemy enemy, Vec pos) throws SlickException {
@@ -48,15 +46,37 @@ public class Enemy extends Displayable{
 		super.name="Enemy";
 	}
 
-	//Attributs;
-	private double speed;
-	private int damage;
-	private int hp;
-	private LinkedList<Vec> path;
-	private double posInPath;
-	private int points;
-	private String spriteName;
-	private Image sprite;
+	public void assignValues(int t) throws SlickException{
+		// assigns the values for the type t
+		this.typeId=t;
+		if(t==1){
+			this.speed=0.6;
+			this.damage=2;
+			this.hp=40;
+			super.sprite= FileLoader.getSpriteImage("client.png");
+			this.sprite=super.sprite;
+			super.name="Enemy 1";
+			this.reward=2;
+		}
+		if(t==2){
+			this.speed=0.2;
+			this.damage=10;
+			this.hp=250;
+			super.sprite= FileLoader.getSpriteImage("client.png");
+			this.sprite=super.sprite;
+			super.name="Enemy 2";
+			this.reward=22;
+		}
+		else{	// default
+			this.speed=0.4;
+			this.damage=5;
+			this.hp=100;
+			super.sprite= FileLoader.getSpriteImage("client.png");
+			this.sprite=super.sprite;
+			super.name="Enemy 0";
+			this.reward=10;
+		}
+	}
 	
 	public void attack(){
 		if (pos.equals(actualMap.posBase)){
@@ -87,6 +107,7 @@ public class Enemy extends Displayable{
 	@Override
 	public void disappear(){
 		this.hp=0;
+		config.addMoney(this.reward);
 		super.disappear();
 	}
 

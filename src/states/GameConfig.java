@@ -99,7 +99,7 @@ public class GameConfig {
         for(int i = 0; i<1; i++){
             this.usableTurrets.add(new Turret(turret.getSbg(), null));
         }
-        this.usableEnemies.add(new Enemy(0, null, 1,10,10,stateBasedGame));
+        this.usableEnemies.add(new Enemy(1, null,stateBasedGame));
     }
     public ArrayList<Enemy> getUsableEnemies() {
         return usableEnemies;
@@ -125,6 +125,9 @@ public class GameConfig {
 
     public ButtonsGroup getButtonsGroup(){return this.buttonsGroup;}
 
+    public void addMoney(int m){
+    	this.money+=m;
+    }
     public void update() throws SlickException {
         turretMenu.update(stateBasedGame);
         buttonsGroup.update(stateBasedGame);
