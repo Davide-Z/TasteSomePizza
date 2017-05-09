@@ -19,7 +19,7 @@ public class Enemy extends Displayable{
 		this.hp = hp;
 		this.path = path;
 		this.points = points;
-		wave.aliveEnemies.add(this);
+		//wave.aliveEnemies.add(this);
 		this.spriteName="client.png";
 		super.sprite= FileLoader.getSpriteImage("client.png");
 		this.sprite=super.sprite;

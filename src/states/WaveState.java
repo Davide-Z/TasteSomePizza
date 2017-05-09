@@ -1,5 +1,6 @@
 package states;
 
+import gui.FileLoader;
 import gui.Buttons.StateButton;
 import obj.Enemy;
 import obj.Projectile;
@@ -11,6 +12,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import audio.Son;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -133,6 +137,13 @@ public class WaveState extends BasicGameState {
             	p.update();
             }
         }
+        
+        /*
+        if (wave.getAliveEnemies().isEmpty() && wave.unspawnedEnemies.isEmpty()){
+        String stream=FileLoader.getSoundPath("Intro.wav");
+        Son son = new Son(stream);
+        son.run();}
+        */
     }
 
     /**

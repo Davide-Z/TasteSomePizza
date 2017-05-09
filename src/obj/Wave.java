@@ -67,8 +67,8 @@ public class Wave {
             }
         }
         for (int i=0; i<n; i++) {
-        	enemies.add(new Enemy(0, 0.5, 5, 10, currentPath, 1, sbg, currentMap, this));
-        	d.add(300);
+        	enemies.add(new Enemy(0, 0.3, 5, 10, currentPath, 1, sbg, currentMap, this));
+        	d.add(500);
         }
 		this.unspawnedEnemies = enemies;
 		this.delays = d;

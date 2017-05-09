@@ -66,7 +66,7 @@ public class Turret extends Displayable{
 		super.sprite=FileLoader.getSpriteImage("cook.png");
 		super.name="Turret";
 		aliveTurrets.add(this);
-		System.out.println("tourette ajoutée "+aliveTurrets.size());
+		System.out.println("tourette ajoutï¿½e "+aliveTurrets.size());
 	}
 	public Turret(StateBasedGame sbg){
 		super(sbg);
@@ -78,15 +78,15 @@ public class Turret extends Displayable{
 		//type, damage, fireRate, range, buyPrice, sellPrice, upgradePrice, spriteName, projectileSpriteName
 		if (t==1){
 			// HighFireRate
-			assignValues(1, 130, 500f, 10000, 200, 160, 200, "HighFireRateTurret", "HighFireRateProjectile.png");
+			assignValues(1, 130, 500f, 10, 200, 160, 200, "HighFireRateTurret", "HighFireRateProjectile.png");
 		}
 		else if(t==2){
 			// HighDamage
-			assignValues(2, 300, 1.100f, 10000, 220, 190, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
+			assignValues(2, 300, 1.100f, 10, 220, 190, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
 		}
 		else{
 			// Default
-			assignValues(0, 200, 800f, 10000, 150, 90, 150, "DefaultTurret.png", "DefaultProjectile.png");
+			assignValues(0, 200, 800f, 10, 150, 90, 150, "DefaultTurret.png", "DefaultProjectile.png");
 		}
 		this.upgrade=false;
 		this.level=1;

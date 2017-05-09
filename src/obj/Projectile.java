@@ -107,7 +107,8 @@ public class Projectile extends Displayable{
 	
 	public void update(){
 		if(target==null || target.isAlive()==false){
-			searchAnotherEnemy();	// will search for an other enemy alive, and if there isn't any
+			this.disappear();
+			//searchAnotherEnemy();	// will search for an other enemy alive, and if there isn't any
 									// it calls disappear(), move() and hit(newTarget)
 		}
 		else{

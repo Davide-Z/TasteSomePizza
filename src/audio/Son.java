@@ -67,10 +67,12 @@ public class Son implements Runnable {
         }
 
     }
-
+    
+    /**
     public static void main(String[] args) {
         String stream=FileLoader.getSoundPath("Intro.wav");
         Son son = new Son(stream);
         son.run();
     }
+    **/
 }
