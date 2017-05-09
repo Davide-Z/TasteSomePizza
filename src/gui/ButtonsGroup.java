@@ -33,7 +33,7 @@ public class ButtonsGroup {
 		config=GameConfig.getInstance(game);
 		int winWidth=container.getWidth();
 		int winHeight=container.getHeight();
-		menuButtons.add(new StateButton("start", (int)(winWidth*0.48),(int)(winHeight*0.4),null, "start"));
+		menuButtons.add(new StateButton("start", (int)(winWidth*0.46),(int)(winHeight*0.36),null, "start"));
 		menuButtons.add(new StateButton("quit", (int)(winWidth*0.65),(int)(winHeight*0.1),null, "quit"));
 		menuButtons.add(new StateButton("settings", (int)(winWidth*0.87),(int)(winHeight*0.03),null, "settings"));
 		mainButtons.add(new StateButton("boutonOrange",winWidth-275,winHeight-78, "Menu principal", "menu"));

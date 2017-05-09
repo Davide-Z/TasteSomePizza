@@ -7,11 +7,13 @@ import obj.Turret;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import states.GameConfig;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Wave {
+	private GameConfig config;
 	public LinkedList<Enemy> unspawnedEnemies;
 	public LinkedList<Integer> delays;
 	public LinkedList<Enemy> aliveEnemies;
@@ -20,7 +22,8 @@ public class Wave {
 
 	public LinkedList<Projectile> aliveProjectiles=new LinkedList<Projectile>();
 
-	public Wave(LinkedList<Enemy> unspawnedEnemies, LinkedList<Integer> delays, Map actualMap, StateBasedGame sbg, GameContainer gc) { //generate a wave with the list of enemies and their delays
+	public Wave(LinkedList<Enemy> unspawnedEnemies, LinkedList<Integer> delays, Map actualMap, StateBasedGame sbg) throws SlickException { //generate a wave with the list of enemies and their delays
+		this.config= GameConfig.getInstance(sbg);
 		this.unspawnedEnemies = unspawnedEnemies;
 		this.delays = delays;
 		this.aliveEnemies = new LinkedList<Enemy>();
@@ -54,15 +57,16 @@ public class Wave {
 		}
 	}
 	
-	public Wave(int n, Map currentMap, StateBasedGame sbg, GameContainer gc) throws SlickException { //automacally creating wave of n enemies
+	public Wave(int n, Map currentMap, StateBasedGame sbg) throws SlickException { //automacally creating wave of n enemies
+		this.config=GameConfig.getInstance(sbg);
 		LinkedList<Enemy> enemies = new LinkedList<>();
         LinkedList<Integer> d = new LinkedList<>();
         LinkedList<Vec> currentPath = currentMap.computePath();
 		this.aliveEnemies = new LinkedList<Enemy>();
 		
 		// updates the actualWave for each Turret
-        if(Turret.aliveTurrets.isEmpty()==false){
-        	for(Turret t : Turret.aliveTurrets){
+        if(!config.aliveTurrets.isEmpty()){
+        	for(Turret t : config.aliveTurrets){
             	t.setActualWave(this);
             }
         }

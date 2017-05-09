@@ -9,7 +9,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
 
 public class Turret extends Displayable{
-	public static LinkedList<Turret> aliveTurrets=new LinkedList<Turret>();
 	float fireRate;
 	int range;
 	int buyPrice;
@@ -29,12 +28,12 @@ public class Turret extends Displayable{
 	//Main constructor, for the "physical" turrets who will attack and  be rendered
 	public Turret(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
 		super(t, p, sbg, w);
-		if(aliveTurrets==null){
-			aliveTurrets=new LinkedList<Turret>();
+		if(config.aliveTurrets==null){
+			config.aliveTurrets=new LinkedList<Turret>();
 		}
 		assignType(t);
 		super.sprite=FileLoader.getSpriteImage("cook.png");
-		aliveTurrets.add(this);
+		config.aliveTurrets.add(this);
 	}
 	
 	public Turret(StateBasedGame sbg, Vec p) throws SlickException {
@@ -65,8 +64,8 @@ public class Turret extends Displayable{
 		assignType(this.typeId);
 		super.sprite=FileLoader.getSpriteImage("cook.png");
 		super.name="Turret";
-		aliveTurrets.add(this);
-		System.out.println("tourette ajout�e "+aliveTurrets.size());
+		config.aliveTurrets.add(this);
+		System.out.println("tourette ajout�e "+config.aliveTurrets.size());
 	}
 	public Turret(StateBasedGame sbg){
 		super(sbg);
@@ -103,7 +102,8 @@ public class Turret extends Displayable{
 		this.sprite=FileLoader.getSpriteImage(spriteName);
 		this.projectileSpriteName=projectileSpriteName;
 	}
-	
+
+	//TODO:relancer une vague avec des tourelles retirées remet ces tourelles en place...
 	public void update(Wave wave) throws SlickException{
 		this.actualWave=wave;
 		Enemy e=null; // will be the target, if it exists
@@ -173,8 +173,8 @@ public class Turret extends Displayable{
 	public int getTypeId() {	return typeId;	}
 	public void setTypeId(int typeId) {		this.typeId = typeId;	}
 	public int getProjectileType() {	return projectileType;	}
-	public static LinkedList<Turret> getAliveTurrets() {	return aliveTurrets;}
-	public static void setAliveTurrets(LinkedList<Turret> aliveTurrets) {	Turret.aliveTurrets = aliveTurrets;	}
+	public LinkedList<Turret> getAliveTurrets() {	return config.aliveTurrets;}
+	public void setAliveTurrets(LinkedList<Turret> aliveTurrets) {	config.aliveTurrets = aliveTurrets;	}
 	public int getBuyPrice() {	return buyPrice;	}
 	public int getSellPrice() {	return sellPrice;	}
 	public int getUpgradePrice() {	return upgradePrice;	}
