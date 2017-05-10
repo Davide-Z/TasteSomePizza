@@ -3,8 +3,8 @@ import gui.FileLoader;
 import maps.Vec;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
 import java.util.LinkedList;
-import java.math.*;
 
 public class Projectile extends Displayable{
 	double speed;
@@ -39,7 +39,7 @@ public class Projectile extends Displayable{
 			this.setTypeId(2);
 		}
 		else{	// Default
-			this.speed=0.8;
+			this.speed=2.8;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(0);
 		}
