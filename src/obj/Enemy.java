@@ -68,7 +68,7 @@ public class Enemy extends Displayable{
 			this.reward=22;
 		}
 		else{	// default
-			this.speed=0.4;
+			this.speed=0.3;
 			this.damage=5;
 			this.hp=100;
 			super.sprite= FileLoader.getSpriteImage("client.png");

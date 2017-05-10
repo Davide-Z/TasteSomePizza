@@ -1,7 +1,5 @@
 package audio;
 
-import gui.FileLoader;
-
 import javax.sound.sampled.*;
 import javax.sound.sampled.DataLine.Info;
 import java.io.File;
@@ -17,6 +15,7 @@ public class Son implements Runnable {
     }
 
     public void run() {
+        System.out.println("running");
         if(isSet) {
             File fichier = new File(path);
 
