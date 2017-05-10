@@ -61,7 +61,6 @@ public class Turret extends Displayable{
 	 */
 	public Turret(Turret turret, Vec pos, StateBasedGame sbg, Wave w) throws SlickException {
 		super(turret.getTypeId(), pos, turret.sbg, w);
-		System.out.println("lastId="+lastId);
 		id=lastId;
 		lastId++;
 		if(w!=null){
@@ -72,7 +71,6 @@ public class Turret extends Displayable{
 		super.name="Turret";
 		this.aimedDirection=0;
 		config.aliveTurrets.add(this);
-		System.out.println("tourette ajout�e "+config.aliveTurrets.size());
 	}
 	public Turret(StateBasedGame sbg) throws SlickException{
 		super(sbg);
@@ -116,10 +114,6 @@ public class Turret extends Displayable{
 		Enemy e=null; // will be the target, if it exists
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		if( canFire() && (e=searchEnemy())!=null){
-			/*System.out.println("Turret "+id+" created a new projectile");
-			for(Projectile p : wave.aliveProjectiles){
-				System.out.println(p.toString()+"\n");
-			}*/
 			wave.aliveProjectiles.add(new Projectile(e, this, sbg, actualWave)); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 			lastEnemy=e;
@@ -135,12 +129,8 @@ public class Turret extends Displayable{
 			}
 		}
 		this.sprite.setCenterOfRotation(24,24);
-		if(e!=null)
-			System.out.println("aimedDirection="+aimedDirection+"\tthis.pos"+pos.toString()+"\te.pos"+lastEnemy.getPos().toString()+"\taimedD="+aimedDirection);
 		this.sprite.setRotation(aimedDirection);
 		this.sprite.setCenterOfRotation(24,24);
-		if(e!=null)
-			System.out.println("aimedDirection="+aimedDirection+"\tthis.pos"+pos.toString()+"\te.pos"+lastEnemy.getPos().toString()+"\taimedD="+aimedDirection);
 		this.sprite.setRotation(aimedDirection);
 	}
 	
@@ -153,42 +143,34 @@ public class Turret extends Displayable{
 		if(x1-x2>0){
 			if(y1-y2>0){
 				//1
-				System.out.println("1	(y2-y1)/(x1-x2)="+(y2-y1)/(x2-x1));
 				return (float)(270f+180f/Math.PI*Math.atan(	(y2-y1)/(x2-x1)	));
 			}
 			else if(y1-y2<0){
 				//4
-				System.out.println("4 (x1-x2)/(y2-y1)="+((x1-x2)/(y2-y1)));
 				return (float)(180f	+	180f/Math.PI*Math.atan(	(x1-x2)/(y2-y1)	));
 			}
 			else{	//y1=y2
-				System.out.println("x1-x2<0 & y1=y2");
 				return -90f;
 			}
 		}
 		else if(x1-x2<0){
 			if(y1-y2>0){
 				//2
-				System.out.println("2	360/Math.PI*Math.atan(	(x2-x1)/(y1-y2)	)="+(180/Math.PI*Math.atan(	(x2-x1)/(y1-y2)	)));
 				return (float)(180f/Math.PI*Math.atan(	(x2-x1)/(y1-y2)	));
 			}
 			else if(y1-y2<0){
 				//3
-				System.out.println("3	(y2-y1)/(x2-x1)="+(y2-y1)/(x2-x1));
 				return (float)(90f	+	180f/Math.PI*Math.atan(	(y2-y1)/(x2-x1)	));
 			}
 			else{	//y1=y2
-				System.out.println("x1-x2<0 & y1=y2");
 				return 90f;
 			}
 		}
 		else{	//x1=x2
 			if(y1<y2){
-				System.out.println("x1=x2 & y1<y2");
 				return 180f;
 			}
 			else{
-				System.out.println("x1=x2 & y1>=y2");
 				return 0f;
 			}
 		}
