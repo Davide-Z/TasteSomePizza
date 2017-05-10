@@ -93,7 +93,6 @@ public class Map {
 	
     public LinkedList<Vec> computePath(){
 	    int[][] currentMap = this.toMatrix();
-	    print(currentMap);
         LinkedList<int[]> mainList = new LinkedList<>();
         LinkedList<int[]> untestedList = new LinkedList<>();
         int n=0; //cost

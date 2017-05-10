@@ -56,7 +56,7 @@ public class Case{
 				System.out.println("Case cliquée:" + (1 + (this.getX() / 48)) + "x" + (1 + (this.getY() / 48)));
 				if (config.getTurretMenu().turretMode) {
 					if (turret == null && enemy == null && config.getTurret() != null) {
-						this.turret = new Turret(config.getTurret(), new Vec(this.x, this.y), sbg, null);
+						this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
 					} else {
 						config.aliveTurrets.remove(this.turret);
 						this.turret = null;

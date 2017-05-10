@@ -17,6 +17,7 @@ import audio.Son;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by tic-tac on 24/03/17.
@@ -116,7 +117,10 @@ public class WaveState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
     	if (hasBegun) {
-            wave = new Wave(10, config.getMap(), sbg);
+    		Random randSeed = new Random(System.currentTimeMillis());
+    		int randType = randSeed.nextInt(3);
+            wave = new Wave(randType, config.getLevel(), sbg);
+            config.setLevel(config.getLevel()+1);
             hasBegun=false;
     	}
         config.update();
@@ -136,6 +140,10 @@ public class WaveState extends BasicGameState {
             for(Projectile p : (LinkedList<Projectile>)copyOfAliveProjectiles){
             	p.update();
             }
+        }
+        
+        if (wave.getAliveEnemies().isEmpty() && wave.unspawnedEnemies.isEmpty()){
+        	sbg.enterState(1);
         }
         
         /*

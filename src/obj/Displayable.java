@@ -47,12 +47,25 @@ public abstract class Displayable {
 	/**
 	 * initialise un Displayable avec juste l'essentiel
 	 * @param sbg
+	 * @throws SlickException 
 	 */
-	public Displayable(StateBasedGame sbg){
+	public Displayable(StateBasedGame sbg) throws SlickException{
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
 		this.pos=new Vec(0,0);
+		this.config= GameConfig.getInstance(sbg);
+		this.id=lastId;
+		lastId++;
+	}
+	
+	public Displayable(int typeId, StateBasedGame sbg) throws SlickException{
+		this.sbg=sbg;
+		this.gc=sbg.getContainer();
+		this.g=gc.getGraphics();
+		this.pos=new Vec(0,0);
+		this.config= GameConfig.getInstance(sbg);
+		this.typeId=typeId;
 		this.id=lastId;
 		lastId++;
 	}

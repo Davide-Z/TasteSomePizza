@@ -29,7 +29,7 @@ public class Projectile extends Displayable{
 	public void assignType(int t) throws SlickException {
 		//TODO
 		if(t==1){	//HighFireRate
-			this.speed=1;
+			this.speed=2;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(1);
 		}
@@ -39,7 +39,7 @@ public class Projectile extends Displayable{
 			this.setTypeId(2);
 		}
 		else{	// Default
-			this.speed=2.8;
+			this.speed=1.1;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(0);
 		}
@@ -93,7 +93,7 @@ public class Projectile extends Displayable{
 			if(e.isAlive()){
 				target=e;
 				foundNewEnemy=true;
-				System.out.println(this.toString()+" "+"found the "+e.toString()+" and it has "+e.getHp()+" hp");
+				//System.out.println(this.toString()+" "+"found the "+e.toString()+" and it has "+e.getHp()+" hp");
 				if(move(target.getPos())){	// return true if the projectile hits the enemy
 					hit(target);
 				}

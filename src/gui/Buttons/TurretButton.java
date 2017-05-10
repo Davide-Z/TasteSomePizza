@@ -27,7 +27,9 @@ public class TurretButton {
     public TurretButton(int x, int y, Turret turret) throws SlickException{
         this.x=x;
         this.y=y;
-        this.turret=new Turret(turret.getSbg(), new Vec(x,y));
+        this.turret=turret;
+        this.turret.setPos(new Vec(x, y));
+        //this.turret=new Turret(turret.getSbg(), new Vec(x,y));
         this.hitbox=new Rectangle(this.x,this.y,152,160);
     }
     public TurretButton(int x, int y, Enemy enemy) throws SlickException{
@@ -53,6 +55,7 @@ public class TurretButton {
             graphics.setColor(Color.black);
             graphics.draw(hitbox);
             this.turret.render();
+            graphics.drawString("Turret Type : "+this.turret.getTypeId(), x+5, y+80);
         }
         else if(enemy != null && !config.getTurretMenu().turretMode){
             graphics.setLineWidth(1);

@@ -42,6 +42,7 @@ public class GameConfig {
     private ButtonsGroup buttonsGroup;
     public Wave wave;
     public Wave nextWave;
+    public int level=1;
 
     private GameConfig(StateBasedGame sbg) throws SlickException{
         money=100;
@@ -99,8 +100,9 @@ public class GameConfig {
      * @param turret
      */
     public void addUsableTurret(Turret turret) throws SlickException {
-        for(int i = 0; i<1; i++){
-            this.usableTurrets.add(new Turret(turret.getSbg(), null));
+        for(int i = 0; i<3; i++){
+            this.usableTurrets.add(new Turret(i, this.stateBasedGame));
+            //this.usableTurrets.add(new Turret(turret.getSbg(), null));
         }
         this.usableEnemies.add(new Enemy(1, null,stateBasedGame));
     }
@@ -143,4 +145,13 @@ public class GameConfig {
     public Wave getNextWave() {
         return this.wave;
     }
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+    
 }

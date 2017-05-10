@@ -2,6 +2,7 @@ package obj;
 import gui.FileLoader;
 import maps.Map;
 import maps.Vec;
+import states.GameConfig;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -37,6 +38,14 @@ public class Enemy extends Displayable{
 		this.sprite=super.sprite;
 		this.assignValues(t);
 	}
+	
+	public Enemy(int t,int level, LinkedList<Vec> path, StateBasedGame sbg, Wave wave) throws SlickException{
+		super(t, null, sbg, wave);
+		this.actualMap = config.getMap();
+		this.posInPath = 0;
+		this.path = path;
+		this.assignValues(t, level);
+	}
 
 	public Enemy(Enemy enemy, Vec pos) throws SlickException {
 		super(enemy.sbg);
@@ -58,8 +67,8 @@ public class Enemy extends Displayable{
 			super.name="Enemy 1";
 			this.reward=2;
 		}
-		if(t==2){
-			this.speed=0.2;
+		else if(t==2){
+			this.speed=0.1;
 			this.damage=10;
 			this.hp=250;
 			super.sprite= FileLoader.getSpriteImage("client.png");
@@ -71,6 +80,38 @@ public class Enemy extends Displayable{
 			this.speed=0.3;
 			this.damage=5;
 			this.hp=100;
+			super.sprite= FileLoader.getSpriteImage("client.png");
+			this.sprite=super.sprite;
+			super.name="Enemy 0";
+			this.reward=10;
+		}
+	}
+	
+	public void assignValues(int t, int level) throws SlickException{
+		// assigns the values for the type t
+		this.typeId=t;
+		if(t==1){
+			this.speed=0.6;
+			this.damage=2;
+			this.hp=40+level;
+			super.sprite= FileLoader.getSpriteImage("client.png");
+			this.sprite=super.sprite;
+			super.name="Enemy 1";
+			this.reward=2;
+		}
+		else if(t==2){
+			this.speed=0.1;
+			this.damage=10;
+			this.hp=250+3*level;
+			super.sprite= FileLoader.getSpriteImage("client.png");
+			this.sprite=super.sprite;
+			super.name="Enemy 2";
+			this.reward=22;
+		}
+		else{	// default
+			this.speed=0.3;
+			this.damage=5;
+			this.hp=100+2*level;
 			super.sprite= FileLoader.getSpriteImage("client.png");
 			this.sprite=super.sprite;
 			super.name="Enemy 0";

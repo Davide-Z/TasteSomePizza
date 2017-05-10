@@ -36,6 +36,12 @@ public class Turret extends Displayable{
 		config.aliveTurrets.add(this);
 	}
 	
+	public Turret(int t, StateBasedGame sbg) throws SlickException {
+		super(t, sbg);
+		assignType(t);
+		super.sprite=FileLoader.getSpriteImage("cook.png");
+	}
+	
 	public Turret(StateBasedGame sbg, Vec p) throws SlickException {
 		super(sbg);
 		super.typeId=0;
@@ -67,7 +73,7 @@ public class Turret extends Displayable{
 		config.aliveTurrets.add(this);
 		System.out.println("tourette ajout�e "+config.aliveTurrets.size());
 	}
-	public Turret(StateBasedGame sbg){
+	public Turret(StateBasedGame sbg) throws SlickException{
 		super(sbg);
 		super.typeId=0;
 		super.name="Turret";
@@ -77,15 +83,15 @@ public class Turret extends Displayable{
 		//type, damage, fireRate, range, buyPrice, sellPrice, upgradePrice, spriteName, projectileSpriteName
 		if (t==1){
 			// HighFireRate
-			assignValues(1, 130, 500f, 10, 200, 160, 200, "HighFireRateTurret", "HighFireRateProjectile.png");
+			assignValues(1, 50, 500f, 10, 200, 160, 200, "HighFireRateTurret.png", "HighFireRateProjectile.png");
 		}
 		else if(t==2){
 			// HighDamage
-			assignValues(2, 300, 1.100f, 10, 220, 190, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
+			assignValues(2, 150, 1500f, 50, 220, 190, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
 		}
 		else{
 			// Default
-			assignValues(0, 200, 800f, 10, 150, 90, 150, "DefaultTurret.png", "DefaultProjectile.png");
+			assignValues(0, 80, 800f, 15, 150, 90, 150, "DefaultTurret.png", "DefaultProjectile.png");
 		}
 		this.upgrade=false;
 		this.level=1;
@@ -110,10 +116,10 @@ public class Turret extends Displayable{
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		//System.out.println("CanFire: "+canFire()+"\tsearcheEnemy==null : "+(searchEnemy()==null));
 		if( canFire() && (e=searchEnemy())!=null){
-			System.out.println("Turret "+id+" created a new projectile");
+			/*System.out.println("Turret "+id+" created a new projectile");
 			for(Projectile p : wave.aliveProjectiles){
 				System.out.println(p.toString()+"\n");
-			}
+			}*/
 			wave.aliveProjectiles.add(new Projectile(e, this, sbg, actualWave)); // On cree un nouveau projectile
 			lastFire=System.currentTimeMillis();		// On met a jour l'heure du dernier tir
 			lastEnemy=e;
