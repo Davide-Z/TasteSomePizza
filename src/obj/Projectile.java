@@ -120,6 +120,7 @@ public class Projectile extends Displayable{
 	}
 	
 	public void hit(Enemy tgt){
+		config.addMoney(this.target.getReward());
 		tgt.setHp(tgt.getHp()-damage); // damage are made, if the enemy isn't alive after, it doesn't matter
 		this.disappear(); // true because hit the enemy
 	}

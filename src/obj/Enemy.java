@@ -77,7 +77,7 @@ public class Enemy extends Displayable{
 			this.reward=22;
 		}
 		else{	// default
-			this.speed=0.3;
+			this.speed=0.2;
 			this.damage=5;
 			this.hp=100;
 			super.sprite= FileLoader.getSpriteImage("client.png");
@@ -148,7 +148,6 @@ public class Enemy extends Displayable{
 	@Override
 	public void disappear(){
 		this.hp=0;
-		config.addMoney(this.reward);
 		super.disappear();
 	}
 
@@ -157,5 +156,9 @@ public class Enemy extends Displayable{
 	public void setHp(int hp) {	this.hp = hp;	}
 	public int getPoints() {	return points;	}
 	public void setPoints(int points) {	this.points = points;	}
+	public int getDamage() {	return damage;	}
+	public int getReward() {	return reward;	}
+	public void setDamage(int damage) {	this.damage = damage;	}
+	public void setReward(int reward) {	this.reward = reward;	}
 
 }
