@@ -7,9 +7,7 @@ import obj.Enemy;
 import obj.Turret;
 import obj.Wave;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
@@ -44,6 +42,12 @@ public class GameConfig {
     public Wave nextWave;
     public int level=1;
 
+    //Musiques
+    Sound click;
+    Music introMusic;
+    Music levelMusic;
+
+
     private GameConfig(StateBasedGame sbg) throws SlickException{
         money=100;
         stateBasedGame=sbg;
@@ -53,6 +57,8 @@ public class GameConfig {
         usableTurrets=new ArrayList<>();
         usableEnemies=new ArrayList<>();
         aliveTurrets=new LinkedList<>();
+
+        //TODO:instancier les musiques quand elles seront ajoutées
     }
 
     /**
