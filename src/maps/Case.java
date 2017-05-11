@@ -57,17 +57,25 @@ public class Case{
 		if (over && sbg.getCurrentStateID()==1) { //Si la souris est sur la case, on est sr l'écran de jeu
 			if (config.isMouseClicked() && config.wasMouseReleased) {   //Si la souris est cliquée et était relachée avant
 				if (turret == null && config.getTurret() != null) {
-					this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
+					if (config.getMoney()<config.getTurret().getBuyPrice()) {
+						System.out.println("Not enough money");
+						//TODO
+					}
+					else {
+						this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
+						config.purchase(turret.getBuyPrice());
+					}
 				} else {
+					config.sell(turret.getSellPrice());
 					config.aliveTurrets.remove(this.turret);
 					this.turret = null;
 				}
-				config.wasMouseReleased =false; //La souris est plus relachée (pour éviter d'appuyer plusieurs fois)
 			}
+			config.wasMouseReleased =false; //La souris est plus relachée (pour éviter d'appuyer plusieurs fois)
 		}
 	}
 
-	public int getX() {
+public int getX() {
 		return x;
 	}
 	public int getY() {
