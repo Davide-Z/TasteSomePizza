@@ -25,7 +25,7 @@ public class Wave {
 		this.config = GameConfig.getInstance(sbg);
 		LinkedList<Enemy> enemies = new LinkedList<>();
 		LinkedList<Integer> d = new LinkedList<>();
-		LinkedList<Vec> currentPath = this.config.getMap().computePath();
+		//LinkedList<Vec> currentPath = this.config.getMap().computePath();
 		this.aliveEnemies = new LinkedList<Enemy>();
 		this.unspawnedEnemies = enemies;
 		this.delays = d;
@@ -40,18 +40,21 @@ public class Wave {
 
 		if (typeId == 1) {
 			for (int i = 0; i < 2*level; i++) {
+				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(typeId, level, currentPath, sbg, this));
 				d.add(500);
 			}
 		}
 		else if (typeId == 2){
 			for (int i = 0; i < 3+level; i++) {
+				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(typeId, level, currentPath, sbg, this));
 				d.add(1000);
 			}
 		}
 		else {
 			for (int i = 0; i < 5+2*level; i++) {
+				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(typeId, level, currentPath, sbg, this));
 				d.add(200);
 			}
