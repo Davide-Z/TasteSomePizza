@@ -30,7 +30,6 @@ public class GameConfig {
     private Map map;
     private ArrayList<Turret> usableTurrets;
     private TurretMenu turretMenu;
-    private ArrayList<Enemy> usableEnemies;
     public LinkedList<Turret> aliveTurrets;
     //Position de la souris
     private int mx=0;
@@ -55,7 +54,6 @@ public class GameConfig {
         map=new Map(stateBasedGame, 15);
         buttonsGroup=new ButtonsGroup();
         usableTurrets=new ArrayList<>();
-        usableEnemies=new ArrayList<>();
         aliveTurrets=new LinkedList<>();
 
         //TODO:instancier les musiques quand elles seront ajoutées
@@ -103,19 +101,12 @@ public class GameConfig {
     }
     /**
      * Ajoute une tourelle à la liste des tourelles utilisables
-     * @param turret
      */
-    public void addUsableTurret(Turret turret) throws SlickException {
+    public void initializeUsableTurrets() throws SlickException {
         for(int i = 0; i<3; i++){
             this.usableTurrets.add(new Turret(i, this.stateBasedGame));
-            //this.usableTurrets.add(new Turret(turret.getSbg(), null));
         }
-        this.usableEnemies.add(new Enemy(1, null,stateBasedGame));
     }
-    public ArrayList<Enemy> getUsableEnemies() {
-        return usableEnemies;
-    }
-
     public int getMx() {
         mx=Mouse.getX();
         return mx;

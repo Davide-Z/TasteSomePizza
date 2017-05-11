@@ -1,5 +1,7 @@
 package audio;
 
+import gui.FileLoader;
+
 import javax.sound.sampled.*;
 import javax.sound.sampled.DataLine.Info;
 import java.io.File;
@@ -66,12 +68,11 @@ public class Son implements Runnable {
         }
 
     }
-    
-    /**
+
     public static void main(String[] args) {
-        String stream=FileLoader.getSoundPath("Intro.wav");
+        String stream= FileLoader.getSoundPath("Musique_niveau.wav");
         Son son = new Son(stream);
         son.run();
     }
-    **/
+
 }

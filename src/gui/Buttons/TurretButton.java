@@ -22,7 +22,6 @@ public class TurretButton {
     private String text;
     private Shape hitbox;
     private Turret turret;
-    private Enemy enemy;
 
     public TurretButton(int x, int y, Turret turret) throws SlickException{
         this.x=x;
@@ -30,12 +29,6 @@ public class TurretButton {
         this.turret=turret;
         this.turret.setPos(new Vec(x, y));
         //this.turret=new Turret(turret.getSbg(), new Vec(x,y));
-        this.hitbox=new Rectangle(this.x,this.y,152,160);
-    }
-    public TurretButton(int x, int y, Enemy enemy) throws SlickException{
-        this.x=x;
-        this.y=y;
-        this.enemy=new Enemy(enemy, new Vec(x,y));
         this.hitbox=new Rectangle(this.x,this.y,152,160);
     }
 
@@ -47,23 +40,15 @@ public class TurretButton {
         return this.turret;
     }
 
-    public void render(Graphics graphics, GameConfig config){
-        if(turret != null && config.getTurretMenu().turretMode) {
+    public void render(Graphics graphics, GameConfig config) {
+        if (turret != null) {
             graphics.setLineWidth(1);
             graphics.setColor(Color.lightGray);
             graphics.fill(hitbox);
             graphics.setColor(Color.black);
             graphics.draw(hitbox);
             this.turret.render();
-            graphics.drawString("Turret Type : "+this.turret.getTypeId(), x+5, y+80);
-        }
-        else if(enemy != null && !config.getTurretMenu().turretMode){
-            graphics.setLineWidth(1);
-            graphics.setColor(Color.lightGray);
-            graphics.fill(hitbox);
-            graphics.setColor(Color.black);
-            graphics.draw(hitbox);
-            this.enemy.render();
+            graphics.drawString("Turret Type : " + this.turret.getTypeId(), x + 5, y + 80);
         }
     }
 
@@ -71,30 +56,14 @@ public class TurretButton {
         over = this.hitbox.contains(config.getMx(), config.getMy());
         if(over && game.getCurrentState().getID()==1){
             if (config.isMouseClicked() && config.wasMouseReleased) {
-                if (config.getTurretMenu().turretMode) {
-                    if(config.getTurret()==null){
-                        config.setSelectedTurret(this.turret);
-                    }
-                    else if(config.getTurret().getTypeId()!=this.turret.getTypeId()){
-                        config.setSelectedTurret(this.turret);
-                    }
-                    else if(config.getTurret().getTypeId()==this.turret.getTypeId()){
-                        config.setSelectedTurret(null);
-                    }
-                    config.setSelectedEnemy(null);
-                } else {
-                    if(config.getEnemy()==null){
-                        config.setSelectedEnemy(this.enemy);
-                        config.setSelectedTurret(null);
-                    }
-                    else if(config.getEnemy().getTypeId()!=this.enemy.getTypeId()){
-                        config.setSelectedEnemy(this.enemy);
-                        config.setSelectedTurret(null);
-                    }
-                    else if(config.getEnemy().getTypeId()==this.enemy.getTypeId()){
-                        config.setSelectedEnemy(null);
-                        config.setSelectedTurret(null);
-                    }
+                if(config.getTurret()==null){
+                    config.setSelectedTurret(this.turret);
+                }
+                else if(config.getTurret().getTypeId()!=this.turret.getTypeId()){
+                    config.setSelectedTurret(this.turret);
+                }
+                else if(config.getTurret().getTypeId()==this.turret.getTypeId()){
+                    config.setSelectedTurret(null);
                 }
                 config.wasMouseReleased =false;
             }

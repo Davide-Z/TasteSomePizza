@@ -79,9 +79,6 @@ public class StateButton{
                     ((WaveState) game.getState(2)).setHasBegun(true);
                 	game.enterState(2);
                 }
-                else if((action.matches("turret"))&&(game.getCurrentStateID()==1)){
-                    config.getTurretMenu().turretMode=!config.getTurretMenu().turretMode;
-                }
                 else if((action.matches("settings"))&&(game.getCurrentStateID()==0)){
                     game.enterState(3);
                 }
