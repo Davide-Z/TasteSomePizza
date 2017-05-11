@@ -12,9 +12,10 @@ public enum TurretType {
 
 	//MODELE: (à mettre avant le ;)
 	//NomDuTypeDeTourelle(name,	typeId, damage	fireRate range	buyCost	upgradeCost	sellCost        SpriteName      ProjectileSpriteName)
-	DEFAULT("Default", 			0,      80,	    800f,	15,	    120,	150,			60,		"DefaultTurret",         "DefaultProjectile"),
-	FIRERATE("HighFireRate", 	1,      50, 	1500f,	50,	    150,	220,			220,	"HighFireRateTurret",    "DefaultProjectile"),
-	DAMAGE("HighDamage", 		2,      150, 	500f, 	10,	    250,	200,			200,	"HighDamageTurret",         "DefaultProjectile");
+	DEFAULT("Default", 			0,      80,	    800f,	15,	    120,	150,			120,		"DefaultTurret",         "DefaultProjectile"),
+	FIRERATE("HighFireRate", 	1,      50, 	1500f,	50,	    150,	220,			150,   "HighFireRateTurret",         "DefaultProjectile"),
+	DAMAGE("HighDamage", 		2,      150, 	500f, 	10,	    250,	200,			250,	 "HighDamageTurret",         "DefaultProjectile"),
+	BLOCK("Block", 		        3,      0, 	    0f, 	0,	    10,	    0,			    10,	                "table",         "DefaultProjectile");
 													// range a modifier apr�s les tests
 
 	private final String projectilePath;
