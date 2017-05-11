@@ -19,9 +19,23 @@ public class Map {
     public Map(StateBasedGame sbg, int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
         cases = new Case[taille][taille];
-        for(int i=0;i<taille;i++){
-            for(int j=0;j<taille;j++){
-                cases[i][j]=new Case( 1+ i*720/taille, 1+ j*720/taille);
+        boolean dark = false;
+        int colorCounter=0;
+        for(int j=0;j<taille;j++){
+            for(int i=0;i<taille;i++){
+            	if(dark){
+		            cases[i][j]=new Case( 1+ i*720/taille, 1+ j*720/taille, dark);
+		            colorCounter++;
+		            if(colorCounter>2) {
+		            	colorCounter=0;
+			            dark = false;
+		            }
+
+	            }
+	            else{
+		            cases[i][j]=new Case( 1+ i*720/taille, 1+ j*720/taille, dark);
+		            dark=true;
+	            }
             }
         }
         spawn = new Vec(1, 337);

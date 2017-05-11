@@ -1,5 +1,6 @@
 package maps;
 
+import gui.FileLoader;
 import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.Color;
@@ -26,17 +27,23 @@ public class Case{
 	private Image image;
 	private Turret turret=null;
 
-	public Case(int x, int y) throws SlickException{
+	public Case(int x, int y, boolean dark) throws SlickException{
 		this.x=x;
 		this.y=y;
 		interieur=new Rectangle(x+1,y-1,47,47);
 		cadre=new Rectangle(x+1,y-1,48,48);
-		this.image=null;
+		if(dark){
+			this.image= FileLoader.getImage("decors/blackTile");
+		}
+		else{
+			this.image= FileLoader.getImage("decors/yellowTile");
+		}
 	}
 
 	public void render(Graphics g) {
 	    g.setColor(Color.lightGray);
 	    g.fill(interieur);
+	    image.draw(x+1,y);
 	    g.setColor(Color.black);
 	    g.setLineWidth(2);
 		g.draw(cadre);
