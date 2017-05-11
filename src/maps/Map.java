@@ -30,7 +30,6 @@ public class Map {
 		            	colorCounter=0;
 			            dark = false;
 		            }
-
 	            }
 	            else{
 		            cases[i][j]=new Case( 1+ i*720/taille, 1+ j*720/taille, dark);
