@@ -4,7 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
-
+import java.util.Random;
 import java.util.LinkedList;
 /**
  * Created by tic-tac on 15/02/17.
@@ -112,18 +112,29 @@ public class Map {
                     found=true;
                     break;
                 }
-                if (0 <= cor[0]-1 && cor[0]-1 < currentMap.length && currentMap[cor[0]-1][cor[1]] == 0) {
-                    nextUntestedList.add(new int[] {cor[0]-1,cor[1], n});
+                
+                /*
+                 * random direction for same length path
+                 */
+                
+                Random randSeed = new Random(System.currentTimeMillis());
+                int beginAt = randSeed.nextInt(2);
+                
+                	if (0 <= cor[0]-1 && cor[0]-1 < currentMap.length && currentMap[cor[0]-1][cor[1]] == 0) {
+                		nextUntestedList.add(new int[] {cor[0]-1,cor[1], n});
+                	}
+                	for (int i=0; i<2; i++) {
+                	if (beginAt == 0 && 0 <= cor[1]+1 && cor[1]+1 < currentMap[0].length && currentMap[cor[0]][cor[1]+1] == 0) {
+                		nextUntestedList.add(new int[] {cor[0],cor[1]+1, n});
+                	}
+                	if (beginAt == 1 && 0 <= cor[1]-1 && cor[1]-1 < currentMap[0].length && currentMap[cor[0]][cor[1]-1] == 0) {
+                		nextUntestedList.add(new int[] {cor[0],cor[1]-1, n});
+                	}
+                	beginAt=(beginAt+1)%2;
                 }
-                if (0 <= cor[1]+1 && cor[1]+1 < currentMap[0].length && currentMap[cor[0]][cor[1]+1] == 0) {
-                    nextUntestedList.add(new int[] {cor[0],cor[1]+1, n});
-                }
-                if (0 <= cor[1]-1 && cor[1]-1 < currentMap[0].length && currentMap[cor[0]][cor[1]-1] == 0) {
-                    nextUntestedList.add(new int[] {cor[0],cor[1]-1, n});
-                }
-                if (0 <= cor[0]+1 && cor[0]+1 < currentMap.length && currentMap[cor[0]+1][cor[1]] == 0) {
-                    nextUntestedList.add(new int[] {cor[0]+1,cor[1], n});
-                }
+                	if (0 <= cor[0]+1 && cor[0]+1 < currentMap.length && currentMap[cor[0]+1][cor[1]] == 0) {
+                		nextUntestedList.add(new int[] {cor[0]+1,cor[1], n});
+                	}
             }
         }
         if (mainList.getLast()[0]!=end[0] || mainList.getLast()[1]!=end[1]) {
