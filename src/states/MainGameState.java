@@ -100,6 +100,7 @@ public class MainGameState extends BasicGameState {
         	//g.drawString("o", e.getPos().getX(), e.getPos().getY());
         	e.render();
         }*/
+        g.drawString("Money:"+config.getMoney(), winWidth*0.9f, winHeight*0.5f);
     }
 
     /**

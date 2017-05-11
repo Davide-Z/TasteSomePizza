@@ -65,13 +65,14 @@ public class Case{
 						this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
 						config.purchase(turret.getBuyPrice());
 					}
-				} else {
+				} else if(turret!=null){
 					config.sell(turret.getSellPrice());
 					config.aliveTurrets.remove(this.turret);
 					this.turret = null;
 				}
+				config.wasMouseReleased =false; //La souris est plus relachée (pour éviter d'appuyer plusieurs fois)
+
 			}
-			config.wasMouseReleased =false; //La souris est plus relachée (pour éviter d'appuyer plusieurs fois)
 		}
 	}
 
