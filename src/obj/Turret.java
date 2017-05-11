@@ -82,15 +82,15 @@ public class Turret extends Displayable{
 		//type, damage, fireRate, range, buyPrice, sellPrice, upgradePrice, spriteName, projectileSpriteName
 		if (t==1){
 			// HighFireRate
-			assignValues(1, 50, 500f, 10, 200, 160, 200, "HighFireRateTurret.png", "HighFireRateProjectile.png");
+			assignValues(1, 50, 500f, 10, 150, 75, 200, "HighFireRateTurret.png", "HighFireRateProjectile.png");
 		}
 		else if(t==2){
 			// HighDamage
-			assignValues(2, 150, 1500f, 50, 220, 190, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
+			assignValues(2, 150, 1500f, 50, 250, 125, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
 		}
 		else{
 			// Default
-			assignValues(0, 80, 800f, 15, 150, 90, 150, "DefaultTurret.png", "DefaultProjectile.png");
+			assignValues(0, 80, 800f, 15, 120, 60, 150, "DefaultTurret.png", "DefaultProjectile.png");
 		}
 		this.upgrade=false;
 		this.level=1;

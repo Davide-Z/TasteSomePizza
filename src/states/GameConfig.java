@@ -49,7 +49,7 @@ public class GameConfig {
 
 
     private GameConfig(StateBasedGame sbg) throws SlickException{
-        money=100;
+        money=400;
         stateBasedGame=sbg;
         gc=sbg.getContainer();
         map=new Map(stateBasedGame, 15);
@@ -158,6 +158,14 @@ public class GameConfig {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	public void purchase(int amount) {
+		this.money-=amount;
+	}
+	
+	public void sell(int amount) {
+		this.money+=amount;
 	}
     
 }

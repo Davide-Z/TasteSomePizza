@@ -55,8 +55,16 @@ public class Case{
 			if (config.isMouseClicked() && config.wasMouseReleased) {   //Si la souris est cliquée et était relachée avant
 				if (config.getTurretMenu().turretMode) {
 					if (turret == null && enemy == null && config.getTurret() != null) {
-						this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
+						if (config.getMoney()<config.getTurret().getBuyPrice()) {
+							System.out.println("Not enough money");
+							//TODO
+						}
+						else {
+							this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
+							config.purchase(turret.getBuyPrice());
+						}
 					} else {
+						config.sell(turret.getSellPrice());
 						config.aliveTurrets.remove(this.turret);
 						this.turret = null;
 					}
