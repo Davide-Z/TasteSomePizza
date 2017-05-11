@@ -1,5 +1,4 @@
 package obj;
-import gui.FileLoader;
 import maps.Vec;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -28,24 +27,24 @@ public class Projectile extends Displayable{
 	private void assignType(int t) throws SlickException {
 		//TODO
 		if(t==1){	//HighFireRate
-			this.speed=2;
+			this.speed=0.45;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(1);
 		}
 		else if(t==2){	//HighDamage
-			this.speed=0.6;
+			this.speed=0.15;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(2);
 		}
 		else{	// Default
-			this.speed=1.1;
+			this.speed=0.3;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(0);
 		}
 		this.sprite=motherTurret.projectileSprite;
 	}	
 	
-	private boolean move(Vec p){
+	private boolean move(Vec p, int i){
 		// return true if projectile has arrived at the position pos
 		
 		// The projectile will move forward of a distance "speed"
@@ -64,8 +63,8 @@ public class Projectile extends Displayable{
 			int x=this.pos.getX(); // initial position of the projectile
 			int y=this.pos.getY();
 			
-			double moveX=speed/distance*(p.getX()-x)+precisePosX;
-			double moveY=speed/distance*(p.getY()-y)+precisePosY;
+			double moveX=speed*i/distance*(p.getX()-x)+precisePosX;
+			double moveY=speed*i/distance*(p.getY()-y)+precisePosY;
 
 			if(Math.abs(moveX) < 1){	// If it should move less than one pixel, keeps in mind the position
 				this.precisePosX=moveX;
@@ -85,7 +84,7 @@ public class Projectile extends Displayable{
 		}
 	}
 	
-	public void searchAnotherEnemy(){
+	public void searchAnotherEnemy(int i){
 		boolean foundNewEnemy=false;
 		Object aliveEnemiesCopie = actualWave.aliveEnemies.clone(); //Solution to concurrency problem
 		for (Enemy e : (LinkedList<Enemy>) aliveEnemiesCopie) {
@@ -93,7 +92,7 @@ public class Projectile extends Displayable{
 				target=e;
 				foundNewEnemy=true;
 				//System.out.println(this.toString()+" "+"found the "+e.toString()+" and it has "+e.getHp()+" hp");
-				if(move(target.getPos())){	// return true if the projectile hits the enemy
+				if(move(target.getPos(), i)){	// return true if the projectile hits the enemy
 					hit(target);
 				}
 				break;
@@ -104,7 +103,8 @@ public class Projectile extends Displayable{
 			this.disappear();
 	}
 	
-	public void update(){
+	public void update(int i){
+		System.out.println(target.isAlive()+"");
 		if(target==null || target.isAlive()==false){
 			this.disappear();
 			//searchAnotherEnemy();	// will search for an other enemy alive, and if there isn't any
@@ -112,7 +112,7 @@ public class Projectile extends Displayable{
 		}
 		
 		else{
-			if(move(target.getPos())){	// return true if the projectile hits the enemy
+			if(move(target.getPos(), i)){	// return true if the projectile hits the enemy
 				hit(target);
 			}
 		}

@@ -2,7 +2,6 @@ package obj;
 import gui.FileLoader;
 import maps.Map;
 import maps.Vec;
-import states.GameConfig;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -80,7 +79,7 @@ public class Enemy extends Displayable{
 			this.speed=0.2;
 			this.damage=5;
 			this.hp=100;
-			super.sprite= FileLoader.getSpriteImage("client.png");
+			super.sprite= FileLoader.getSpriteImage("client");
 			this.sprite=super.sprite;
 			super.name="Enemy 0";
 			this.reward=10;
@@ -112,7 +111,7 @@ public class Enemy extends Displayable{
 			this.speed=0.3;
 			this.damage=5;
 			this.hp=100+2*level;
-			super.sprite= FileLoader.getSpriteImage("client.png");
+			super.sprite= FileLoader.getSpriteImage("client");
 			this.sprite=super.sprite;
 			super.name="Enemy 0";
 			this.reward=10;

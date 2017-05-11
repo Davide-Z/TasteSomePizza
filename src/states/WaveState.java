@@ -1,6 +1,5 @@
 package states;
 
-import gui.FileLoader;
 import gui.Buttons.StateButton;
 import obj.Enemy;
 import obj.Projectile;
@@ -13,10 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import audio.Son;
-
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -139,7 +135,7 @@ public class WaveState extends BasicGameState {
             // To avoid ConcurrentModificationException, does a copy
             Object copyOfAliveProjectiles=wave.aliveProjectiles.clone();
             for(Projectile p : (LinkedList<Projectile>)copyOfAliveProjectiles){
-            	p.update();
+            	p.update(i);
             }
         }
         
