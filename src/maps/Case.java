@@ -62,7 +62,7 @@ public class Case{
 						//TODO
 					}
 					else {
-						this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
+						this.turret = new Turret(config.getTurret(), new Vec(this.x, this.y), sbg, null);
 						config.purchase(turret.getBuyPrice());
 					}
 				} else if(turret!=null){

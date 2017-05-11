@@ -6,6 +6,7 @@ import maps.Map;
 import obj.Enemy;
 import obj.Turret;
 import obj.Wave;
+import obj.enums.TurretType;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
@@ -48,14 +49,13 @@ public class GameConfig {
 
 
     private GameConfig(StateBasedGame sbg) throws SlickException{
-        money=400;
+        money=2000;
         stateBasedGame=sbg;
         gc=sbg.getContainer();
         map=new Map(stateBasedGame, 15);
         buttonsGroup=new ButtonsGroup();
         usableTurrets=new ArrayList<>();
         aliveTurrets=new LinkedList<>();
-
         //TODO:instancier les musiques quand elles seront ajoutées
     }
 
@@ -103,8 +103,8 @@ public class GameConfig {
      * Ajoute une tourelle à la liste des tourelles utilisables
      */
     public void initializeUsableTurrets() throws SlickException {
-        for(int i = 0; i<3; i++){
-            this.usableTurrets.add(new Turret(i, this.stateBasedGame));
+        for(TurretType t: TurretType.values()){
+            this.usableTurrets.add(new Turret(t, this.stateBasedGame));
         }
     }
     public int getMx() {

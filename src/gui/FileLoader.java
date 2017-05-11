@@ -16,7 +16,7 @@ public abstract class FileLoader {
         return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+ slash +resource+".png", false);
     }
     public  static Image getSpriteImage(String resource) throws SlickException {
-        return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+ slash + "sprites" + slash + resource, false);
+        return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+ slash + "sprites" + slash + resource+".png", false);
     }
     public static Image getInterfaceImage(String resource) throws SlickException {
         return new Image(System.getProperty("user.dir")+slash+"src"+slash+"resources"+slash+"interface"+slash+resource+".png", false);

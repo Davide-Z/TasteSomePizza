@@ -34,7 +34,7 @@ public class Enemy extends Displayable{
 		super.gc=sbg.getContainer();
 		super.g=gc.getGraphics();
 		this.pos=pos;
-		super.sprite= FileLoader.getSpriteImage("client.png");
+		super.sprite= FileLoader.getSpriteImage("client");
 		this.sprite=super.sprite;
 		this.assignValues(t);
 	}
@@ -51,7 +51,7 @@ public class Enemy extends Displayable{
 		super(enemy.sbg);
 		super.typeId=enemy.typeId;
 		super.pos=pos;
-		super.sprite=FileLoader.getSpriteImage("client.png");
+		super.sprite=FileLoader.getSpriteImage("client");
 		super.name="Enemy";
 	}
 
@@ -62,7 +62,7 @@ public class Enemy extends Displayable{
 			this.speed=0.6;
 			this.damage=2;
 			this.hp=40;
-			super.sprite= FileLoader.getSpriteImage("client.png");
+			super.sprite= FileLoader.getSpriteImage("client");
 			this.sprite=super.sprite;
 			super.name="Enemy 1";
 			this.reward=2;
@@ -71,7 +71,7 @@ public class Enemy extends Displayable{
 			this.speed=0.1;
 			this.damage=10;
 			this.hp=250;
-			super.sprite= FileLoader.getSpriteImage("client.png");
+			super.sprite= FileLoader.getSpriteImage("client");
 			this.sprite=super.sprite;
 			super.name="Enemy 2";
 			this.reward=22;
@@ -94,7 +94,7 @@ public class Enemy extends Displayable{
 			this.speed=0.6;
 			this.damage=2;
 			this.hp=40+level;
-			super.sprite= FileLoader.getSpriteImage("client.png");
+			super.sprite= FileLoader.getSpriteImage("client");
 			this.sprite=super.sprite;
 			super.name="Enemy 1";
 			this.reward=2;
@@ -103,7 +103,7 @@ public class Enemy extends Displayable{
 			this.speed=0.1;
 			this.damage=10;
 			this.hp=250+3*level;
-			super.sprite= FileLoader.getSpriteImage("client.png");
+			super.sprite= FileLoader.getSpriteImage("client");
 			this.sprite=super.sprite;
 			super.name="Enemy 2";
 			this.reward=22;

@@ -12,23 +12,23 @@ import java.util.LinkedList;
 
 public class Trace {
 	
-	StateBasedGame sbg;
-	GameContainer gc;
-	Graphics g;
+	private StateBasedGame sbg;
+	private GameContainer gc;
+	private Graphics g;
 	
 	//image data
-	LinkedList<Animation> enemyAnim;
-	LinkedList<Image> turretImage;
-	LinkedList<Image> projectileImage;
+	private LinkedList<Animation> enemyAnim;
+	private LinkedList<Image> turretImage;
+	private LinkedList<Image> projectileImage;
 
 	Trace(StateBasedGame sbg, GameContainer gc, Graphics g) throws SlickException{
 		this.sbg = sbg;
 		this.gc = gc;
 		this.g= g;
 		
-		this.enemyAnim = new LinkedList<Animation>();
-		this.turretImage =  new LinkedList<Image>();
-		this.projectileImage =  new LinkedList<Image>();
+		this.enemyAnim = new LinkedList<>();
+		this.turretImage = new LinkedList<>();
+		this.projectileImage = new LinkedList<>();
 		
 		//filling enemyAnim
 		for ( int i=1; i<=1; i++) {//i number of enemy type

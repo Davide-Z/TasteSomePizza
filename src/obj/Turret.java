@@ -3,58 +3,45 @@ package obj;
 
 import gui.FileLoader;
 import maps.Vec;
+import obj.enums.TurretType;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
+import static obj.enums.TurretType.*;
 
 public class Turret extends Displayable{
-	float fireRate;
-	int range;
-	int buyPrice;
-	int sellPrice;
-	int upgradePrice;
-	int level;
-	boolean upgrade;
-	long lastFire=System.currentTimeMillis()-100000;//-1000000 for the first shot
-	Enemy lastEnemy=null;
-	protected String projectileSpriteName;
+	private float fireRate;
+	private int range;
+	private int buyPrice;
+	private int sellPrice;
+	private int upgradePrice;
+	private int level;
+	private boolean upgrade;
+	private long lastFire=System.currentTimeMillis()-100000;//-1000000 for the first shot
+	private Enemy lastEnemy=null;
+	Image projectileSprite;
+	private TurretType type;
 	
 	// Data of the projectile
 	int projectileType;
-	int damage;
+	private int damage;
 	
 	
 	//Main constructor, for the "physical" turrets who will attack and  be rendered
-	public Turret(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
-		super(t, p, sbg, w);
+	public Turret(TurretType t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
+		super(t.getTypeId(), p, sbg, w);
 		if(config.aliveTurrets==null){
 			config.aliveTurrets=new LinkedList<Turret>();
 		}
 		assignType(t);
-		super.sprite=FileLoader.getSpriteImage("cook.png");
 		config.aliveTurrets.add(this);
 	}
 	
-	public Turret(int t, StateBasedGame sbg) throws SlickException {
+	public Turret(TurretType t, StateBasedGame sbg) throws SlickException {
 		super(t, sbg);
 		assignType(t);
-		super.sprite=FileLoader.getSpriteImage("cook.png");
 	}
-	
-	public Turret(StateBasedGame sbg, Vec p) throws SlickException {
-		super(sbg);
-		super.typeId=0;
-		super.sprite=FileLoader.getSpriteImage("cook.png");
-		super.name="Turret";
-		if(pos!=null){
-			this.pos=p;
-		}
-		else{
-			this.pos=new Vec(0,0);
-		}
-	}
-
 	/**
 	 * Constructeur utilisé pour copier une tourelle à une position donnée
 	 * @param turret
@@ -66,9 +53,8 @@ public class Turret extends Displayable{
 		if(w!=null){
 			this.actualWave=w;
 		}
-		assignType(this.typeId);
-		super.sprite=FileLoader.getSpriteImage("cook.png");
-		super.name="Turret";
+		assignType(turret.type);
+		super.name=turret.type.getType();
 		this.aimedDirection=0;
 		config.aliveTurrets.add(this);
 	}
@@ -77,41 +63,25 @@ public class Turret extends Displayable{
 		super.typeId=0;
 		super.name="Turret";
 }
-	
-	public void assignType(int t) throws SlickException{
-		//type, damage, fireRate, range, buyPrice, sellPrice, upgradePrice, spriteName, projectileSpriteName
-		if (t==1){
-			// HighFireRate
-			assignValues(1, 50, 500f, 10, 150, 75, 200, "HighFireRateTurret.png", "HighFireRateProjectile.png");
-		}
-		else if(t==2){
-			// HighDamage
-			assignValues(2, 150, 1500f, 50, 250, 125, 220, "HighDamageTurret.png", "HighDamageProjectile.png");
-		}
-		else{
-			// Default
-			assignValues(0, 80, 800f, 15, 120, 60, 150, "DefaultTurret.png", "DefaultProjectile.png");
-		}
+	private void assignType(TurretType t) throws SlickException{
+		this.type=t;
+		this.typeId=t.getTypeId();
+		this.damage=t.getDamage();
+		this.fireRate=t.getFirerate();
+		this.range=t.getRange();
+		this.buyPrice=t.getBuyCost();
+		this.sellPrice=t.getSellPrice();
+		this.upgradePrice=t.getUpgradeCost();
+		this.sprite=t.getSprite();
+		this.projectileSprite=t.getProjectileSprite();
 		this.upgrade=false;
 		this.level=1;
-	}
-	
-	public void assignValues(int type,int damage, float fireRate, int range, int buyPrice, int sellPrice, int upgradePrice, String spriteName, String projectileSpriteName) throws SlickException{
-		this.typeId=type;
-		this.damage=damage;
-		this.fireRate=fireRate;
-		this.range=range;
-		this.buyPrice=buyPrice;
-		this.sellPrice=sellPrice;
-		this.upgradePrice=upgradePrice;
-		this.sprite=FileLoader.getSpriteImage(spriteName);
-		this.projectileSpriteName=projectileSpriteName;
 	}
 
 	//TODO:relancer une vague avec des tourelles retirées remet ces tourelles en place...
 	public void update(Wave wave) throws SlickException{
 		this.actualWave=wave;
-		Enemy e=null; // will be the target, if it exists
+		Enemy e;
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire millisecondes
 		if( canFire() && (e=searchEnemy())!=null){
 			wave.aliveProjectiles.add(new Projectile(e, this, sbg, actualWave)); // On cree un nouveau projectile
@@ -121,7 +91,7 @@ public class Turret extends Displayable{
 		}
 		// In order to let the tower aim at the direction of the lastEnemy
 		else if(lastEnemy!=null){
-			if(lastEnemy.isAlive()==true){
+			if(lastEnemy.isAlive()){
 				this.aimedDirection=aimingAtDegre(lastEnemy.getPos());
 			}
 			else{
@@ -134,7 +104,7 @@ public class Turret extends Displayable{
 		this.sprite.setRotation(aimedDirection);
 	}
 	
-	public float aimingAtDegre(Vec p){
+	private float aimingAtDegre(Vec p){
 		float x1=pos.getX()+24;	// +24 because the pos of the turret is pos but the 
 		float y1=pos.getY()+24; // center of the turret is pos.x+24;pos.y+24
 		float x2=p.getX();
@@ -176,7 +146,7 @@ public class Turret extends Displayable{
 		}
 	}
 	
-	public boolean canFire(){
+	private boolean canFire(){
 		return System.currentTimeMillis() - lastFire >= fireRate;
 	}
 	
@@ -193,9 +163,9 @@ public class Turret extends Displayable{
 		damage*=1.1;
 		}
 	
-	public Enemy searchEnemy(){
+	private Enemy searchEnemy(){
 		// we travel the list of enemies until finding the first one who is at correct distance
-		if(actualWave.getAliveEnemies().isEmpty()==false){
+		if(!actualWave.getAliveEnemies().isEmpty()){
 			for(Enemy e : actualWave.getAliveEnemies()){
 				if( (int)this.getPos().distance(e.getPos())	<=	range*range){	// if the enemy is close enough
 					return e;
@@ -225,13 +195,16 @@ public class Turret extends Displayable{
 	public int getSellPrice() {	return sellPrice;	}
 	public int getUpgradePrice() {	return upgradePrice;	}
 	public int getLevel() {	return level;	}
-	public int getDamage() {	return damage;	}
+	int getDamage() {	return damage;	}
 	public void setBuyPrice(int buyPrice) {	this.buyPrice = buyPrice;	}
 	public void setSellPrice(int sellPrice) {	this.sellPrice = sellPrice;	}
 	public void setUpgradePrice(int upgradePrice) {	this.upgradePrice = upgradePrice;	}
 	public void setLevel(int level) {	this.level = level;	}
 	public void setProjectileType(int projectileType) {	this.projectileType = projectileType;	}
 	public void setDamage(int damage) {	this.damage = damage;	}
-	public String getProjectileSpriteName() {	return projectileSpriteName;	}
 	public void setProjectileSpriteName(Image projectileSpriteName) {	projectileSpriteName = projectileSpriteName;	}
+
+	public TurretType getType() {
+		return type;
+	}
 }

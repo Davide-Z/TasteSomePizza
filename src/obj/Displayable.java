@@ -3,6 +3,7 @@ package obj;
 
 import maps.Map;
 import maps.Vec;
+import obj.enums.TurretType;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -14,20 +15,20 @@ import gui.FileLoader;
 
 public abstract class Displayable {
 	protected StateBasedGame sbg;
-	protected GameContainer gc;
+	GameContainer gc;
 	protected Graphics g;
 	protected GameConfig config;
-	protected Vec pos;
-	protected int typeId;
-	protected String name;
-	protected Map actualMap;
-	protected float aimedDirection;
-	protected Wave actualWave;
-	protected static int lastId=0;
-	protected int id;	// Useful for tests
-	protected Image sprite;
+	Vec pos;
+	int typeId;
+	String name;
+	Map actualMap;
+	float aimedDirection;
+	Wave actualWave;
+	static int lastId=0;
+	int id;	// Useful for tests
+	Image sprite;
 
-	public Displayable(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
+	Displayable(int t, Vec p, StateBasedGame sbg, Wave w) throws SlickException {
 		this.typeId=t;
 		if(p!=null){
 			this.pos=p.copy();
@@ -47,9 +48,9 @@ public abstract class Displayable {
 	/**
 	 * initialise un Displayable avec juste l'essentiel
 	 * @param sbg
-	 * @throws SlickException 
+	 * @throws SlickException
 	 */
-	public Displayable(StateBasedGame sbg) throws SlickException{
+	Displayable(StateBasedGame sbg) throws SlickException{
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
@@ -59,13 +60,13 @@ public abstract class Displayable {
 		lastId++;
 	}
 	
-	public Displayable(int typeId, StateBasedGame sbg) throws SlickException{
+	Displayable(TurretType t, StateBasedGame sbg) throws SlickException{
 		this.sbg=sbg;
 		this.gc=sbg.getContainer();
 		this.g=gc.getGraphics();
 		this.pos=new Vec(0,0);
 		this.config= GameConfig.getInstance(sbg);
-		this.typeId=typeId;
+		this.typeId=t.getTypeId();
 		this.id=lastId;
 		lastId++;
 	}
@@ -117,7 +118,7 @@ public abstract class Displayable {
 	public float getAimedDirection() {	return aimedDirection;	}
 	public void setAimedDirection(float aimedDirection) {	this.aimedDirection = aimedDirection;	}
 	public Wave getActualWave() {	return actualWave;	}
-	public void setActualWave(Wave actualWave) {	this.actualWave = actualWave;	}
+	void setActualWave(Wave actualWave) {	this.actualWave = actualWave;	}
 	public String getName(){return this.name;}
 	public void setName(String name){this.name=name;}
 	public StateBasedGame getSbg() {	return sbg;	}

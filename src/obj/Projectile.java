@@ -7,13 +7,13 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
 
 public class Projectile extends Displayable{
-	double speed;
-	int damage;
-	Turret motherTurret;
-	Enemy target;
-	double precisePosX; // if pos.x should be 16.02; then pos.x=16 and precisePosX=0.02
-	double precisePosY;
-	public Projectile(Enemy e, Turret mt, StateBasedGame sbg,  Wave w) throws SlickException{
+	private double speed;
+	private int damage;
+	private Turret motherTurret;
+	private Enemy target;
+	private double precisePosX; // if pos.x should be 16.02; then pos.x=16 and precisePosX=0.02
+	private double precisePosY;
+	Projectile(Enemy e, Turret mt, StateBasedGame sbg, Wave w) throws SlickException{
 		super(mt.projectileType, mt.getPos(), mt.sbg, w);
 		this.target=e;
 		this.typeId=mt.projectileType;
@@ -25,7 +25,7 @@ public class Projectile extends Displayable{
 		this.precisePosY=0;
 	}
 
-	public void assignType(int t) throws SlickException {
+	private void assignType(int t) throws SlickException {
 		//TODO
 		if(t==1){	//HighFireRate
 			this.speed=2;
@@ -42,10 +42,10 @@ public class Projectile extends Displayable{
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(0);
 		}
-		this.sprite=FileLoader.getSpriteImage(motherTurret.getProjectileSpriteName());
+		this.sprite=motherTurret.projectileSprite;
 	}	
 	
-	public boolean move(Vec p){
+	private boolean move(Vec p){
 		// return true if projectile has arrived at the position pos
 		
 		// The projectile will move forward of a distance "speed"
@@ -118,7 +118,7 @@ public class Projectile extends Displayable{
 		}
 	}
 	
-	public void hit(Enemy tgt){
+	private void hit(Enemy tgt){
 		tgt.setHp(tgt.getHp()-damage); // damage are made, if the enemy isn't alive after, it doesn't matter
 		if(!tgt.isAlive()){
 			config.addMoney(this.target.getReward());
@@ -129,12 +129,6 @@ public class Projectile extends Displayable{
 	// GETTERS AND SETTERS
 	public int getTypeId() {	return typeId;	}
 	public void setTypeId(int typeId) {	this.typeId = typeId;	}
-	public double getSpeed() {	return speed;	}
-	public void setSpeed(double speed) {	this.speed = speed;	}
-	public int getDamage() {	return damage;	}
-	public void setDamage(int damage) {	this.damage = damage;	}
 	public Turret getMotherTurret() {	return motherTurret;	}
-	public void setMotherTurret(Turret motherTurret) {	this.motherTurret = motherTurret;	}
-	public Enemy getTarget() {	return target;	}
-	public void setCible(Enemy tgt) {	this.target = tgt;	}
+
 }

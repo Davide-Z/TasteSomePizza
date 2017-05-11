@@ -53,7 +53,7 @@ public class StartState extends BasicGameState {
         config=GameConfig.getInstance(stateBasedGame);
         buttonsGroup=config.getButtonsGroup();
         backgroundImage=FileLoader.getImage("interface"+File.separator+"bgi");
-        piz=new SpriteSheet(FileLoader.getSpriteImage("Piz.png"), 256,256);
+        piz=new SpriteSheet(FileLoader.getSpriteImage("Piz"), 256,256);
         buttonsGroup.init(stateBasedGame, gameContainer);
         animPiz= new Animation(piz,75);
         textField=new TextField(gameContainer, null, 100,100,200,40);
