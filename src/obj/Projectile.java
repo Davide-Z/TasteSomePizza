@@ -13,7 +13,6 @@ public class Projectile extends Displayable{
 	Enemy target;
 	double precisePosX; // if pos.x should be 16.02; then pos.x=16 and precisePosX=0.02
 	double precisePosY;
-	
 	public Projectile(Enemy e, Turret mt, StateBasedGame sbg,  Wave w) throws SlickException{
 		super(mt.projectileType, mt.getPos(), mt.sbg, w);
 		this.target=e;
@@ -120,9 +119,11 @@ public class Projectile extends Displayable{
 	}
 	
 	public void hit(Enemy tgt){
-		config.addMoney(this.target.getReward());
 		tgt.setHp(tgt.getHp()-damage); // damage are made, if the enemy isn't alive after, it doesn't matter
-		this.disappear(); // true because hit the enemy
+		if(!tgt.isAlive()){
+			config.addMoney(this.target.getReward());
+		}
+			this.disappear(); // true because hit the enemy
 	}
 	
 	// GETTERS AND SETTERS

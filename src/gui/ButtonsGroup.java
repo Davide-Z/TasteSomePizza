@@ -39,7 +39,6 @@ public class ButtonsGroup {
 		mainButtons.add(new StateButton("boutonOrange",winWidth-275,winHeight-78, "Menu principal", "menu"));
 		waveButtons.add(new StateButton("boutonOrange",winWidth-275,winHeight-78, "Menu principal", "menu"));
 		mainButtons.add(new StateButton("boutonOrange", winWidth-275, winHeight-156, "Lancer la vague", "wave"));
-		mainButtons.add(new StateButton("boutonOrange", winWidth-275, winHeight-234, "Tourelles/Ennemis", "turret"));
 	}
 	public void render(Graphics g) throws SlickException {
 		for(StateButton b : buttons){

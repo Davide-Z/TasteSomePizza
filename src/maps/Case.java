@@ -25,7 +25,6 @@ public class Case{
 	private boolean over;
 	private Image image;
 	private Turret turret=null;
-	private Enemy enemy=null;
 
 	public Case(int x, int y) throws SlickException{
 		this.x=x;
@@ -44,28 +43,17 @@ public class Case{
 		if (turret != null){
 			turret.render();
 		}
-		else if(enemy != null){
-			enemy.render();
-		}
 	}
 
 	public void update(StateBasedGame sbg, GameConfig config) throws SlickException {
 		over=interieur.contains(config.getMx(),config.getMy());
 		if (over && sbg.getCurrentStateID()==1) { //Si la souris est sur la case, on est sr l'écran de jeu
 			if (config.isMouseClicked() && config.wasMouseReleased) {   //Si la souris est cliquée et était relachée avant
-				if (config.getTurretMenu().turretMode) {
-					if (turret == null && enemy == null && config.getTurret() != null) {
-						this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
-					} else {
-						config.aliveTurrets.remove(this.turret);
-						this.turret = null;
-					}
+				if (turret == null && config.getTurret() != null) {
+					this.turret = new Turret(config.getTurret().getTypeId(), new Vec(this.x, this.y), sbg, null);
 				} else {
-					if (enemy == null && turret == null && config.getEnemy() != null) {
-						this.enemy = new Enemy(config.getEnemy(), new Vec(this.x, this.y));
-					} else {
-						this.enemy = null;
-					}
+					config.aliveTurrets.remove(this.turret);
+					this.turret = null;
 				}
 				config.wasMouseReleased =false; //La souris est plus relachée (pour éviter d'appuyer plusieurs fois)
 			}

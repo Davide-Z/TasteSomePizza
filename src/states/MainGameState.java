@@ -1,12 +1,10 @@
 package states;
 
 
-import obj.Turret;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -31,7 +29,6 @@ public class MainGameState extends BasicGameState {
 
     public MainGameState() throws SlickException {
     }
-
     /**
      * Renvoie l'ID de cette vue
      * @return ID
@@ -55,7 +52,7 @@ public class MainGameState extends BasicGameState {
         winHeight=container.getHeight();
         winWidth=container.getWidth();
 
-        config.addUsableTurret(new Turret(game));
+        config.initializeUsableTurrets();
         config.setTurretMenu(gameContainer);
     }
 
