@@ -15,8 +15,6 @@ import gui.FileLoader;
 
 public abstract class Displayable {
 	protected StateBasedGame sbg;
-	GameContainer gc;
-	protected Graphics g;
 	protected GameConfig config;
 	Vec pos;
 	int typeId;
@@ -37,8 +35,6 @@ public abstract class Displayable {
 			this.pos=new Vec(0,0);
 		}
 		this.sbg=sbg;
-		this.gc=sbg.getContainer();
-		this.g=gc.getGraphics();
 		this.actualWave=w;
 		this.id=lastId;
 		lastId++;
@@ -52,8 +48,6 @@ public abstract class Displayable {
 	 */
 	Displayable(StateBasedGame sbg) throws SlickException{
 		this.sbg=sbg;
-		this.gc=sbg.getContainer();
-		this.g=gc.getGraphics();
 		this.pos=new Vec(0,0);
 		this.config= GameConfig.getInstance(sbg);
 		this.id=lastId;
@@ -62,8 +56,6 @@ public abstract class Displayable {
 	
 	Displayable(TurretType t, StateBasedGame sbg) throws SlickException{
 		this.sbg=sbg;
-		this.gc=sbg.getContainer();
-		this.g=gc.getGraphics();
 		this.pos=new Vec(0,0);
 		this.config= GameConfig.getInstance(sbg);
 		this.typeId=t.getTypeId();

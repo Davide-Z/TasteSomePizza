@@ -147,7 +147,7 @@ public class Turret extends Displayable{
 	}
 	
 	private boolean canFire(){
-		return (type==BLOCK && System.currentTimeMillis() - lastFire >= fireRate);
+		return (type!=BLOCK && System.currentTimeMillis() - lastFire >= fireRate);
 	}
 	
 	public void sell(){

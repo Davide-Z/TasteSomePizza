@@ -5,6 +5,7 @@ import obj.Enemy;
 import obj.Projectile;
 import obj.Turret;
 import obj.Wave;
+import obj.enums.EnemyType;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -116,7 +117,11 @@ public class WaveState extends BasicGameState {
     	if (hasBegun) {
     		Random randSeed = new Random(System.currentTimeMillis());
     		int randType = randSeed.nextInt(3);
-            wave = new Wave(randType, config.getLevel(), sbg);
+    		for(EnemyType t: EnemyType.values()){
+    		    if(t.typeId==randType){
+                    wave = new Wave(t, config.getLevel(), sbg);
+                }
+            }
             config.setLevel(config.getLevel()+1);
             hasBegun=false;
     	}

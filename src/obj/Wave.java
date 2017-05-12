@@ -4,6 +4,7 @@ import maps.Map;
 import maps.Vec;
 import obj.Turret;
 
+import obj.enums.EnemyType;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -21,7 +22,7 @@ public class Wave {
 	private Map actualMap;
 	long lastSpawn;
 
-	public Wave(int typeId, int level, StateBasedGame sbg) throws SlickException {
+	public Wave(EnemyType type, int level, StateBasedGame sbg) throws SlickException {
 		this.config = GameConfig.getInstance(sbg);
 		LinkedList<Enemy> enemies = new LinkedList<>();
 		LinkedList<Integer> d = new LinkedList<>();
@@ -38,24 +39,24 @@ public class Wave {
 			}
 		}
 
-		if (typeId == 1) {
+		if (type == EnemyType.FAST) {
 			for (int i = 0; i < 2*level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
-				enemies.add(new Enemy(typeId, level, currentPath, sbg, this));
+				enemies.add(new Enemy(type, level, currentPath, sbg, this));
 				d.add(500);
 			}
 		}
-		else if (typeId == 2){
+		else if (type == EnemyType.SLOW){
 			for (int i = 0; i < 3+level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
-				enemies.add(new Enemy(typeId, level, currentPath, sbg, this));
+				enemies.add(new Enemy(type, level, currentPath, sbg, this));
 				d.add(1000);
 			}
 		}
 		else {
 			for (int i = 0; i < 5+2*level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
-				enemies.add(new Enemy(typeId, level, currentPath, sbg, this));
+				enemies.add(new Enemy(type, level, currentPath, sbg, this));
 				d.add(200);
 			}
 		}
@@ -76,7 +77,7 @@ public class Wave {
 			}
 		}
 		for (int i = 0; i < n; i++) {
-			enemies.add(new Enemy(1, currentPath, sbg, currentMap, this));
+			enemies.add(new Enemy(EnemyType.FAST, currentPath, sbg, currentMap, this));
 			d.add(500);
 		}
 		this.unspawnedEnemies = enemies;
