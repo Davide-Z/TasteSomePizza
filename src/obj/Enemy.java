@@ -1,7 +1,9 @@
 package obj;
+
 import gui.FileLoader;
 import maps.Map;
 import maps.Vec;
+import obj.enums.Direction;
 import obj.enums.EnemyType;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -20,7 +22,9 @@ public class Enemy extends Displayable{
 	private String spriteName;
 	private Image sprite;
 	private int reward; // received for killing the enemy
-	
+	private Vec lastPos;
+	private Direction dir;
+
 	public Enemy(EnemyType t, LinkedList<Vec> path, StateBasedGame sbg, Map map, Wave wave) throws SlickException{
 		super(t.typeId, map.spawn, sbg, wave);
 		this.actualMap = map;
@@ -32,8 +36,7 @@ public class Enemy extends Displayable{
 	public Enemy(EnemyType t,Vec pos, StateBasedGame sbg) throws SlickException {
 		super(sbg);
 		this.pos=pos;
-		super.sprite= FileLoader.getSpriteImage("client");
-		this.sprite=super.sprite;
+		this.sprite= FileLoader.getSpriteImage("client");
 		this.assignValues(t);
 	}
 	
@@ -73,6 +76,7 @@ public class Enemy extends Displayable{
 		super.sprite= t.sprite();
 		super.name=t.type;
 		this.reward=t.reward;
+		this.sprite=t.sprite();
 	}
 	
 	public void attack(){
@@ -92,6 +96,7 @@ public class Enemy extends Displayable{
 	}
 
 	public void move(int i){
+		lastPos=this.pos;
 		if (this.posInPath+this.speed*i<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
 			this.posInPath+=this.speed*i;
 		}
@@ -99,6 +104,29 @@ public class Enemy extends Displayable{
 			this.posInPath=this.path.size()-1;
 		}
 		this.pos=this.path.get((int)this.posInPath);
+
+		//Orientation:
+		if(this.pos.getX()-this.lastPos.getX()>0){
+			System.out.println("going right");
+			this.dir=Direction.RIGHT;
+		}
+		if(this.pos.getX()-this.lastPos.getX()<0){
+			System.out.println("going left");
+
+			this.dir=Direction.LEFT;
+		}
+		if(this.pos.getY()-this.lastPos.getY()>0){
+			System.out.println("going down");
+
+			this.dir=Direction.DOWN;
+		}
+		if(this.pos.getY()-this.lastPos.getY()<0){
+			System.out.println("going up");
+
+			this.dir=Direction.UP;
+		}
+		super.sprite.setRotation((float)dir.angle);
+		System.out.println(this.dir.angle);
 	}
 	
 	@Override
