@@ -48,7 +48,12 @@ public class TurretButton {
             graphics.setColor(Color.black);
             graphics.draw(hitbox);
             this.turret.render();
-            graphics.drawString("Turret Type : " + this.turret.getTypeId(), x + 5, y + 80);
+            graphics.drawString("Price : " + this.turret.getBuyPrice(), x + 5, y + 50);
+            graphics.drawString("Damage : " + this.turret.getDamage(), x + 5, y + 70);
+            graphics.drawString("Range : " + this.turret.getRange(), x + 5, y + 90);
+            graphics.drawString("Fire Rate : " + this.turret.getFireRate(), x + 5, y + 110);
+            graphics.drawString("Turret Type : " + this.turret.getTypeId(), x + 5, y + 130);
+            
         }
     }
 

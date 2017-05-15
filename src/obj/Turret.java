@@ -195,7 +195,7 @@ public class Turret extends Displayable{
 	public int getSellPrice() {	return sellPrice;	}
 	public int getUpgradePrice() {	return upgradePrice;	}
 	public int getLevel() {	return level;	}
-	int getDamage() {	return damage;	}
+	public int getDamage() {	return damage;	}
 	public void setBuyPrice(int buyPrice) {	this.buyPrice = buyPrice;	}
 	public void setSellPrice(int sellPrice) {	this.sellPrice = sellPrice;	}
 	public void setUpgradePrice(int upgradePrice) {	this.upgradePrice = upgradePrice;	}
@@ -203,6 +203,13 @@ public class Turret extends Displayable{
 	public void setProjectileType(int projectileType) {	this.projectileType = projectileType;	}
 	public void setDamage(int damage) {	this.damage = damage;	}
 	public void setProjectileSpriteName(Image projectileSpriteName) {	projectileSpriteName = projectileSpriteName;	}
+	public float getFireRate() {
+		return fireRate;
+	}
+
+	public int getRange() {
+		return range;
+	}
 
 	public TurretType getType() {
 		return type;
