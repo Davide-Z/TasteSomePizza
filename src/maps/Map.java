@@ -114,6 +114,7 @@ public class Map {
         untestedList.add(origin);
         LinkedList<int[]> nextUntestedList = (LinkedList<int[]>) untestedList.clone();
         boolean found = false;
+        Random randSeed = new Random(System.currentTimeMillis());
         while (! found && ! nextUntestedList.isEmpty()) {
             n++;
             untestedList = (LinkedList<int[]>) nextUntestedList.clone();
@@ -129,14 +130,9 @@ public class Map {
                 /*
                  * random direction for same length path
                  */
-                
-                Random randSeed = new Random(System.currentTimeMillis());
+
                 int beginAt = randSeed.nextInt(2);
-                
-                	if (0 <= cor[0]-1 && cor[0]-1 < currentMap.length && currentMap[cor[0]-1][cor[1]] == 0) {
-                		nextUntestedList.add(new int[] {cor[0]-1,cor[1], n});
-                	}
-                	for (int i=0; i<2; i++) {
+                for (int i=0; i<2; i++) {
                 	if (beginAt == 0 && 0 <= cor[1]+1 && cor[1]+1 < currentMap[0].length && currentMap[cor[0]][cor[1]+1] == 0) {
                 		nextUntestedList.add(new int[] {cor[0],cor[1]+1, n});
                 	}
@@ -145,9 +141,12 @@ public class Map {
                 	}
                 	beginAt=(beginAt+1)%2;
                 }
-                	if (0 <= cor[0]+1 && cor[0]+1 < currentMap.length && currentMap[cor[0]+1][cor[1]] == 0) {
-                		nextUntestedList.add(new int[] {cor[0]+1,cor[1], n});
-                	}
+                if (0 <= cor[0]-1 && cor[0]-1 < currentMap.length && currentMap[cor[0]-1][cor[1]] == 0) {
+                	nextUntestedList.add(new int[] {cor[0]-1,cor[1], n});
+                }
+                if (0 <= cor[0]+1 && cor[0]+1 < currentMap.length && currentMap[cor[0]+1][cor[1]] == 0) {
+                	nextUntestedList.add(new int[] {cor[0]+1,cor[1], n});
+                }
             }
         }
         if (mainList.getLast()[0]!=end[0] || mainList.getLast()[1]!=end[1]) {
