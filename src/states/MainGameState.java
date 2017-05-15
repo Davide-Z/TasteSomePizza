@@ -1,7 +1,6 @@
 package states;
 
 
-import obj.Enemy;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -52,9 +51,7 @@ public class MainGameState extends BasicGameState {
         config=GameConfig.getInstance(game);
         winHeight=container.getHeight();
         winWidth=container.getWidth();
-
-        config.initializeUsableTurrets();
-        config.setTurretMenu(gameContainer);
+        config.setTurretMenu();
     }
 
     /**
@@ -73,18 +70,18 @@ public class MainGameState extends BasicGameState {
         g.setColor(Color.black);
         g.setLineWidth(4);
         g.drawLine(2+winWidth*0.703125f,0,2+winWidth*0.703125f, winHeight);
-        g.drawString("Tourelles/menu",winWidth*0.703125f+6, 0);
+        g.drawString("Tourelles/menu",winWidth*0.713125f+6, 0);
         if (config.getTurret()!=null) {
-            g.drawString("tourelle: " + config.getTurret().toString(), winWidth * 0.703125f, winHeight - 300);
+            g.drawString(config.getTurret().toString(), winWidth * 0.713125f, winHeight - 300);
         }
         else {
-            g.drawString("tourelle: Aucune", winWidth * 0.703125f, winHeight - 300);
+            g.drawString("Tourelle: Aucune", winWidth * 0.713125f, winHeight - 300);
         }
         if (config.getEnemy()!=null) {
-            g.drawString("ennemi: " + config.getEnemy().toString(), winWidth * 0.703125f, winHeight - 400);
+            g.drawString("ennemi: " + config.getEnemy().toString(), winWidth * 0.713125f, winHeight - 400);
         }
         else {
-            g.drawString("ennemi: Aucun", winWidth * 0.703125f, winHeight - 400);
+            g.drawString("ennemi: Aucun", winWidth * 0.713125f, winHeight - 400);
         }
         g.setColor(Color.black);
 

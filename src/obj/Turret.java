@@ -1,14 +1,15 @@
 package obj;
 //Author : Flo
 
-import gui.FileLoader;
 import maps.Vec;
 import obj.enums.TurretType;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
 import java.util.LinkedList;
-import static obj.enums.TurretType.*;
+
+import static obj.enums.TurretType.BLOCK;
 
 public class Turret extends Displayable{
 	private float fireRate;
@@ -65,6 +66,7 @@ public class Turret extends Displayable{
 }
 	private void assignType(TurretType t) throws SlickException{
 		this.type=t;
+		this.name=t.toString();
 		this.typeId=t.getTypeId();
 		this.damage=t.getDamage();
 		this.fireRate=t.getFirerate();
@@ -178,11 +180,6 @@ public class Turret extends Displayable{
 	
 	public float aimingAt(Vec pos) { //direction of the turret 
 		return (float) (Math.PI/2 - pos.getAngle() - this.pos.getAngle());
-	}
-	
-	@Override
-	public String toString(){
-		return "Tourelle "+id+" "+this.pos.toString()+" ";
 	}
 	
 	// getters and setters :

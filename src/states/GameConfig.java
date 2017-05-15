@@ -6,12 +6,10 @@ import maps.Map;
 import obj.Enemy;
 import obj.Turret;
 import obj.Wave;
-import obj.enums.TurretType;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -29,7 +27,6 @@ public class GameConfig {
     private Turret selectedTurret;
     private Enemy selectedEnemy;
     private Map map;
-    private ArrayList<Turret> usableTurrets;
     private TurretMenu turretMenu;
     public LinkedList<Turret> aliveTurrets;
     //Position de la souris
@@ -54,7 +51,6 @@ public class GameConfig {
         gc=sbg.getContainer();
         map=new Map(stateBasedGame, 15);
         buttonsGroup=new ButtonsGroup();
-        usableTurrets=new ArrayList<>();
         aliveTurrets=new LinkedList<>();
         //TODO:instancier les musiques quand elles seront ajoutées
     }
@@ -88,7 +84,6 @@ public class GameConfig {
     public Turret getTurret(){return selectedTurret;}
     public Enemy getEnemy(){return selectedEnemy;}
     public Map getMap(){return map;}
-    public ArrayList<Turret> getUsableTurrets(){return usableTurrets;}
     public TurretMenu getTurretMenu() {return turretMenu;}
     //       LES SETTERS       //
     public void setMoney(int money) {this.money = money;}
@@ -96,17 +91,7 @@ public class GameConfig {
     public void setSelectedTurret(Turret turret){this.selectedTurret=turret;}
     public void setSelectedEnemy(Enemy enemy){this.selectedEnemy=enemy;}
     public void setMap(Map map){this.map=map;}
-    public void setTurretMenu(GameContainer gameContainer) throws SlickException{
-        this.turretMenu=new TurretMenu(stateBasedGame, gameContainer);
-    }
-    /**
-     * Ajoute une tourelle à la liste des tourelles utilisables
-     */
-    public void initializeUsableTurrets() throws SlickException {
-        for(TurretType t: TurretType.values()){
-            this.usableTurrets.add(new Turret(t, this.stateBasedGame));
-        }
-    }
+    public void setTurretMenu() throws SlickException{this.turretMenu=new TurretMenu(stateBasedGame);}
     public int getMx() {
         mx=Mouse.getX();
         return mx;

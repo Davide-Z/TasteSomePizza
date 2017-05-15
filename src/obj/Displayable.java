@@ -4,13 +4,10 @@ package obj;
 import maps.Map;
 import maps.Vec;
 import obj.enums.TurretType;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
-import gui.FileLoader;
 
 
 public abstract class Displayable {
@@ -89,16 +86,16 @@ public abstract class Displayable {
 	@Override
 	public String toString(){
 		if(this instanceof Turret){
-			return "Turret "+id+" "+this.pos.toString()+" ";
+			return "Tourelle : "+this.name+"\n@"+this.pos.toString()+" ";
 		}
 		else if(this instanceof Enemy){
-			return "Enemy "+id+" "+this.pos.toString()+" ";
+			return "Ennemi : "+name+"\n@"+this.pos.toString()+" ";
 		}
 		else if(this instanceof Projectile){
-			return "Projectile "+id+" "+this.pos.toString()+" ";
+			return "Projectile : "+name+"\n@"+this.pos.toString()+" ";
 		}
 		else{
-			return "Displayable"+id;
+			return "Displayable"+name;
 		}
 	}
 	
