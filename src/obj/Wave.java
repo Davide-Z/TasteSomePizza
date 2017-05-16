@@ -1,6 +1,5 @@
 package obj;
 
-import maps.Map;
 import maps.Vec;
 import obj.enums.EnemyType;
 import org.newdawn.slick.SlickException;
@@ -12,11 +11,10 @@ import java.util.LinkedList;
 public class Wave {
 	public LinkedList<Enemy> aliveEnemies;
 	public LinkedList<Projectile> aliveProjectiles = new LinkedList<Projectile>();
-	public LinkedList<Integer> delays;
+	private LinkedList<Integer> delays;
 	public LinkedList<Enemy> unspawnedEnemies;
 	private GameConfig config;
-	private Map actualMap;
-	long lastSpawn;
+	private long lastSpawn;
 
 	public Wave(EnemyType type, int level, StateBasedGame sbg) throws SlickException {
 		this.config = GameConfig.getInstance(sbg);
@@ -60,40 +58,6 @@ public class Wave {
 
 	}
 
-	public Wave(int n, Map currentMap, StateBasedGame sbg) throws SlickException {
-		this.config = GameConfig.getInstance(sbg);
-		LinkedList<Enemy> enemies = new LinkedList<>();
-		LinkedList<Integer> d = new LinkedList<>();
-		LinkedList<Vec> currentPath = currentMap.computePath();
-		this.aliveEnemies = new LinkedList<Enemy>();
-
-		// updates the actualWave for each Turret
-		if (!config.aliveTurrets.isEmpty()) {
-			for (Turret t : config.aliveTurrets) {
-				t.setActualWave(this);
-			}
-		}
-		for (int i = 0; i < n; i++) {
-			enemies.add(new Enemy(EnemyType.FAST, currentPath, sbg, currentMap, this));
-			d.add(500);
-		}
-		this.unspawnedEnemies = enemies;
-		this.delays = d;
-		this.lastSpawn = System.currentTimeMillis();
-		this.actualMap = currentMap;
-	}
-
-	public Wave(LinkedList<Enemy> unspawnedEnemies, LinkedList<Integer> delays, Map actualMap, StateBasedGame sbg)
-			throws SlickException { // generate a wave with the list of enemies
-									// and their delays
-		this.config = GameConfig.getInstance(sbg);
-		this.unspawnedEnemies = unspawnedEnemies;
-		this.delays = delays;
-		this.aliveEnemies = new LinkedList<Enemy>();
-		this.lastSpawn = System.currentTimeMillis();
-		this.actualMap = actualMap;
-	}
-
 	public void aliveEnemiesUpdate(int i) { // remove, move, attack
 		if (aliveEnemies.size() != 0) {
 			Object aliveEnemiesCopie = aliveEnemies.clone(); // Solution to
@@ -113,18 +77,6 @@ public class Wave {
 
 	public LinkedList<Enemy> getAliveEnemies() {
 		return aliveEnemies;
-	}
-
-	public LinkedList<Projectile> getAliveProjectiles() {
-		return aliveProjectiles;
-	}
-
-	public LinkedList<Integer> getDelays() {
-		return delays;
-	}
-
-	public void setAliveProjectiles(LinkedList<Projectile> aliveProjectiles) {
-		this.aliveProjectiles = aliveProjectiles;
 	}
 
 	public void spawn() { // to spawn the next enemy respecting the delay

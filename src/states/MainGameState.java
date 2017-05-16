@@ -14,8 +14,6 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class MainGameState extends BasicGameState {
     //Attributs du moteur
-    private GameContainer container;
-    private StateBasedGame game;
     private GameConfig config;
 
     //Attributs d'interface
@@ -46,11 +44,7 @@ public class MainGameState extends BasicGameState {
      */
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        game=stateBasedGame;
-        container=gameContainer;
-        config=GameConfig.getInstance(game);
-        winHeight=container.getHeight();
-        winWidth=container.getWidth();
+        config=GameConfig.getInstance(stateBasedGame);
         config.setTurretMenu();
     }
 
@@ -77,12 +71,6 @@ public class MainGameState extends BasicGameState {
         else {
             g.drawString("Tourelle: Aucune", winWidth * 0.713125f, winHeight - 300);
         }
-        if (config.getEnemy()!=null) {
-            g.drawString("ennemi: " + config.getEnemy().toString(), winWidth * 0.713125f, winHeight - 400);
-        }
-        else {
-            g.drawString("ennemi: Aucun", winWidth * 0.713125f, winHeight - 400);
-        }
         g.setColor(Color.black);
 
         g.drawString("Carte",3, 3);
@@ -90,14 +78,6 @@ public class MainGameState extends BasicGameState {
         config.getMap().render(g);
         config.getTurretMenu().render(g);
         config.getButtonsGroup().render(g);
-        //Dav test
-        /*g.drawString("Number of enemies alive : "+config.getNextWave().aliveEnemies.size(), 3, 20);
-        g.drawString("HP : "+config.getMap().baseHP, 3, 40);
-        g.drawString("Number of unspawned enemies : "+config.getNextWave().unspawnedEnemies.size(), 3, 60);
-        for (Enemy e : config.getNextWave().aliveEnemies) {
-        	//g.drawString("o", e.getPos().getX(), e.getPos().getY());
-        	e.render();
-        }*/
         g.drawString("Money:"+config.getMoney(), winWidth*0.9f, winHeight*0.5f);
     }
 

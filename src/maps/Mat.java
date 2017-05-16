@@ -24,16 +24,6 @@ public class Mat {
         return cases;
     }
 
-    public int getSum(){
-        int S=0;
-        for(int i=0;i<taille;i++){
-            for(int j=0;j<taille;j++){
-                S+= cases[i][j];
-            }
-        }
-        return S;
-    }
-
     public void setCase(int i, int j){
         cases[i][j]=1;
     }

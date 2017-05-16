@@ -4,8 +4,6 @@ import maps.Vec;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.LinkedList;
-
 public class Projectile extends Displayable {
 	private double speed;
 	private int damage;
@@ -82,30 +80,6 @@ public class Projectile extends Displayable {
 			this.pos.setY(y + (int) (moveY));
 			return false;
 		}
-	}
-
-	public void searchAnotherEnemy(int i) {
-		boolean foundNewEnemy = false;
-		Object aliveEnemiesCopie = actualWave.aliveEnemies.clone(); // Solution
-		// to
-		// concurrency
-		// problem
-		for (Enemy e : (LinkedList<Enemy>) aliveEnemiesCopie) {
-			if (e.isAlive()) {
-				target = e;
-				foundNewEnemy = true;
-				// System.out.println(this.toString()+" "+"found the
-				// "+e.toString()+" and it has "+e.getHp()+" hp");
-				if (move(target.getPos(), i)) { // return true if the projectile
-					// hits the enemy
-					hit(target);
-				}
-				break;
-			}
-		}
-
-		if (foundNewEnemy == false)
-			this.disappear();
 	}
 
 	public void update(int i) {

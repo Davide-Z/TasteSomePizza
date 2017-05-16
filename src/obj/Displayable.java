@@ -74,18 +74,6 @@ public abstract class Displayable {
 		}
 	}
 
-	public Wave getActualWave() {
-		return actualWave;
-	}
-
-	public float getAimedDirection() {
-		return aimedDirection;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
 	// Getters and Setters __________________________________________________
 	public Vec getPos() {
 		return pos;
@@ -103,16 +91,8 @@ public abstract class Displayable {
 		this.sprite.draw(pos.getX(), pos.getY());
 	}
 
-	public void setActualWave(Wave actualWave) {
+	void setActualWave(Wave actualWave) {
 		this.actualWave = actualWave;
-	}
-
-	public void setAimedDirection(float aimedDirection) {
-		this.aimedDirection = aimedDirection;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public void setPos(Vec pos) {
