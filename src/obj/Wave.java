@@ -2,16 +2,12 @@ package obj;
 
 import maps.Map;
 import maps.Vec;
-import obj.Turret;
-
 import obj.enums.EnemyType;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Wave {
 	public LinkedList<Enemy> aliveEnemies;
@@ -46,14 +42,14 @@ public class Wave {
 				d.add(500);
 			}
 		}
-		/*
+
 		else if (type == EnemyType.SLOW){
 			for (int i = 0; i < 3+level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(type, level, currentPath, sbg, this));
 				d.add(1000);
 			}
-		}*/
+		}
 		else {
 			for (int i = 0; i < 5+2*level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
