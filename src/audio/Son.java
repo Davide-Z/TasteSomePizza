@@ -66,7 +66,6 @@ public class Son implements Runnable {
                 return;
             }
         }
-
     }
 
     public static void main(String[] args) {
@@ -74,5 +73,4 @@ public class Son implements Runnable {
         Son son = new Son(stream);
         son.run();
     }
-
 }

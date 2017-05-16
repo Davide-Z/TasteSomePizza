@@ -97,7 +97,6 @@ public class Enemy extends Displayable{
 	}
 
 	public void move(int i){
-		this.sprite.setRotation((float)3.14);
 		if (this.posInPath+this.speed*i<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
 			this.posInPath+=this.speed*i;
 		}

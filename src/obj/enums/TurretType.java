@@ -15,7 +15,12 @@ public enum TurretType {
 	DEFAULT("Default", 			0,      80,	    800f,	15,	    120,	150,			120,		"DefaultTurret",         "DefaultProjectile"),
 	FIRERATE("HighFireRate", 	1,      50, 	1500f,	50,	    150,	220,			150,   "HighFireRateTurret",         "DefaultProjectile"),
 	DAMAGE("HighDamage", 		2,      150, 	500f, 	10,	    250,	200,			250,	 "HighDamageTurret",         "DefaultProjectile"),
-	BLOCK("Block", 		        3,      0, 	    0f, 	0,	    10,	    0,			    10,	                "table",         "DefaultProjectile");
+	BLOCK("Block", 		        3,      0, 	    0f, 	0,	    10,	    0,			    10,	                "table",         "DefaultProjectile"),
+	GAEL("Gael", 10,10,500f, 10, 10, 10, 10, "gaelC", "DefaultProjectile"),
+	ILYES("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile");
+	//DAVIDE("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile"),
+	//FLO("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile"),
+	//UG("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile");
 													// range a modifier apr�s les tests
 
 	private final String projectilePath;
