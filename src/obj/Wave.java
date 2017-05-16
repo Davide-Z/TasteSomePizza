@@ -26,7 +26,7 @@ public class Wave {
 		this.config = GameConfig.getInstance(sbg);
 		LinkedList<Enemy> enemies = new LinkedList<>();
 		LinkedList<Integer> d = new LinkedList<>();
-		//LinkedList<Vec> currentPath = this.config.getMap().computePath();
+		// LinkedList<Vec> currentPath = this.config.getMap().computePath();
 		this.aliveEnemies = new LinkedList<Enemy>();
 		this.unspawnedEnemies = enemies;
 		this.delays = d;
@@ -40,21 +40,19 @@ public class Wave {
 		}
 
 		if (type == EnemyType.FAST) {
-			for (int i = 0; i < 2*level; i++) {
+			for (int i = 0; i < 2 * level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(type, level, currentPath, sbg, this));
 				d.add(500);
 			}
-		}
-		else if (type == EnemyType.SLOW){
-			for (int i = 0; i < 3+level; i++) {
+		} else if (type == EnemyType.SLOW) {
+			for (int i = 0; i < 3 + level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(type, level, currentPath, sbg, this));
 				d.add(1000);
 			}
-		}
-		else {
-			for (int i = 0; i < 5+2*level; i++) {
+		} else {
+			for (int i = 0; i < 5 + 2 * level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(type, level, currentPath, sbg, this));
 				d.add(200);
@@ -88,7 +86,7 @@ public class Wave {
 
 	public Wave(LinkedList<Enemy> unspawnedEnemies, LinkedList<Integer> delays, Map actualMap, StateBasedGame sbg)
 			throws SlickException { // generate a wave with the list of enemies
-									// and their delays
+		// and their delays
 		this.config = GameConfig.getInstance(sbg);
 		this.unspawnedEnemies = unspawnedEnemies;
 		this.delays = delays;
@@ -100,8 +98,8 @@ public class Wave {
 	public void aliveEnemiesUpdate(int i) { // remove, move, attack
 		if (aliveEnemies.size() != 0) {
 			Object aliveEnemiesCopie = aliveEnemies.clone(); // Solution to
-																// concurrency
-																// problem
+			// concurrency
+			// problem
 			for (Enemy e : (LinkedList<Enemy>) aliveEnemiesCopie) {
 				if (!e.isAlive()) { // remove dead enemies
 					e.disappear();
@@ -133,15 +131,15 @@ public class Wave {
 	public void spawn() { // to spawn the next enemy respecting the delay
 		if (delays.size() != 0) {
 			if (System.currentTimeMillis() - lastSpawn > delays.getFirst().longValue()) { // check
-																							// delay
+				// delay
 				aliveEnemies.add(unspawnedEnemies.removeFirst()); // transfer
-																	// the next
-																	// unspawned
-																	// enemy to
-																	// those
-																	// alive/displayable
+				// the next
+				// unspawned
+				// enemy to
+				// those
+				// alive/displayable
 				delays.removeFirst(); // remove the delay associated to the
-										// enemy
+				// enemy
 				lastSpawn = System.currentTimeMillis();
 			}
 		}
