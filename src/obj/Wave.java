@@ -21,6 +21,7 @@ public class Wave {
 	private GameConfig config;
 	private Map actualMap;
 	long lastSpawn;
+	public double vit=3f;
 
 	public Wave(EnemyType type, int level, StateBasedGame sbg) throws SlickException {
 		this.config = GameConfig.getInstance(sbg);

@@ -102,15 +102,13 @@ public class Turret extends Displayable{
 		}
 		this.sprite.setCenterOfRotation(24,24);
 		this.sprite.setRotation(aimedDirection);
-		this.sprite.setCenterOfRotation(24,24);
-		this.sprite.setRotation(aimedDirection);
 	}
 	
 	private float aimingAtDegre(Vec p){
 		float x1=pos.getX()+24;	// +24 because the pos of the turret is pos but the 
 		float y1=pos.getY()+24; // center of the turret is pos.x+24;pos.y+24
-		float x2=p.getX();
-		float y2=p.getY();
+		float x2=p.getX()+24;
+		float y2=p.getY()+24;
 		
 		if(x1-x2>0){
 			if(y1-y2>0){
@@ -149,7 +147,7 @@ public class Turret extends Displayable{
 	}
 	
 	private boolean canFire(){
-		return (type!=BLOCK && System.currentTimeMillis() - lastFire >= fireRate);
+		return (type!=BLOCK && System.currentTimeMillis() - lastFire >= fireRate*actualWave.vit);
 	}
 	
 	public void sell(){
@@ -200,15 +198,9 @@ public class Turret extends Displayable{
 	public void setProjectileType(int projectileType) {	this.projectileType = projectileType;	}
 	public void setDamage(int damage) {	this.damage = damage;	}
 	public void setProjectileSpriteName(Image projectileSpriteName) {	projectileSpriteName = projectileSpriteName;	}
-	public float getFireRate() {
-		return fireRate;
-	}
-
-	public int getRange() {
-		return range;
-	}
-
-	public TurretType getType() {
-		return type;
-	}
+	public float getFireRate() {	return fireRate;	}
+	public int getRange() {	return range;	}
+	public TurretType getType() {	return type;	}
+	public long getLastFire() {	return lastFire;	}
+	public void setLastFire(long lastFire) {	this.lastFire = lastFire;	}
 }

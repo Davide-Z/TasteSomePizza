@@ -97,8 +97,8 @@ public class Enemy extends Displayable{
 
 	public void move(int i){
 		lastPos=this.pos;
-		if (this.posInPath+this.speed*i<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
-			this.posInPath+=this.speed*i;
+		if (this.posInPath+this.speed*i/actualWave.vit<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
+			this.posInPath+=this.speed*i/actualWave.vit;
 		}
 		else {	//si on arrive a la fin
 			this.posInPath=this.path.size()-1;

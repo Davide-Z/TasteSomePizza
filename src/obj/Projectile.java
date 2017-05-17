@@ -32,12 +32,12 @@ public class Projectile extends Displayable{
 			this.setTypeId(1);
 		}
 		else if(t==2){	//HighDamage
-			this.speed=0.15;
+			this.speed=0.45;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(2);
 		}
 		else{	// Default
-			this.speed=0.3;
+			this.speed=0.45;
 			this.damage=motherTurret.getDamage();
 			this.setTypeId(0);
 		}
@@ -63,8 +63,8 @@ public class Projectile extends Displayable{
 			int x=this.pos.getX(); // initial position of the projectile
 			int y=this.pos.getY();
 			
-			double moveX=speed*i/distance*(p.getX()-x)+precisePosX;
-			double moveY=speed*i/distance*(p.getY()-y)+precisePosY;
+			double moveX=speed*i/distance*(p.getX()-x)/actualWave.vit+precisePosX;
+			double moveY=speed*i/distance*(p.getY()-y)/actualWave.vit+precisePosY;
 
 			if(Math.abs(moveX) < 1){	// If it should move less than one pixel, keeps in mind the position
 				this.precisePosX=moveX;
@@ -107,6 +107,7 @@ public class Projectile extends Displayable{
 		System.out.println(target.isAlive()+"");
 		if(target==null || target.isAlive()==false){
 			this.disappear();
+			this.motherTurret.setLastFire(0); // reset the timer
 			//searchAnotherEnemy();	// will search for an other enemy alive, and if there isn't any
 									// it calls disappear(), move() and hit(newTarget)
 		}
