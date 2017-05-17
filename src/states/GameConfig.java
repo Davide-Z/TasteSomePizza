@@ -3,9 +3,7 @@ package states;
 import gui.ButtonsGroup;
 import gui.TurretMenu;
 import maps.Map;
-import obj.Enemy;
 import obj.Turret;
-import obj.Wave;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
@@ -25,7 +23,6 @@ public class GameConfig {
     private int money; //TODO: combien d'argent au début?
     private String playerName;
     private Turret selectedTurret;
-    private Enemy selectedEnemy;
     private Map map;
     private TurretMenu turretMenu;
     public LinkedList<Turret> aliveTurrets;
@@ -35,8 +32,7 @@ public class GameConfig {
     private boolean mouseClicked=false;
     public boolean wasMouseReleased =true;
     private ButtonsGroup buttonsGroup;
-    public Wave wave;
-    public Wave nextWave;
+
     public int level=1;
 
     //Musiques
@@ -66,31 +62,14 @@ public class GameConfig {
         }
         return GameConfig.instance;
     }
-    
-    public boolean withdraw(int asked){
-    	// Return false if not enough money. Else returns true and withdraws
-    	if(money>asked){
-    		this.money-=asked;
-    		return true;
-    	}
-    	else{
-    		return false;
-    	}
-    }
 
     //       LES GETTERS       //
     public int getMoney() {return money;}
-    public String getPlayerName(){return playerName;}
     public Turret getTurret(){return selectedTurret;}
-    public Enemy getEnemy(){return selectedEnemy;}
     public Map getMap(){return map;}
     public TurretMenu getTurretMenu() {return turretMenu;}
     //       LES SETTERS       //
-    public void setMoney(int money) {this.money = money;}
-    public void setPlayerName(String name){this.playerName=name;}
     public void setSelectedTurret(Turret turret){this.selectedTurret=turret;}
-    public void setSelectedEnemy(Enemy enemy){this.selectedEnemy=enemy;}
-    public void setMap(Map map){this.map=map;}
     public void setTurretMenu() throws SlickException{this.turretMenu=new TurretMenu(stateBasedGame);}
     public int getMx() {
         mx=Mouse.getX();
@@ -109,9 +88,7 @@ public class GameConfig {
         }
         return mouseClicked;
     }
-
     public ButtonsGroup getButtonsGroup(){return this.buttonsGroup;}
-
     public void addMoney(int m){
     	this.money+=m;
     }
@@ -120,14 +97,6 @@ public class GameConfig {
         buttonsGroup.update(stateBasedGame);
         map.update(stateBasedGame, this);
     }
-
-    public Wave getWave() {
-        return this.wave;
-    }
-    public Wave getNextWave() {
-        return this.wave;
-    }
-
 	public int getLevel() {
 		return level;
 	}

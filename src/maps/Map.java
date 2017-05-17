@@ -80,18 +80,6 @@ public class Map {
     	return matrix;
     }
     
-    static void print(int[][] m) {
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		for (int i=0; i < m.length; i++) {
-			for (int j=0; j < m[0].length; j++) {
-				System.out.print(m[j][i]);
-			}
-			System.out.print("/"+i);
-			System.out.println("");
-		}
-		System.out.println("---------------");
-	}
-    
     static void cross(int[][] m, int[] coordinates) {
 		m[coordinates[0]][coordinates[1]]=2;
 	}
