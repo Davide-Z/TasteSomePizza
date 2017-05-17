@@ -1,5 +1,4 @@
 package obj;
-//Author : Flo
 
 import maps.Vec;
 import obj.enums.TurretType;
@@ -69,15 +68,11 @@ public class Turret extends Displayable {
 		// Si il y a un ennemi a portee et si on n'as pas tirer depuis lastFire
 		// millisecondes
 		if (canFire() && (e = searchEnemy()) != null) {
-			wave.aliveProjectiles.add(new Projectile(e, this, sbg, actualWave)); // On
-			// cree
-			// un
-			// nouveau
-			// projectile
+			wave.aliveProjectiles.add(new Projectile(e, this, sbg, actualWave)); 
 			lastFire = System.currentTimeMillis(); // On met a jour l'heure du
 			// dernier tir
 			lastEnemy = e;
-			// this.aimedDirection=aimingAtDegre(e.getPos());
+			this.aimedDirection=aimingAtDegre(e.getPos());
 		}
 		// In order to let the tower aim at the direction of the lastEnemy
 		else if (lastEnemy != null) {
@@ -85,6 +80,9 @@ public class Turret extends Displayable {
 				this.aimedDirection = aimingAtDegre(lastEnemy.getPos());
 			} else {
 				this.lastEnemy = null;
+				if(searchEnemy()!=null){
+					this.aimedDirection = aimingAtDegre(searchEnemy().getPos());
+				}
 			}
 		}
 		this.sprite.setCenterOfRotation(24, 24);
@@ -128,7 +126,7 @@ public class Turret extends Displayable {
 	}
 
 	private boolean canFire() {
-		return (type != BLOCK && System.currentTimeMillis() - lastFire >= fireRate);
+		return (type != BLOCK && System.currentTimeMillis() - lastFire >= fireRate * actualWave.getVit());
 	}
 
 	private Enemy searchEnemy() {
@@ -162,4 +160,6 @@ public class Turret extends Displayable {
 	public int getDamage() {	return damage;	}
 	public float getFireRate() {	return fireRate;	}
 	public int getRange() {	return range;	}
+	public long getLastFire() {	return lastFire;	}
+	public void setLastFire(long lastFire) {	this.lastFire = lastFire;	}
 }

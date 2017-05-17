@@ -32,7 +32,7 @@ public class Projectile extends Displayable {
 			this.damage = motherTurret.getDamage();
 			this.setTypeId(1);
 		} else if (t == 2) { // HighDamage
-			this.speed = 0.15;
+			this.speed = 0.3;
 			this.damage = motherTurret.getDamage();
 			this.setTypeId(2);
 		} else { // Default
@@ -53,7 +53,7 @@ public class Projectile extends Displayable {
 
 		// If the target is closer than speed, then projectile is immediately
 		// put on the location of the target and return true
-		if (distance < speed / actualWave.vit  || distance <= 2) {
+		if (distance < speed / actualWave.getVit()  || distance <= 2) {
 			this.pos.setX(p.getX());
 			this.pos.setY(p.getY());
 			return true;
@@ -61,8 +61,8 @@ public class Projectile extends Displayable {
 			int x = this.pos.getX(); // initial position of the projectile
 			int y = this.pos.getY();
 
-			double moveX = speed * i / distance * (p.getX() - x) / actualWave.vit + precisePosX;
-			double moveY = speed * i / distance * (p.getY() - y) / actualWave.vit + precisePosY;
+			double moveX = speed * i / distance * (p.getX() - x) / actualWave.getVit() + precisePosX;
+			double moveY = speed * i / distance * (p.getY() - y) / actualWave.getVit() + precisePosY;
 
 			if (Math.abs(moveX) < 1) { // If it should move less than one pixel,
 				// keeps in mind the position
@@ -84,6 +84,7 @@ public class Projectile extends Displayable {
 
 	public void update(int i) {
 		if (target == null || target.isAlive() == false) {
+			motherTurret.setLastFire(0);	// reset the timer
 			this.disappear();
 			// searchAnotherEnemy(); // will search for an other enemy alive,
 			// and if there isn't any
@@ -108,16 +109,7 @@ public class Projectile extends Displayable {
 	}
 
 	// GETTERS AND SETTERS
-	public int getTypeId() {
-		return typeId;
-	}
-
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
-	}
-
-	public Turret getMotherTurret() {
-		return motherTurret;
-	}
-
+	public int getTypeId() {	return typeId;	}
+	public void setTypeId(int typeId) {	this.typeId = typeId;	}
+	public Turret getMotherTurret() {	return motherTurret;	}
 }

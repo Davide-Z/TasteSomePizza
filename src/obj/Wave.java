@@ -14,7 +14,7 @@ public class Wave {
 	public LinkedList<Enemy> unspawnedEnemies;
 	private GameConfig config;
 	private long lastSpawn;
-	public double vit=3.0f;
+	private double vit=2f;
 
 	public Wave(EnemyType type, int level, StateBasedGame sbg) throws SlickException {
 		this.config = GameConfig.getInstance(sbg);
@@ -37,7 +37,7 @@ public class Wave {
 			for (int i = 0; i < 2*level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(type, level, currentPath, sbg, this));
-				d.add(500);
+				d.add((int) (500 * vit));
 			}
 		}
 
@@ -45,14 +45,14 @@ public class Wave {
 			for (int i = 0; i < 3+level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(type, level, currentPath, sbg, this));
-				d.add(1000);
+				d.add((int) (1000 * vit));
 			}
 		}
 		else {
 			for (int i = 0; i < 5+2*level; i++) {
 				LinkedList<Vec> currentPath = this.config.getMap().computePath();
 				enemies.add(new Enemy(type, level, currentPath, sbg, this));
-				d.add(200);
+				d.add((int) (200 * vit));
 			}
 		}
 
@@ -94,6 +94,21 @@ public class Wave {
 				lastSpawn = System.currentTimeMillis();
 			}
 		}
+	}
+
+	public double getVit() {
+		return vit;
+	}
+
+	public void setVit(double newVit) {
+		// need to update the spawns delays
+		double coef=newVit / this.vit; // coefficient between the new and the old vit
+		LinkedList<Integer> newDelays=new LinkedList<Integer>();
+		for(int del : this.delays){
+			newDelays.add((int) (del*coef));
+		}
+		delays=newDelays;
+		this.vit = newVit;
 	}
 
 }
