@@ -14,7 +14,7 @@ public class Wave {
 	public LinkedList<Enemy> unspawnedEnemies;
 	private GameConfig config;
 	private long lastSpawn;
-	private double vit=2f;
+	private double vit=1f;
 
 	public Wave(EnemyType type, int level, StateBasedGame sbg) throws SlickException {
 		this.config = GameConfig.getInstance(sbg);

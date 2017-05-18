@@ -173,6 +173,19 @@ public class WaveState extends BasicGameState {
 	public void setHasBegun(boolean hasBegun) {
 		this.hasBegun = hasBegun;
 	}
+	
+	@Override
+	public void keyPressed(int key, char c){
+		System.out.println("test");
+	}
+
+	public Wave getWave() {
+		return wave;
+	}
+
+	public void setWave(Wave wave) {
+		this.wave = wave;
+	}
     
     
 }

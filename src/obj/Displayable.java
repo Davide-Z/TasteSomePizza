@@ -62,6 +62,42 @@ public abstract class Displayable {
 	public float aimingAt(Vec pos) { // direction of the turret
 		return (float) (Math.PI / 2 - pos.getAngle() - this.pos.getAngle());
 	}
+	
+	public float aimingAtDegre(Vec p) {
+		float x1 = pos.getX() + 24; // +24 because the pos of the turret is pos
+		// but the
+		float y1 = pos.getY() + 24; // center of the turret is pos.x+24;pos.y+24
+		float x2 = p.getX()+24;
+		float y2 = p.getY()+24;
+
+		if (x1 - x2 > 0) {
+			if (y1 - y2 > 0) {
+				// 1
+				return (float) (270f + 180f / Math.PI * Math.atan((y2 - y1) / (x2 - x1)));
+			} else if (y1 - y2 < 0) {
+				// 4
+				return (float) (180f + 180f / Math.PI * Math.atan((x1 - x2) / (y2 - y1)));
+			} else { // y1=y2
+				return -90f;
+			}
+		} else if (x1 - x2 < 0) {
+			if (y1 - y2 > 0) {
+				// 2
+				return (float) (180f / Math.PI * Math.atan((x2 - x1) / (y1 - y2)));
+			} else if (y1 - y2 < 0) {
+				// 3
+				return (float) (90f + 180f / Math.PI * Math.atan((y2 - y1) / (x2 - x1)));
+			} else { // y1=y2
+				return 90f;
+			}
+		} else { // x1=x2
+			if (y1 < y2) {
+				return 180f;
+			} else {
+				return 0f;
+			}
+		}
+	}
 
 	public void disappear() {
 		// remove the object of the corresponding linkedList

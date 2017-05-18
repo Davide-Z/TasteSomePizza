@@ -5,6 +5,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import obj.Wave;
+import states.WaveState;
 
 /**
  * Classe de gestion des vues: pour les initialiser, passer de l'une à l'autre
@@ -15,6 +17,8 @@ public class GameStates extends StateBasedGame{
 
     int currentState;
     int lastState;
+    double[] tabVit={15f, 3f, 2f, 1f, 0.5f, 0.2f};
+    int i=3;
     public GameStates(String name) {
         super(name);
     }
@@ -48,6 +52,43 @@ public class GameStates extends StateBasedGame{
             } else {
                 enterState(lastState);
             }
+        }
+        if(key==Input.KEY_P	||	key==Input.KEY_UP	||	key==Input.KEY_DOWN	){
+        	// First, we get the actualWave
+        	if(	this.getCurrentState() != null 	&& 	this.getCurrentState() instanceof WaveState	){        			
+       				WaveState ws=(WaveState)this.getCurrentState();
+       				System.out.println(	"wave.vit=" + ws.getWave().getVit()	);
+      				Wave w=(Wave)ws.getWave();
+      				
+      				
+      				if(key==Input.KEY_P){	// Pause
+      	  				if(	w.getVit() == 100000f	){	// vit=100 000 means it's so slowed 
+      	  												// So it seems motionless
+      	     				w.setVit(1.0f);
+      	  				}
+      	  				else{
+      	  					w.setVit(100000f);
+      	  				}
+      	        	}
+      				else if(key==Input.KEY_UP){	// speed up
+      		     		if(i<tabVit.length-1){
+      		     			w.setVit(	tabVit[i++]	);
+      		     		}
+      		     		else{
+      						w.setVit(	tabVit[tabVit.length-1]	);
+      					}
+      		        }
+      				else if(key==Input.KEY_DOWN){	// slow down
+      					if(i>0){
+      						w.setVit(	tabVit[i--]	);
+      					}
+      					else{
+      						w.setVit(	tabVit[0]	);
+      					}
+      		        }
+
+       				System.out.println(	"wave.vit=" + ws.getWave().getVit()+"\n"	);
+        	}
         }
     }
 }

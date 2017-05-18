@@ -92,6 +92,8 @@ public class Projectile extends Displayable {
 		}
 
 		else {
+			this.sprite.setCenterOfRotation(this.sprite.getCenterOfRotationX(), this.sprite.getCenterOfRotationY());
+			this.sprite.setRotation(aimingAtDegre(target.getPos()));
 			if (move(target.getPos(), i)) { // return true if the projectile
 				// hits the enemy
 				hit(target);
