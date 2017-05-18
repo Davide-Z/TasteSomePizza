@@ -1,8 +1,12 @@
 package obj;
 
 import maps.Vec;
+
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import gui.FileLoader;
 
 public class Projectile extends Displayable {
 	private double speed;
@@ -23,6 +27,8 @@ public class Projectile extends Displayable {
 		assignType(typeId);
 		this.precisePosX = 0;
 		this.precisePosY = 0;
+		Music music=new Music(FileLoader.getSoundPath("Attaque-FriteC.wav"));
+		music.play();
 	}
 
 	private void assignType(int t) throws SlickException {
