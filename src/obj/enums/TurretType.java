@@ -11,13 +11,13 @@ import org.newdawn.slick.SlickException;
 public enum TurretType {
 
 	//MODELE: (à mettre avant le ;)
-	//NomDuTypeDeTourelle(name,	typeId, damage	fireRate range	buyCost	upgradeCost	sellCost        SpriteName      ProjectileSpriteName)
-	DEFAULT("Default", 			0,      80,	    800f,	15,	    120,	150,			120,		"DefaultTurret",         "DefaultProjectile"),
-	FIRERATE("HighFireRate", 	1,      50, 	1500f,	50,	    150,	220,			150,   "HighFireRateTurret",         "DefaultProjectile"),
-	DAMAGE("HighDamage", 		2,      150, 	500f, 	10,	    250,	200,			250,	 "HighDamageTurret",         "DefaultProjectile"),
-	BLOCK("Block", 		        3,      0, 	    0f, 	0,	    10,	    0,			    10,	                "table",         "DefaultProjectile"),
-	GAEL("Gael", 10,10,500f, 10, 10, 10, 10, "gaelC", "DefaultProjectile"),
-	ILYES("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "FriteC");
+	//NomDuTypeDeTourelle(name,	typeId, damage	fireRate range	buyCost	upgradeCost	sellCost    SpritePath      		ProjectileSpriteName, projectileSoundName)
+	DEFAULT("Default", 			0,      80,	    800f,	15,	    120,	150,			120,	"DefaultTurret",	"DefaultProjectile",	"Attaque-FriteC.wav"),
+	FIRERATE("HighFireRate", 	1,      50, 	1500f,	50,	    150,	220,			150,	"HighFireRateTurret",   "DefaultProjectile",	"Attaque-FriteC.wav"),
+	DAMAGE("HighDamage", 		2,      150, 	500f, 	10,	    250,	200,			250,	"HighDamageTurret",		"DefaultProjectile",	"Attaque-FriteC.wav"),
+	BLOCK("Block", 		        3,      0, 	    0f, 	0,	    10,	    0,			    10,		"table",         		"DefaultProjectile",	"Attaque-FriteC.wav"),
+	GAEL("Gael", 				10,		10,		500f, 	10, 	10, 	10, 			10, 	"gaelC", 				"Popcorn",				"Attaque-Popcorn.wav"),
+	ILYES("Ilyes",				10,		10,		500f,	10,		10,		10,				10,		"ilyesC",				"FriteC",				"Attaque-FriteC.wav");
 	//DAVIDE("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile"),
 	//FLO("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile"),
 	//UG("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile");
@@ -33,8 +33,9 @@ public enum TurretType {
 	private final int sellPrice;
 	private final int upgradePrice;
 	private final String spritePath;
+	private final String projectileSoundName;
 	
-	TurretType(String type, int typeId , int damage, float fireRate , int range, int buyPrice, int upgradePrice, int sellPrice, String spritePath, String projectilePath) {
+	TurretType(String type, int typeId , int damage, float fireRate , int range, int buyPrice, int upgradePrice, int sellPrice, String spritePath, String projectilePath, String soundName) {
 		this.type=type;
 		this.typeId=typeId;
 		this.damage=damage;
@@ -45,6 +46,7 @@ public enum TurretType {
 		this.sellPrice=sellPrice;
 		this.spritePath=spritePath;
 		this.projectilePath=projectilePath;
+		this.projectileSoundName=soundName;
 	} //TODO:Ajouter le constructeur qui prendrait en compte chaque paramètre des tourelles
 
 	@Override
@@ -93,5 +95,9 @@ public enum TurretType {
 
 	public String getSpritePath() {
 		return spritePath;
+	}
+
+	public String getProjectileSoundName() {
+		return projectileSoundName;
 	}
 }

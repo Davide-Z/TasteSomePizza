@@ -18,6 +18,7 @@ public class Turret extends Displayable {
 	// shot
 	private Enemy lastEnemy = null;
 	Image projectileSprite;
+	String projectileSoundName;
 	private TurretType type;
 
 	// Data of the projectile
@@ -58,6 +59,7 @@ public class Turret extends Displayable {
 		this.sellPrice = t.getSellPrice();
 		this.sprite = t.getSprite();
 		this.projectileSprite = t.getProjectileSprite();
+		this.projectileSoundName = t.getProjectileSoundName();
 	}
 
 	// TODO:relancer une vague avec des tourelles retirées remet ces tourelles
@@ -126,4 +128,8 @@ public class Turret extends Displayable {
 	public int getRange() {	return range;	}
 	public long getLastFire() {	return lastFire;	}
 	public void setLastFire(long lastFire) {	this.lastFire = lastFire;	}
+
+	public String getProjectileSoundName() {
+		return projectileSoundName;
+	}
 }

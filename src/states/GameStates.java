@@ -17,8 +17,8 @@ public class GameStates extends StateBasedGame{
 
     int currentState;
     int lastState;
-    double[] tabVit={15f, 3f, 2f, 1f, 0.5f, 0.2f};
-    int i=3;
+    double[] tabVit={50f, 20f, 5f, 2f, 1f, 0.8f, 0.5f};
+    int i=4;
     public GameStates(String name) {
         super(name);
     }
@@ -72,7 +72,8 @@ public class GameStates extends StateBasedGame{
       	        	}
       				else if(key==Input.KEY_UP){	// speed up
       		     		if(i<tabVit.length-1){
-      		     			w.setVit(	tabVit[i++]	);
+      		     			i++;
+      		     			w.setVit(	tabVit[i]	);
       		     		}
       		     		else{
       						w.setVit(	tabVit[tabVit.length-1]	);
@@ -80,7 +81,8 @@ public class GameStates extends StateBasedGame{
       		        }
       				else if(key==Input.KEY_DOWN){	// slow down
       					if(i>0){
-      						w.setVit(	tabVit[i--]	);
+      						i--;
+      						w.setVit(	tabVit[i]	);
       					}
       					else{
       						w.setVit(	tabVit[0]	);
