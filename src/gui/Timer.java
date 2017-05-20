@@ -39,7 +39,7 @@ public class Timer {
 		dixiemes=millis/100;
 	}
 	public void render(Graphics g){
-		g.drawString("Temps ecoulé:"+minutes+":"+secondes+":"+dixiemes, 700,100);
+		g.drawString("Temps ecoulé:"+minutes+":"+secondes+":"+dixiemes, 800,500);
 	}
 
 	public void reset(){

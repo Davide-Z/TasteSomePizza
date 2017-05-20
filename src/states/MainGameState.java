@@ -79,6 +79,7 @@ public class MainGameState extends BasicGameState {
         config.getTurretMenu().render(g);
         config.getButtonsGroup().render(g);
         g.drawString("Money:"+config.getMoney(), winWidth*0.9f, winHeight*0.5f);
+
     }
 
     /**

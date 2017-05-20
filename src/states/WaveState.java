@@ -1,15 +1,13 @@
 package states;
 
 import gui.Buttons.StateButton;
+import gui.Timer;
 import obj.Enemy;
 import obj.Projectile;
 import obj.Turret;
 import obj.Wave;
 import obj.enums.EnemyType;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -33,7 +31,9 @@ public class WaveState extends BasicGameState {
     float mouseY;
     public Wave wave;
     private boolean hasBegun=false;
-    
+    private Timer timer;
+
+
     public WaveState() throws SlickException {
     }
 
@@ -57,6 +57,7 @@ public class WaveState extends BasicGameState {
         config = GameConfig.getInstance(game);
         winHeight = container.getHeight();
         winWidth = container.getWidth();
+        timer=new Timer(System.currentTimeMillis());
     }
 
     /**
@@ -69,7 +70,7 @@ public class WaveState extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-    	g.setColor(Color.white);
+        g.setColor(Color.white);
         g.drawString("X:" + (int) mouseX + "\nY:" + (int) mouseY, 0, winHeight - 35);
         g.drawString(winWidth + "x" + winHeight, winWidth - 73, 0);
         //Segmentation temporaire de l'écran
@@ -86,22 +87,23 @@ public class WaveState extends BasicGameState {
         config.getButtonsGroup().render(g);
 
         //Dav test
-    g.drawString("Number of enemies alive : "+wave.aliveEnemies.size(), 3, 20);
-    g.drawString("HP : "+config.getMap().baseHP, 3, 40);
-    g.drawString("Number of unspawned enemies : "+wave.unspawnedEnemies.size(), 3, 60);
-    g.drawString("Money : "+config.getMoney(), 3, 80);
-    for (Enemy e : wave.aliveEnemies) {
-        //g.drawString("o", e.getPos().getX(), e.getPos().getY());
-        e.render();
-    }
-    
-    for(Turret t : config.aliveTurrets){
-    	t.render();
-    }
-    
-    for(Projectile p : wave.aliveProjectiles){
-    	p.render();
-    }
+        g.drawString("Number of enemies alive : " + wave.aliveEnemies.size(), 3, 20);
+        g.drawString("HP : " + config.getMap().baseHP, 3, 40);
+        g.drawString("Number of unspawned enemies : " + wave.unspawnedEnemies.size(), 3, 60);
+        g.drawString("Money : " + config.getMoney(), 3, 80);
+        for (Enemy e : wave.aliveEnemies) {
+            //g.drawString("o", e.getPos().getX(), e.getPos().getY());
+            e.render();
+        }
+
+        for (Turret t : config.aliveTurrets) {
+            t.render();
+        }
+
+        for (Projectile p : wave.aliveProjectiles) {
+            p.render();
+        }
+        timer.render(g);
     }
 
     /**
@@ -154,6 +156,7 @@ public class WaveState extends BasicGameState {
         Son son = new Son(stream);
         son.run();}
         */
+        timer.update(i);
     }
 
     /**
@@ -170,13 +173,15 @@ public class WaveState extends BasicGameState {
         mouseY = (float) (newY);
     }
 
+    @Override
+    public void keyPressed(int key, char c){
+        if(key== Input.KEY_P){
+            System.out.println("salut");
+        }
+    }
+
 	public void setHasBegun(boolean hasBegun) {
 		this.hasBegun = hasBegun;
-	}
-	
-	@Override
-	public void keyPressed(int key, char c){
-		System.out.println("test");
 	}
 
 	public Wave getWave() {
