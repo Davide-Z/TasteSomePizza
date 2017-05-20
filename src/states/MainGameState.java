@@ -60,7 +60,9 @@ public class MainGameState extends BasicGameState {
         g.setColor(Color.white);
         g.drawString("X:"+config.getMx()+"\nY:"+config.getMy(),0,winHeight-35);
         g.drawString(winWidth+"x"+winHeight, winWidth-73,0);
-        //Segmentation temporaire de l'écran
+
+        //Segmentation de l'écran
+
         g.setColor(Color.black);
         g.setLineWidth(4);
         g.drawLine(2+winWidth*0.703125f,0,2+winWidth*0.703125f, winHeight);
@@ -74,11 +76,13 @@ public class MainGameState extends BasicGameState {
         g.setColor(Color.black);
 
         g.drawString("Carte",3, 3);
+        g.drawString("Money:"+config.getMoney(), winWidth*0.9f, winHeight*0.5f);
 
+
+        //Affichage de la carte, des boutons
         config.getMap().render(g);
         config.getTurretMenu().render(g);
         config.getButtonsGroup().render(g);
-        g.drawString("Money:"+config.getMoney(), winWidth*0.9f, winHeight*0.5f);
 
     }
 
@@ -92,8 +96,5 @@ public class MainGameState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         config.update();
-        /* //Dav test
-        wave.spawn();
-        wave.aliveEnemiesUpdate(i); */
     }
 }

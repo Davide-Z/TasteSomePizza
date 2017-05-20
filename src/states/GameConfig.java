@@ -1,6 +1,7 @@
 package states;
 
 import gui.ButtonsGroup;
+import gui.Timer;
 import gui.TurretMenu;
 import maps.Map;
 import obj.Turret;
@@ -32,6 +33,8 @@ public class GameConfig {
     private boolean mouseClicked=false;
     public boolean wasMouseReleased =true;
     private ButtonsGroup buttonsGroup;
+    private Timer timer;
+
 
     public int level=1;
 
@@ -48,6 +51,8 @@ public class GameConfig {
         map=new Map(stateBasedGame, 15);
         buttonsGroup=new ButtonsGroup();
         aliveTurrets=new LinkedList<>();
+        timer=new Timer(System.currentTimeMillis());
+
         //TODO:instancier les musiques quand elles seront ajoutées
     }
 
@@ -112,5 +117,10 @@ public class GameConfig {
 	public void sell(int amount) {
 		this.money+=amount;
 	}
-    
+
+	public Timer getTimer(){return timer;}
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
 }

@@ -1,7 +1,6 @@
 package states;
 
 import gui.Buttons.StateButton;
-import gui.Timer;
 import obj.Enemy;
 import obj.Projectile;
 import obj.Turret;
@@ -31,7 +30,6 @@ public class WaveState extends BasicGameState {
     float mouseY;
     public Wave wave;
     private boolean hasBegun=false;
-    private Timer timer;
 
 
     public WaveState() throws SlickException {
@@ -57,7 +55,6 @@ public class WaveState extends BasicGameState {
         config = GameConfig.getInstance(game);
         winHeight = container.getHeight();
         winWidth = container.getWidth();
-        timer=new Timer(System.currentTimeMillis());
     }
 
     /**
@@ -103,7 +100,7 @@ public class WaveState extends BasicGameState {
         for (Projectile p : wave.aliveProjectiles) {
             p.render();
         }
-        timer.render(g);
+        config.getTimer().render(g);
     }
 
     /**
@@ -149,14 +146,7 @@ public class WaveState extends BasicGameState {
         if (wave.getAliveEnemies().isEmpty() && wave.unspawnedEnemies.isEmpty()){
         	sbg.enterState(1);
         }
-        
-        /*
-        if (wave.getAliveEnemies().isEmpty() && wave.unspawnedEnemies.isEmpty()){
-        String stream=FileLoader.getSoundPath("Intro.wav");
-        Son son = new Son(stream);
-        son.run();}
-        */
-        timer.update(i);
+        config.getTimer().update(i);
     }
 
     /**
@@ -187,10 +177,4 @@ public class WaveState extends BasicGameState {
 	public Wave getWave() {
 		return wave;
 	}
-
-	public void setWave(Wave wave) {
-		this.wave = wave;
-	}
-    
-    
 }

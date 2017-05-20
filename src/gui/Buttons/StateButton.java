@@ -1,6 +1,7 @@
 package gui.Buttons;
 
 import gui.FileLoader;
+import gui.Timer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -70,6 +71,7 @@ public class StateButton{
                     System.exit(0);
                 }
                 else if((action.matches("start"))&&(game.getCurrentStateID()==0)){//aller à l'écran de jeu
+                    config.setTimer(new Timer(System.currentTimeMillis()));
                     game.enterState(1);
                 }
                 else if((action.matches("menu"))&&(game.getCurrentStateID()==1 | game.getCurrentStateID()==2)){    //aller au menu
