@@ -14,7 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameStates extends StateBasedGame{
 
-    GameConfig config;
+    public boolean testMode;
     int currentState;
     int lastState;
     double[] tabVit={50f, 20f, 5f, 2f, 1f, 0.5f, 0.2f};
@@ -23,14 +23,12 @@ public class GameStates extends StateBasedGame{
         super(name);
     }
 
+    public void setTestMode(boolean setting){
+        testMode=setting;
+    }
+
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException { //Création et initialisation des vues
-
-        GameConfig.getInstance().setTestMode(true);
-
-        System.out.println(GameConfig.getInstance().testMode);
-
-
         addState(new StartState());
         addState(new MainGameState());
         addState(new WaveState());

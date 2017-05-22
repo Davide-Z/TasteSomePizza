@@ -53,6 +53,16 @@ public class StartState extends BasicGameState {
         piz=new SpriteSheet(FileLoader.getSpriteImage("Piz"), 256,256);
         buttonsGroup.init(stateBasedGame, gameContainer);
         animPiz= new Animation(piz,75);
+        if(((GameStates)stateBasedGame).testMode){
+            System.out.println("Testing initialisations");
+            assert(winHeight==720);
+            assert(winWidth==1027);
+            assert(config!=null);
+            assert(buttonsGroup!=null);
+            assert(backgroundImage!=null);
+            assert(piz!=null);
+            assert(animPiz!=null);
+        }
     }
 
     /**

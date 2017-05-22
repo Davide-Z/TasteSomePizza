@@ -29,12 +29,11 @@ public class JUnit_Case{
     @Before
     public void setUp() throws Exception {
         StateBasedGame game=new GameStates("Test Some Pizza !"); //Gestionnaire de vues
-        config=GameConfig.getInstance();
         map=new Map(2);
         wave=new Wave(EnemyType.DEFAULT, 0, game);
     }
 
-    @Test
+
     public void testToMatrix(){
         int[][] matrixMap=map.toMatrix();
         int[][] matrix = new int[map.getTaille()][map.getTaille()];
@@ -58,11 +57,10 @@ public class JUnit_Case{
         }
     }
 
-    @Test
+
     public void testComputePath(){
         LinkedList<Vec> computedPath=map.computePath();
-        //assert(computedPath!=null);
-        assert(1==1);
+        assert(computedPath!=null);
     }
     
     @Test
