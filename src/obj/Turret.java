@@ -46,6 +46,7 @@ public class Turret extends Displayable {
 		super.name = turret.type.getType();
 		this.aimedDirection = 0;
 		config.aliveTurrets.add(this);
+		
 	}
 
 	private void assignType(TurretType t) throws SlickException {
