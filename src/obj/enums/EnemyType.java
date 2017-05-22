@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 public enum EnemyType {
 
 	//MODELE: (à mettre avant le ;)
-	//NomDuTypeDeTourelle(name,	typeId, damage	   speed  health reward levelBonus    SpriteName)
+	//TypeDEnnemi       (name,	typeId, damage	   speed  health reward levelBonus    SpriteName)
 	DEFAULT(         "Default",		0,      5,	    0.1f,	100,   10,      2,   "DefaultTurret"),
 	FAST(               "Fast",    	1,      2,      0.3f,	40,	    2,      1,          "client"),
 	SLOW(               "Slow",		2,     10,  	0.05f, 	250,   22,      3,          "client");

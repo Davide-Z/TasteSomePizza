@@ -78,20 +78,12 @@ public enum TurretType {
 		return buyPrice;
 	}
 
-	public int getUpgradeCost() {
-		return upgradePrice;
-	}
-
 	public int getTypeId() {
 		return typeId;
 	}
 
 	public int getSellPrice() {
 		return sellPrice;
-	}
-
-	public String getSpritePath() {
-		return spritePath;
 	}
 
 	public String getProjectileSoundName() {

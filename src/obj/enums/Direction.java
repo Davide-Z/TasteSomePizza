@@ -9,7 +9,7 @@ public enum Direction {
     LEFT(-90),
     RIGHT(90);
 
-    private Direction(float angle){
+    Direction(float angle){
         this.angle=angle;
     }
 

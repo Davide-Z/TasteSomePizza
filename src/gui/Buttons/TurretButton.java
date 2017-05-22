@@ -18,7 +18,6 @@ public class TurretButton {
     private int x;
     private int y;
     private boolean over;
-    private String text;
     private Shape hitbox;
     private Turret turret;
 
@@ -27,7 +26,6 @@ public class TurretButton {
         this.y=y;
         this.turret=turret;
         this.turret.setPos(new Vec(x, y));
-        //this.turret=new Turret(turret.getSbg(), new Vec(x,y));
         this.hitbox=new Rectangle(this.x,this.y,152,160);
     }
 
