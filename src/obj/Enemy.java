@@ -6,6 +6,7 @@ import obj.enums.EnemyType;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
+import states.WaveState;
 
 public class Enemy extends Displayable{
 	//Attributs;
@@ -55,32 +56,37 @@ public class Enemy extends Displayable{
 	}
 
 	void move(int i){
-		lastPos=this.pos;
-		if (this.posInPath+this.speed*i/actualWave.getVit()<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
-			this.posInPath+=this.speed*i/actualWave.getVit();
-		}
-		else {	//si on arrive a la fin
-			this.posInPath=this.path.size()-1;
-		}
-		this.pos=this.path.get((int)this.posInPath);
+		try {
+			lastPos=this.pos;
+			if (this.posInPath+this.speed*i/actualWave.getVit()<this.path.size()){	//la position ne depasse pas la taille de la liste des positions
+				this.posInPath+=this.speed*i/actualWave.getVit();
+			}
+			else {	//si on arrive a la fin
+				this.posInPath=this.path.size()-1;
+			}
+			this.pos=this.path.get((int)this.posInPath);
 
-		//Orientation:
-		if(this.pos.getX()-this.lastPos.getX()>0){
-			this.dir=Direction.RIGHT;
-		}
-		if(this.pos.getX()-this.lastPos.getX()<0){
+			//Orientation:
+			if(this.pos.getX()-this.lastPos.getX()>0){
+				this.dir=Direction.RIGHT;
+			}
+			if(this.pos.getX()-this.lastPos.getX()<0){
 
-			this.dir=Direction.LEFT;
-		}
-		if(this.pos.getY()-this.lastPos.getY()>0){
+				this.dir=Direction.LEFT;
+			}
+			if(this.pos.getY()-this.lastPos.getY()>0){
 
-			this.dir=Direction.DOWN;
-		}
-		if(this.pos.getY()-this.lastPos.getY()<0){
+				this.dir=Direction.DOWN;
+			}
+			if(this.pos.getY()-this.lastPos.getY()<0){
 
-			this.dir=Direction.UP;
+				this.dir=Direction.UP;
+			}
+			super.sprite.setRotation(dir.angle);
+		} catch (Exception e) {
+			sbg.enterState(1);
 		}
-		super.sprite.setRotation(dir.angle);
+		
 	}
 	
 	@Override
