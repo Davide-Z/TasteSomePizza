@@ -28,7 +28,7 @@ public class SettingsState extends BasicGameState {
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		this.config=GameConfig.getInstance(game);
+		this.config=GameConfig.getInstance();
 		backgroundImage= FileLoader.getInterfaceImage("bgi");
 	}
 

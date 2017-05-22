@@ -6,8 +6,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import static obj.enums.TurretType.*;
-
 public class Turret extends Displayable {
 	private float fireRate;
 	private int range;
@@ -25,13 +23,13 @@ public class Turret extends Displayable {
 	int projectileType;
 	private int damage;
 
-	public Turret(TurretType t, StateBasedGame sbg) throws SlickException {
-		super(t, sbg);
+	public Turret(TurretType t, StateBasedGame game) throws SlickException {
+		super(t, game);
 		assignType(t);
 	}
 
 	/**
-	 * Constructeur utilisé pour copier une tourelle à une position donnée
+	 * Constructeur utilisï¿½ pour copier une tourelle ï¿½ une position donnï¿½e
 	 * 
 	 * @param turret
 	 */
@@ -61,11 +59,8 @@ public class Turret extends Displayable {
 		this.sprite = t.getSprite();
 		this.projectileSprite = t.getProjectileSprite();
 		this.projectileSoundName = t.getProjectileSoundName();
-		System.out.println("degats="+this.damage+"\trange="+this.range);
 	}
 
-	// TODO:relancer une vague avec des tourelles retirées remet ces tourelles
-	// en place...
 	public void update(Wave wave) throws SlickException {
 		this.actualWave = wave;
 		Enemy e;
@@ -102,7 +97,7 @@ public class Turret extends Displayable {
 		// correct distance
 		if (!actualWave.getAliveEnemies().isEmpty()) {
 			for (Enemy e : actualWave.getAliveEnemies()) {
-				if ((int) this.getPos().distance(e.getPos()) <= Math.sqrt(this.range * this.range)) { // if the enemy is close enough
+				if ( this.getPos().distance(e.getPos()) <= Math.sqrt(this.range * this.range)) { // if the enemy is close enough
 					return e;
 				}
 			}

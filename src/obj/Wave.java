@@ -17,7 +17,7 @@ public class Wave {
 	private double vit=1f;
 
 	public Wave(EnemyType type, int level, StateBasedGame sbg) throws SlickException {
-		this.config = GameConfig.getInstance(sbg);
+		this.config = GameConfig.getInstance();
 		LinkedList<Enemy> enemies = new LinkedList<>();
 		LinkedList<Integer> d = new LinkedList<>();
 		//LinkedList<Vec> currentPath = this.config.getMap().computePath();

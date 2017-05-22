@@ -33,7 +33,7 @@ public abstract class Displayable {
 		this.actualWave = w;
 		this.id = lastId;
 		lastId++;
-		this.config = GameConfig.getInstance(sbg);
+		this.config = GameConfig.getInstance();
 	}
 
 	/**
@@ -45,15 +45,15 @@ public abstract class Displayable {
 	Displayable(StateBasedGame sbg) throws SlickException {
 		this.sbg = sbg;
 		this.pos = new Vec(0, 0);
-		this.config = GameConfig.getInstance(sbg);
+		this.config = GameConfig.getInstance();
 		this.id = lastId;
 		lastId++;
 	}
 
-	Displayable(TurretType t, StateBasedGame sbg) throws SlickException {
-		this.sbg = sbg;
+	Displayable(TurretType t, StateBasedGame game) throws SlickException {
 		this.pos = new Vec(0, 0);
-		this.config = GameConfig.getInstance(sbg);
+		this.sbg=game;
+		this.config = GameConfig.getInstance();
 		this.typeId = t.getTypeId();
 		this.id = lastId;
 		lastId++;

@@ -1,7 +1,6 @@
 package gui.Buttons;
 
 import maps.Vec;
-import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -59,7 +58,7 @@ public class TurretButton {
 
     public void update(StateBasedGame game, GameConfig config) {
         over = this.hitbox.contains(config.getMx(), config.getMy());
-        if(over && game.getCurrentState().getID()==1){
+        if(over && game.getCurrentStateID()==1){
             if (config.isMouseClicked() && config.wasMouseReleased) {
                 if(config.getTurret()==null){
                     config.setSelectedTurret(this.turret);

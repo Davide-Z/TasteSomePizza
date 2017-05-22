@@ -12,6 +12,7 @@ public class Main{
 		Music music=new Music(FileLoader.getSoundPath("dansePizza.wav"));
 		music.loop();
 		StateBasedGame game=new GameStates("Taste Some Pizza !"); //Gestionnaire de vues
+		((GameStates)game).setTestMode(true);
 		Input.disableControllers();
 		AppGameContainer app = new AppGameContainer(game, 1024,720,false); //Fenêtre
 		app.setShowFPS(false);
