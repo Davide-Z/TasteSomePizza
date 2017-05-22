@@ -1,7 +1,6 @@
 package maps;
 
 import gui.FileLoader;
-import obj.Enemy;
 import obj.Turret;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -26,6 +25,8 @@ public class Case{
 	private boolean over;
 	private Image image;
 	private Turret turret=null;
+	public boolean base=false;
+
 
 	public Case(int x, int y, boolean dark) throws SlickException{
 		this.x=x;
@@ -50,6 +51,11 @@ public class Case{
 		if (turret != null){
 			turret.render();
 		}
+
+		if(base){
+			g.setColor(Color.red);
+			g.fill(this.cadre);
+		}
 	}
 
 	public void update(StateBasedGame sbg, GameConfig config) throws SlickException {
@@ -71,7 +77,6 @@ public class Case{
 					this.turret = null;
 				}
 				config.wasMouseReleased =false; //La souris est plus relachée (pour éviter d'appuyer plusieurs fois)
-
 			}
 		}
 	}
