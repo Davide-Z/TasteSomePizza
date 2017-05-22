@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import static obj.enums.TurretType.BLOCK;
+import static obj.enums.TurretType.*;
 
 public class Turret extends Displayable {
 	private float fireRate;
@@ -60,6 +60,7 @@ public class Turret extends Displayable {
 		this.sprite = t.getSprite();
 		this.projectileSprite = t.getProjectileSprite();
 		this.projectileSoundName = t.getProjectileSoundName();
+		System.out.println("degats="+this.damage+"\trange="+this.range);
 	}
 
 	// TODO:relancer une vague avec des tourelles retirées remet ces tourelles
@@ -92,7 +93,7 @@ public class Turret extends Displayable {
 	}
 
 	private boolean canFire() {
-		return (type != BLOCK && System.currentTimeMillis() - lastFire >= fireRate * actualWave.getVit());
+		return (type != TurretType.TABLE && System.currentTimeMillis() - lastFire >= fireRate * actualWave.getVit());
 	}
 
 	private Enemy searchEnemy() {
@@ -100,12 +101,7 @@ public class Turret extends Displayable {
 		// correct distance
 		if (!actualWave.getAliveEnemies().isEmpty()) {
 			for (Enemy e : actualWave.getAliveEnemies()) {
-				if ((int) this.getPos().distance(e.getPos()) <= range * range) { // if
-					// the
-					// enemy
-					// is
-					// close
-					// enough
+				if ((int) this.getPos().distance(e.getPos()) <= Math.sqrt(this.range * this.range)) { // if the enemy is close enough
 					return e;
 				}
 			}
@@ -128,8 +124,5 @@ public class Turret extends Displayable {
 	public int getRange() {	return range;	}
 	public long getLastFire() {	return lastFire;	}
 	public void setLastFire(long lastFire) {	this.lastFire = lastFire;	}
-
-	public String getProjectileSoundName() {
-		return projectileSoundName;
-	}
+	public String getProjectileSoundName() {	return projectileSoundName;	}
 }

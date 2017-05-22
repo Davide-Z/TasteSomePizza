@@ -17,7 +17,7 @@ public class GameStates extends StateBasedGame{
 
     int currentState;
     int lastState;
-    double[] tabVit={50f, 20f, 5f, 2f, 1f, 0.8f, 0.5f};
+    double[] tabVit={50f, 20f, 5f, 2f, 1f, 0.5f, 0.2f};
     int i=4;
     public GameStates(String name) {
         super(name);

@@ -11,17 +11,13 @@ import org.newdawn.slick.SlickException;
 public enum TurretType {
 
 	//MODELE: (à mettre avant le ;)
-	//NomDuTypeDeTourelle(name,	typeId, damage	fireRate range	buyCost	upgradeCost	sellCost    SpritePath      		ProjectileSpriteName, projectileSoundName)
-	DEFAULT("Default", 			0,      80,	    800f,	15,	    120,	150,			120,	"DefaultTurret",	"DefaultProjectile",	"Attaque-FriteC.wav"),
-	FIRERATE("HighFireRate", 	1,      50, 	1500f,	50,	    150,	220,			150,	"HighFireRateTurret",   "DefaultProjectile",	"Attaque-FriteC.wav"),
-	DAMAGE("HighDamage", 		2,      150, 	500f, 	10,	    250,	200,			250,	"HighDamageTurret",		"DefaultProjectile",	"Attaque-FriteC.wav"),
-	BLOCK("Block", 		        3,      0, 	    0f, 	0,	    10,	    0,			    10,		"table",         		"DefaultProjectile",	"Attaque-FriteC.wav"),
-	GAEL("Gael", 				10,		10,		500f, 	10, 	10, 	10, 			10, 	"gaelC", 				"Popcorn",				"Attaque-Popcorn.wav"),
-	ILYES("Ilyes",				10,		10,		500f,	10,		10,		10,				10,		"ilyesC",				"FriteC",				"Attaque-FriteC.wav");
-	//DAVIDE("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile"),
-	//FLO("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile"),
-	//UG("Ilyes", 10,10,500f, 10, 10, 10, 10, "ilyesC", "DefaultProjectile");
-													// range a modifier apr�s les tests
+	//NomDuTypeDeTourelle(name,	typeId, damage	fireRate range	buyCost	upgradeCost	sellCost    SpritePath      ProjectileSpriteName, projectileSoundName)
+	DAVIDE("Davide", 			1,      20,	 	1000f,	120,	    100,	120,			80,		"Davide",  	"FriteC",				"Attaque-FriteC.wav"),
+	FLORENT("Florent", 			2,      50, 	2000f, 	90,	  		150,	200,			120,	"Florent",	"DefaultProjectile",	"Attaque-FriteC.wav"),
+	TABLE("Table", 		   		3,      0, 	    0f, 	0,	    	10,	    0,			    10,		"table",	"DefaultProjectile",	"Attaque-FriteC.wav"),
+	GAEL("Gael", 				4,		12,		500f, 	200, 		80, 	10, 			10, 	"gaelC", 	"Popcorn",				"Attaque-Popcorn.wav"),
+	ILYES("Ilyes",				5,		150,	3000f,	80,			400,	10,				10,		"ilyesC",	"DefaultProjectile",	"Attaque-FriteC.wav");
+
 
 	private final String projectilePath;
 	private final String type;
