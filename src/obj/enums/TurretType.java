@@ -15,8 +15,9 @@ public enum TurretType {
 	DAVIDE("Davide", 			1,      20,	 	1000f,	120,	    100,	120,			80,		"Davide",  	"FriteC",				"Attaque-FriteC.wav"),
 	FLORENT("Florent", 			2,      50, 	2000f, 	90,	  		150,	200,			120,	"Florent",	"DefaultProjectile",	"Attaque-FriteC.wav"),
 	TABLE("Table", 		   		3,      0, 	    0f, 	0,	    	10,	    0,			    10,		"table",	"DefaultProjectile",	"Attaque-FriteC.wav"),
-	GAEL("Gael", 				4,		12,		500f, 	200, 		80, 	10, 			10, 	"gaelC", 	"Popcorn",				"Attaque-Popcorn.wav"),
-	ILYES("Ilyes",				5,		150,	3000f,	80,			400,	10,				10,		"ilyesC",	"DefaultProjectile",	"Attaque-FriteC.wav");
+	GAEL("Gael", 				4,		150,	1500f, 	150, 		400, 	10, 			10, 	"gaelC", 	"Popcorn",				"Attaque-Popcorn.wav"),
+	ILYES("Ilyes",				5,		30,	    500f,	100,		200,	10,				10,		"ilyesC",	"DefaultProjectile",	"Attaque-FriteC.wav"),
+	UG("Ug",				    6,		100,	1000f,	80,			300,	10,				10,		"Ug",	"DefaultProjectile",	"Attaque-Popcorn.wav");
 
 
 	private final String projectilePath;

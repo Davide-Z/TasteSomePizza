@@ -38,7 +38,7 @@ public class TurretMenu {
 
     public void render(Graphics g){
         for (TurretButton b : turretButtons) {
-            b.render(g, config);
+            b.render(g);
         }
     }
 

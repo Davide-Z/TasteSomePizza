@@ -39,7 +39,7 @@ public class TurretButton {
         return this.turret;
     }
 
-    public void render(Graphics graphics, GameConfig config) {
+    public void render(Graphics graphics) {
         if (turret != null) {
             graphics.setLineWidth(1);
             graphics.setColor(Color.lightGray);
@@ -52,7 +52,6 @@ public class TurretButton {
             graphics.drawString("Range : " + this.turret.getRange(), x + 5, y + 90);
             graphics.drawString("Fire Rate : " + this.turret.getFireRate(), x + 5, y + 110);
             graphics.drawString("Turret Type : " + this.turret.getTypeId(), x + 5, y + 130);
-            
         }
     }
 
