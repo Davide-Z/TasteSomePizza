@@ -138,7 +138,7 @@ public class Map {
             }
         }
         if (mainList.getLast()[0]!=end[0] || mainList.getLast()[1]!=end[1]) {
-            return null;
+        	return null;
         }
         else {
         	LinkedList<Vec> computedPath = new LinkedList<Vec>();
