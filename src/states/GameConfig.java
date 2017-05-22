@@ -6,7 +6,8 @@ import gui.TurretMenu;
 import maps.Map;
 import obj.Turret;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.*;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.LinkedList;
@@ -19,9 +20,7 @@ public class GameConfig {
 
     //       ATTRIBUTS       //
     private static GameConfig instance=null;
-    private StateBasedGame stateBasedGame;
-    private GameContainer gc;
-    private int money; //TODO: combien d'argent au début?
+    private int money;
     private String playerName;
     private Turret selectedTurret;
     private Map map;
@@ -38,17 +37,12 @@ public class GameConfig {
 
     public int level=1;
 
-    //Musiques
-    Sound click;
-    Music introMusic;
-    Music levelMusic;
+    public boolean testMode;
 
 
-    private GameConfig(StateBasedGame sbg) throws SlickException{
+    private GameConfig() throws SlickException{
         money=2000;
-        stateBasedGame=sbg;
-        gc=sbg.getContainer();
-        map=new Map(stateBasedGame, 15);
+        map=new Map(15);
         buttonsGroup=new ButtonsGroup();
         aliveTurrets=new LinkedList<>();
         timer=new Timer(System.currentTimeMillis());
@@ -61,9 +55,9 @@ public class GameConfig {
      * @return  config du jeu
      * @throws SlickException
      */
-    public static GameConfig getInstance(StateBasedGame sbg) throws SlickException{
+    public static GameConfig getInstance() throws SlickException{
         if (instance==null){
-            instance=new GameConfig(sbg);
+            instance=new GameConfig();
         }
         return GameConfig.instance;
     }
@@ -75,14 +69,15 @@ public class GameConfig {
     public TurretMenu getTurretMenu() {return turretMenu;}
     //       LES SETTERS       //
     public void setSelectedTurret(Turret turret){this.selectedTurret=turret;}
-    public void setTurretMenu() throws SlickException{this.turretMenu=new TurretMenu(stateBasedGame);}
+    public void setTurretMenu(StateBasedGame game) throws SlickException{this.turretMenu=new TurretMenu(game);}
+
     public int getMx() {
         mx=Mouse.getX();
         return mx;
     }
 
     public int getMy() {
-        my=gc.getHeight()-Mouse.getY();
+        my=720-Mouse.getY();
         return my;
     }
 
@@ -97,10 +92,11 @@ public class GameConfig {
     public void addMoney(int m){
     	this.money+=m;
     }
-    public void update() throws SlickException {
-        turretMenu.update(stateBasedGame);
-        buttonsGroup.update(stateBasedGame);
-        map.update(stateBasedGame, this);
+
+    public void update(StateBasedGame game) throws SlickException {
+        turretMenu.update(game);
+        buttonsGroup.update(game);
+        map.update(game,this);
     }
 	public int getLevel() {
 		return level;
@@ -122,5 +118,9 @@ public class GameConfig {
 
     public void setTimer(Timer timer) {
         this.timer = timer;
+    }
+
+    public void setTestMode(boolean testMode) {
+        this.testMode = testMode;
     }
 }

@@ -3,7 +3,6 @@ package states;
 import gui.ButtonsGroup;
 import gui.FileLoader;
 import org.newdawn.slick.*;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,10 +25,8 @@ public class StartState extends BasicGameState {
     private int winHeight;
     private int winWidth;
     private ButtonsGroup buttonsGroup;
-    TextField textField;
 
-    public StartState() throws SlickException {
-    }
+
 
     /**
      * Renvoie l'ID de cette vue
@@ -50,13 +47,12 @@ public class StartState extends BasicGameState {
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         winHeight=gameContainer.getHeight();
         winWidth=gameContainer.getWidth();
-        config=GameConfig.getInstance(stateBasedGame);
+        config=GameConfig.getInstance();
         buttonsGroup=config.getButtonsGroup();
         backgroundImage=FileLoader.getImage("interface"+File.separator+"bgi");
         piz=new SpriteSheet(FileLoader.getSpriteImage("Piz"), 256,256);
         buttonsGroup.init(stateBasedGame, gameContainer);
         animPiz= new Animation(piz,75);
-        textField=new TextField(gameContainer, null, 100,100,200,40);
     }
 
     /**

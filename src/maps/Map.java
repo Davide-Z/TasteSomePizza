@@ -16,7 +16,7 @@ public class Map {
     public Vec posBase;
     public Vec spawn;
     public int baseHP;
-    public Map(StateBasedGame sbg, int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
+    public Map(int taille) throws SlickException{   //Initialise une map vide de taille taillextaille
         this.taille=taille;
         cases = new Case[taille][taille];
         boolean dark = false;

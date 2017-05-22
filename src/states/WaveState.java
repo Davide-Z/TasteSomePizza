@@ -31,10 +31,6 @@ public class WaveState extends BasicGameState {
     public Wave wave;
     private boolean hasBegun=false;
 
-
-    public WaveState() throws SlickException {
-    }
-
     /**
      * Renvoie l'ID de cette vue
      *
@@ -52,7 +48,7 @@ public class WaveState extends BasicGameState {
      */
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        config = GameConfig.getInstance(game);
+        config = GameConfig.getInstance();
         winHeight = container.getHeight();
         winWidth = container.getWidth();
     }
@@ -124,8 +120,7 @@ public class WaveState extends BasicGameState {
             config.setLevel(config.getLevel()+1);
             hasBegun=false;
     	}
-        config.update();
-        //Dav test
+        config.update(sbg);
         if(!wave.unspawnedEnemies.isEmpty()) {
             wave.spawn();
         }

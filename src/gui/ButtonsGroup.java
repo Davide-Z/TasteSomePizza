@@ -7,7 +7,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import states.GameConfig;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -31,7 +30,7 @@ public class ButtonsGroup {
 		stateID = 0;
 	}
 	public void init(StateBasedGame game,GameContainer container) throws SlickException{
-		config=GameConfig.getInstance(game);
+		config=GameConfig.getInstance();
 		int winWidth=container.getWidth();
 		int winHeight=container.getHeight();
 		menuButtons.add(new StateButton("start", (int)(winWidth*0.46),(int)(winHeight*0.36),null, "start"));

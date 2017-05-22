@@ -1,12 +1,10 @@
 package obj;
 
-import maps.Vec;
-
-import org.newdawn.slick.Music;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
 import gui.FileLoader;
+import maps.Vec;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Projectile extends Displayable {
 	private double speed;
@@ -16,7 +14,7 @@ public class Projectile extends Displayable {
 	private double precisePosX; // if pos.x should be 16.02; then pos.x=16 and
 	// precisePosX=0.02
 	private double precisePosY;
-	Music music;
+	Sound sound;
 
 	Projectile(Enemy e, Turret mt, StateBasedGame sbg, Wave w) throws SlickException {
 		super(mt.projectileType, mt.getPos(), mt.sbg, w);
@@ -28,8 +26,8 @@ public class Projectile extends Displayable {
 		assignType(typeId);
 		this.precisePosX = 0;
 		this.precisePosY = 0;
-		this.music=new Music(FileLoader.getSoundPath(motherTurret.getProjectileSoundName()));
-		music.play();
+		this.sound=new Sound(FileLoader.getSoundPath(motherTurret.getProjectileSoundName()));
+		sound.play();
 	}
 
 	private void assignType(int t) throws SlickException {

@@ -20,13 +20,6 @@ public class MainGameState extends BasicGameState {
     private int winHeight;
     private int winWidth;
 
-
-
-    //Dav test
-    //public Wave wave;
-
-    MainGameState() throws SlickException {
-    }
     /**
      * Renvoie l'ID de cette vue
      * @return ID
@@ -39,13 +32,15 @@ public class MainGameState extends BasicGameState {
     /**
      * Méthode qui se fait une fois au début, pour initialiser les différents paramètres
      * @param gameContainer Container du jeu
-     * @param stateBasedGame Le moteur du jeu
+     * @param sbg Le moteur du jeu
      * @throws SlickException
      */
     @Override
-    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        config=GameConfig.getInstance(stateBasedGame);
-        config.setTurretMenu();
+    public void init(GameContainer gameContainer, StateBasedGame sbg) throws SlickException {
+        config=GameConfig.getInstance();
+        config.setTurretMenu(sbg);
+        winWidth=gameContainer.getWidth();
+        winHeight= gameContainer.getHeight();
     }
 
     /**
@@ -95,6 +90,6 @@ public class MainGameState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        config.update();
+        config.update(sbg);
     }
 }

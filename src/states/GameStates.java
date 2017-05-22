@@ -1,12 +1,11 @@
 package states;
 
+import obj.Wave;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import obj.Wave;
-import states.WaveState;
 
 /**
  * Classe de gestion des vues: pour les initialiser, passer de l'une à l'autre
@@ -15,6 +14,7 @@ import states.WaveState;
 
 public class GameStates extends StateBasedGame{
 
+    GameConfig config;
     int currentState;
     int lastState;
     double[] tabVit={50f, 20f, 5f, 2f, 1f, 0.5f, 0.2f};
@@ -25,12 +25,17 @@ public class GameStates extends StateBasedGame{
 
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException { //Création et initialisation des vues
+
+        GameConfig.getInstance().setTestMode(true);
+
+        System.out.println(GameConfig.getInstance().testMode);
+
+
         addState(new StartState());
         addState(new MainGameState());
         addState(new WaveState());
         addState(new SettingsState());
         addState(new EndState());
-        //this.enterState(0);
         getContainer().getGraphics().setBackground(Color.decode("0xdba24f"));
         enterState(0);
     }
