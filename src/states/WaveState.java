@@ -1,5 +1,6 @@
 package states;
 
+import gui.Timer;
 import gui.Buttons.StateButton;
 import obj.Enemy;
 import obj.Projectile;
@@ -10,16 +11,21 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.awt.Font;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by tic-tac on 24/03/17.
  */
 public class WaveState extends BasicGameState {
+	
+	private TrueTypeFont ttf;
     //Attributs du moteur
     private GameConfig config;
-
+    private Timer victoryTimer;
+    private int won;
     //Attributs d'interface
     int winHeight;
     int winWidth;
@@ -51,6 +57,10 @@ public class WaveState extends BasicGameState {
         config = GameConfig.getInstance();
         winHeight = container.getHeight();
         winWidth = container.getWidth();
+    	Font font = new Font("Verdana", Font.BOLD, 50);
+    	ttf = new TrueTypeFont(font, true);
+    	victoryTimer = new Timer(System.currentTimeMillis());
+    	won = 0;
     }
 
     /**
@@ -97,6 +107,14 @@ public class WaveState extends BasicGameState {
             p.render();
         }
         config.getTimer().render(g);
+        if (won == 1){
+        ttf.drawString(250, 300, "Victoire !");
+        }
+        
+        if (won == -1){
+        ttf.drawString(250, 300, "Perdu !");
+        }
+        
     }
 
     /**
@@ -138,8 +156,32 @@ public class WaveState extends BasicGameState {
             }
         }
         
-        if (wave.getAliveEnemies().isEmpty() && wave.unspawnedEnemies.isEmpty()){
-        	sbg.enterState(1);
+        if (config.getMap().baseHP<=0 && won != -1){
+        	won = -1;
+        	victoryTimer.reset();
+        }
+
+        if(won == -1) {
+        	victoryTimer.update(i);
+        	if (victoryTimer.secondes > 3) {
+        		won=0;
+        		victoryTimer.reset();
+        		gc.exit();
+        	}
+        }
+        
+        if (wave.getAliveEnemies().isEmpty() && wave.unspawnedEnemies.isEmpty() && won == 0){
+        	won = 1;
+        	victoryTimer.reset();
+        }
+
+        if(won == 1) {
+        	victoryTimer.update(i);
+        	if (victoryTimer.secondes > 2) {
+        		won=0;
+        		victoryTimer.reset();
+        		sbg.enterState(1);
+        	}
         }
         config.getTimer().update(i);
     }
