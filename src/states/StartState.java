@@ -57,25 +57,25 @@ public class StartState extends BasicGameState {
         if(((GameStates)stateBasedGame).testMode){
             System.out.println("Testing initialisations");
 
-            if(winHeight==720){
+            if(winHeight!=720){
                 System.out.println("Erreur d'initialisation de StartState !");
             }
-            if(winWidth==1027){
+            if(winWidth!=1024){
                 System.out.println("Erreur d'initialisation de StartState !");
             }
-            if(config!=null){
+            if(config==null){
                 System.out.println("Erreur d'initialisation de StartState !");
             }
-            if(buttonsGroup!=null){
+            if(buttonsGroup==null){
                 System.out.println("Erreur d'initialisation de StartState !");
             }
-            if(backgroundImage!=null){
+            if(backgroundImage==null){
                 System.out.println("Erreur d'initialisation de StartState !");
             }
-            if(piz!=null){
+            if(piz==null){
                 System.out.println("Erreur d'initialisation de StartState !");
             }
-            if(animPiz!=null){
+            if(animPiz==null){
                 System.out.println("Erreur d'initialisation de StartState !");
             }
         }
