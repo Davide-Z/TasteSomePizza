@@ -37,7 +37,6 @@ public enum EnemyType {
 		this.spritePath = spritePath;
 	}
 
-
 	//GETTERS:
 	@Override
 	public String toString(){
