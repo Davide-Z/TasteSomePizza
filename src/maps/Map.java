@@ -46,10 +46,10 @@ public class Map {
     }
 
     public void render(Graphics g) { //Affiche chaque case
-        for(Case[] cs : cases){
-            for(Case c : cs){
-                c.render(g);
-            }
+        for(Case[] cs : cases) {
+	        for (Case c : cs) {
+		        c.render(g);
+	        }
         }
     }
 
