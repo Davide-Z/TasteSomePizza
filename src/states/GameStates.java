@@ -67,7 +67,7 @@ public class GameStates extends StateBasedGame{
       				if(key==Input.KEY_P){	// Pause
       	  				if(	w.getVit() == 100000f	){	// vit=100 000 means it's so slowed 
       	  												// So it seems motionless
-      	     				w.setVit(1.0f);
+      	  					w.setVit(	tabVit[i]	);
       	  				}
       	  				else{
       	  					w.setVit(100000f);
