@@ -12,7 +12,6 @@ import org.newdawn.slick.state.StateBasedGame;
  * Created by tic-tac on 25/01/17.
  */
 
-
 public class GameStates extends StateBasedGame{
 
     public boolean testMode;
