@@ -57,7 +57,7 @@ public class WaveState extends BasicGameState {
         config = GameConfig.getInstance();
         winHeight = container.getHeight();
         winWidth = container.getWidth();
-    	Font font = new Font("Verdana", Font.BOLD, 50);
+    	Font font = new Font("Verdana", Font.BOLD, 46);
     	ttf = new TrueTypeFont(font, true);
     	victoryTimer = new Timer(System.currentTimeMillis());
     	won = 0;
